@@ -1,0 +1,553 @@
+<ng-container>
+  <div class="modal-header">
+    <h4 class="modal-title">{{title|translate}}</h4>
+
+    <button type="button" class="close" aria-label="Close" (click)="actifmodal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+  <ng-container *ngIf="this.type==='CUSTOMER'">
+
+    <div class="modal-body">
+      <div class="view-info">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="general-info">
+              <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                  <div class="table-responsive">
+                    <table class="table m-0">
+                      <tbody>
+                        <tr>
+                          <th scope="row">{{'DETAILS.FULLNAME'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.fullname }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.EMAIL'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.email }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.PHONE'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.phone }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.ADDRESS'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.address }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.PAYMENT_METHOD'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.payment_method }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.COMPANY'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.company_name }}</h5>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- end of table col-lg-6 -->
+              </div>
+              <!-- end of row -->
+            </div>
+            <!-- end of general info -->
+          </div>
+          <!-- end of col-lg-12 -->
+        </div>
+        <!-- end of row -->
+      </div>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="this.type==='EMPLOYEE'">
+
+    <div class="modal-body">
+      <div class="view-info">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="general-info">
+              <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                  <div class="table-responsive">
+                    <table class="table m-0">
+                      <tbody>
+                        <tr>
+                          <th scope="row">{{'DETAILS.FULLNAME'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.fullname }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.EMAIL'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.email }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.PHONE'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.phone }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.SALARY'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.salary }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.ADDRESS'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.address }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.BIRTH_DATE'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.birthdate|date:'dd/MM/yyyy' }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.HIRE_DATE'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.hiredate|date:'dd/MM/yyyy' }}</h5>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- end of table col-lg-6 -->
+              </div>
+              <!-- end of row -->
+            </div>
+            <!-- end of general info -->
+          </div>
+          <!-- end of col-lg-12 -->
+        </div>
+        <!-- end of row -->
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="this.type==='TAX'">
+    <div class="modal-body">
+      <div class="view-info">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="general-info">
+              <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                  <div class="table-responsive">
+                    <table class="table m-0">
+                      <tbody>
+                        <tr>
+                          <th scope="row">{{'DETAILS.DESCRIPTION'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.description }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.AGENCY_NAME'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.agency_name }}</h5>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <th scope="row">{{'DETAILS.FILLING_FREQ'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.filling_frequency }}</h5>
+                          </td>
+                        </tr>
+                         <tr>
+                          <th scope="row">{{'DETAILS.FILLING_FREQ'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.collection_type }}</h5>
+                          </td>
+                        </tr>
+
+                        <tr *ngIf="this.payload.businessNo">
+                          <th scope="row">{{'DETAILS.BUSINESS'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.businessNo }}</h5>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- end of table col-lg-6 -->
+              </div>
+              <!-- end of row -->
+            </div>
+            <!-- end of general info -->
+          </div>
+          <!-- end of col-lg-12 -->
+        </div>
+        <!-- end of row -->
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="this.type==='PRODUCTS'">
+    <div class="modal-body">
+      <div class="view-info">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="general-info">
+              <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                  <div class="table-responsive">
+                    <table class="table m-0">
+                      <tbody>
+                        <tr>
+                          <th scope="row">{{'DETAILS.PRODUCT_REF'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.ref }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.PRODUCT_NAME'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.name }}</h5>
+                          </td>
+                        </tr>
+
+                       <tr>
+                          <th scope="row">{{'DETAILS.DESCRIPTION'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.description }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.PRODUCT_QUANTITY'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.quantity }}</h5>
+                          </td>
+                        </tr>
+                         <tr>
+                          <th scope="row">{{'DETAILS.PRODUCT_PRICE'|translate}}	</th>
+                          <td>
+                            <h5>{{ this.payload.sale_price }}</h5>
+                          </td>
+                        </tr>
+
+                        <tr >
+                          <th scope="row">{{'DETAILS.PRODUCT_TAX'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.tax+"%" }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.PRODUCT_COST'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.cost }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.SUPPLIER_INFO'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.nom_suppliers+", "+this.payload.email_suppliers+", "+this.payload.adr_suppliers }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.ACCOUNTING_PLAN_REF'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.id_accounting_plan }}</h5>
+                          </td>
+                        </tr>
+
+
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- end of table col-lg-6 -->
+              </div>
+              <!-- end of row -->
+            </div>
+            <!-- end of general info -->
+          </div>
+          <!-- end of col-lg-12 -->
+        </div>
+        <!-- end of row -->
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="this.type==='SERVICES'">
+    <div class="modal-body">
+      <div class="view-info">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="general-info">
+              <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                  <div class="table-responsive">
+                    <table class="table m-0">
+                      <tbody>
+                        <tr>
+                          <th scope="row">{{'DETAILS.SERVICE_REF'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.ref }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.SERVICE_NAME'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.name }}</h5>
+                          </td>
+                        </tr>
+
+                       <tr>
+                          <th scope="row">{{'DETAILS.DESCRIPTION'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.description }}</h5>
+                          </td>
+                         <tr>
+                          <th scope="row">{{'DETAILS.SERVICE_PRICE'|translate}}	</th>
+                          <td>
+                            <h5>{{ this.payload.sale_price }}</h5>
+                          </td>
+                        </tr>
+
+                        <tr >
+                          <th scope="row">{{'DETAILS.SERVICE_TAX'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.tax+"%" }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.SERVICE_COST'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.cost }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.SUPPLIER_INFO'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.nom_suppliers+", "+this.payload.email_suppliers+", "+this.payload.adr_suppliers }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.ACCOUNTING_PLAN_REF'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.id_accounting_plan }}</h5>
+                          </td>
+                        </tr>
+
+
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- end of table col-lg-6 -->
+              </div>
+              <!-- end of row -->
+            </div>
+            <!-- end of general info -->
+          </div>
+          <!-- end of col-lg-12 -->
+        </div>
+        <!-- end of row -->
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="this.type==='TRANSACTIONS-PRODUCTS'">
+    <div class="modal-body">
+      <div class="view-info">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="general-info">
+              <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                  <div class="table-responsive">
+                    <table class="table m-0">
+                      <tbody>
+                        <tr>
+                          <th scope="row">{{'DETAILS.PRODUCT_NAME'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.productName }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.PRODUCT_REF'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.ref }}</h5>
+                          </td>
+                        </tr>
+
+                       <tr>
+                          <th scope="row">{{'DETAILS.PRODUCT_DESCRIPTION'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.description }}</h5>
+                          </td>
+                         <tr>
+                          <th scope="row">{{'DETAILS.PRODUCT_PRICE'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.sale_price }}</h5>
+                          </td>
+                        </tr>
+
+                        <tr >
+                          <th scope="row">{{'DETAILS.PRODUCT_TAX'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.tax+"%" }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.PRODUCT_COST'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.cost }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.SUPPLIER_INFO'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.nom_suppliers+", "+this.payload.email_suppliers+", "+this.payload.adr_suppliers }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.COMPANY'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.name }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.COMPANY_DOMAIN'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.domain }}</h5>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- end of table col-lg-6 -->
+              </div>
+              <!-- end of row -->
+            </div>
+            <!-- end of general info -->
+          </div>
+          <!-- end of col-lg-12 -->
+        </div>
+        <!-- end of row -->
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="this.type==='TRANSACTIONS-SERVICES'">
+    <div class="modal-body">
+      <div class="view-info">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="general-info">
+              <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                  <div class="table-responsive">
+                    <table class="table m-0">
+                      <tbody>
+                        <tr>
+                          <th scope="row">{{'DETAILS.SERVICE_NAME'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.name }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'DETAILS.SERVICE_REF'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.ref }}</h5>
+                          </td>
+                        </tr>
+
+                       <tr>
+                          <th scope="row">{{'DETAILS.SERVICE_DESCRIPTION'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.description }}</h5>
+                          </td>
+                         <tr>
+                          <th scope="row">{{'DETAILS.SERVICE_PRICE'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.sale_price }}</h5>
+                          </td>
+                        </tr>
+
+                        <tr >
+                          <th scope="row">{{'DETAILS.SERVICE_TAX'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.tax+"%" }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.SERVICE_COST'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.cost }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.SUPPLIER_INFO'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.nom_suppliers+", "+this.payload.email_suppliers+", "+this.payload.adr_suppliers }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.COMPANY'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.companyName }}</h5>
+                          </td>
+                        </tr>
+                        <tr >
+                          <th scope="row">{{'DETAILS.COMPANY_DOMAIN'|translate}}</th>
+                          <td>
+                            <h5>{{ this.payload.domain }}</h5>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- end of table col-lg-6 -->
+              </div>
+              <!-- end of row -->
+            </div>
+            <!-- end of general info -->
+          </div>
+          <!-- end of col-lg-12 -->
+        </div>
+        <!-- end of row -->
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="actifmodal.close('Close click')">
+      Close
+    </button>
+  </div>
+</ng-container>

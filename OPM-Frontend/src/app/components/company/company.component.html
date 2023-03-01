@@ -1,0 +1,116 @@
+<ng-container>
+  <div class="page-header card" id="myheader">
+    <div class="row align-items-end">
+      <div class="col-lg-8">
+        <div class="page-header-title">
+          <span><i class="fas fa-building" style="background-color: #000080"></i></span>
+          <div class="d-inline">
+            <span class="d-block text-primary">
+              <h4>{{'COMPANY_COMPONENT.TITLE'|translate}}</h4>
+            </span>
+            <!-- <span class="text-dark">Companies page</span> -->
+
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-lg-4">
+              <div class="page-header-breadcrumb">
+                  <ul class="breadcrumb">
+                      <li class="breadcrumb-item">
+                          <a [routerLink]="'/'">
+                              <i class="icofont icofont-home" style="color: #000080"></i>
+                          </a>
+                      </li>
+                      <li class="breadcrumb-item">
+                          <a class="text-dark">Accounting Plan</a>
+                      </li>
+                  </ul>
+              </div>
+          </div> -->
+    </div>
+  </div>
+  <!-- Page-header end -->
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="md-tabs">
+        <div class="m-t-15">
+          <div class="card">
+            <div class="col-sm-12">
+              <div class="card-header">
+                <h5 class="card-header-text">{{'COMPANY_COMPONENT.HEADER'|translate}}</h5>
+                <div class="col-md-12 col-lg-3 offset-lg-10">
+                  <div class="pcoded-search">
+                    <div class="pcoded-search-box">
+                      <button class="btn " (click)="OpenModal('NEW_COMPANY')">
+                        <i class="icofont icofont-ui-add"></i>
+                        {{'NEW'|translate}}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Begin Table -->
+              <div class="table-responsive">
+                <div style="margin-bottom: 50px; margin-left: 50px; margin-right: 50px;">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr style="text-align: center">
+                        <th scope="col">#</th>
+                        <th scope="col">
+                          {{'COMPANY_COMPONENT.TABLE.NAME'|translate}}
+                        </th>
+                        <th scope="col">
+                          {{'COMPANY_COMPONENT.TABLE.DOMAIN'|translate}}
+                        </th>
+                        <th scope="col">{{'ACTIONS'|translate}}</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let company of this.companyList|slice">
+                      <tr style="text-align: center">
+                        <td>
+                          <label *ngIf="company.selected===1" class="label label-success">
+                            <i class="ti-check"></i>
+                          </label>
+                        </td>
+                        <td scope="row">{{
+                          company.name
+                          }} </td>
+                        <td scope="row"> {{
+                          company.domain
+                          }} </td>
+
+                        <td scope="row">
+                          <i (click)="OpenModal('UPDATE_COMPANY',company)" class="fas fa-edit"></i>
+                          <i (click)="deleteCompany(company.id_company)" class="fa fa-trash-o ml-2"></i>
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+                  <div class="d-flex justify-content-between p-2">
+                    <ngb-pagination [(page)]="page" (pageChange)="handlePageChange($event)" [pageSize]="pageSize"
+                      [collectionSize]="collectionSize">
+                    </ngb-pagination>
+                    <select class="custom-select" style="width: auto" name="pageSize"
+                      (change)="handlePageSizeChange($event)">
+                      <option *ngFor="let size of pageSizes" [ngValue]="size">
+                        {{ size }}
+                      </option>
+                    </select>
+                  </div>
+
+
+                </div>
+              </div>
+              <!-- </app-card> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

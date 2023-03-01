@@ -1,0 +1,64 @@
+<app-navbar></app-navbar>
+<!-- Section: Design Block -->
+
+<section class="text-center">
+  <!-- Background image -->
+  <div class="p-5 bg-image" style="
+        background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
+        height: 125px;
+        "></div>
+  <!-- Background image -->
+
+  <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+        margin-top: -100px;
+        background: hsla(0, 0%, 100%, 0.8);
+        backdrop-filter: blur(30px);
+        ">
+    <div class="card-body py-5 px-md-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+          <h2 class="text-primary w-bold mb-5">Authentication</h2>
+          <div class="row">
+            <div class="col-md-12">
+              <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline"
+              href="http://localhost:5001/auth/user/google">
+                <img src="https://img.icons8.com/color/16/000000/google-logo.png" id="google_logo"> <b>Signin with Google</b>
+            </a>
+            </div>
+          </div>
+
+          <form name="form" (ngSubmit)="login(flogin)" #flogin="ngForm" novalidate>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="email" name="email" ngModel #email="ngModel" required placeholder="Email Address"
+                class="form-control" />
+            </div>
+            <div *ngIf="email.invalid && email.touched" class="alert alert-danger p-2" role="alert">
+              Enter Email Address
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+              <input type="password" name="password" ngModel #password="ngModel" required placeholder="Password"
+                class="form-control" />
+            </div>
+            <div *ngIf="password.invalid && password.touched" class="alert alert-danger p-2" role="alert">
+              Enter Password
+            </div>
+            <!-- Forgot Password link  -->
+            <div class="form-outline mb-4" >
+              Forgot Password ? <a [routerLink]="'/reset/password'" id="resetlink"> <i style="font-size: medium;" >Click here to reset your password </i></a>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" [disabled]="flogin.invalid" class="btn btn-primary btn-block mb-4" id="btnlogin">
+              <span style="color:white;font-weight:bold">Login</span>
+            </button>
+            <!-- Register buttons -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Section: Design Block -->
