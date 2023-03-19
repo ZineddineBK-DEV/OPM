@@ -5,7 +5,6 @@ const userController = require('../controllers/userController');
 const clientController = require('../controllers/clientController');
 const employeeController = require('../controllers/employeeController');
 
-
 //test
 router.get("/testMessage", testCtr.test);
 
