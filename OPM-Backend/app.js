@@ -7,7 +7,10 @@ const { strict } = require("assert");
 const app = express();
 // ============ imporing routes ================
 
-const testRoute= require("./src/routes/route");
+const userRoute= require("./src/routes/userRoute");
+const clientRoute= require("./src/routes/clientRoute");
+const employeeRoute= require("./src/routes/employeeRoute");
+
 
 
 
@@ -35,12 +38,12 @@ app.use((req, res, next) => {
     next();
   }
 });
-
+//mongodb+srv://root:root@opmcluster.dvzi5iq.mongodb.net/?retryWrites=true&w=majority
 //=========== connecting to database ==============
 mongoose.set("strictQuery", true);
 mongoose   
   .connect(
-    "mongodb+srv://root:root@opmcluster.dvzi5iq.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb://localhost:27017/gbs",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -53,7 +56,9 @@ mongoose
 
 // ========= configurring routes ==========
 
-app.use("/api/test", testRoute);
+app.use("/user", userRoute);
+app.use("/client", clientRoute);
+app.use("/employee", employeeRoute);
 
 
 // ======== exporting app ========
