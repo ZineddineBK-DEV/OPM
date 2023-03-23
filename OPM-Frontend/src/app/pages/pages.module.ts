@@ -15,8 +15,6 @@ import { ServicessComponent } from "../layout/servicess/servicess.component";
 import { SpinnerComponent } from "../layout/spinner/spinner.component";
 import { TeamComponent } from "../layout/team/team.component";
 import { HomeComponent } from "./home/home.component";
-import { AboutComponent } from "./about/about.component";
-import { ContactComponent } from "./contact/contact.component";
 import { SigninComponent } from "./auth/signin/signin.component";
 import { SignupComponent } from "./auth/signup/signup.component";
 import { ResetPwdComponent } from "./auth/reset-pwd/reset-pwd.component";
@@ -35,8 +33,6 @@ import { TokenInterceptorService } from "../services/token-interceptor.service";
     SpinnerComponent,
     TeamComponent,
     NavbarComponent,
-    AboutComponent,
-    ContactComponent,
     SigninComponent,
     SignupComponent,
     ResetPwdComponent,
@@ -53,8 +49,6 @@ import { TokenInterceptorService } from "../services/token-interceptor.service";
     SpinnerComponent,
     TeamComponent,
     NavbarComponent,
-    AboutComponent,
-    ContactComponent,
     SigninComponent,
     SignupComponent,
     ResetPwdComponent,
