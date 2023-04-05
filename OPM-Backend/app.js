@@ -4,12 +4,15 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
 const { strict } = require("assert");
+require("dotenv").config();
+const auth = require("./src/controllers/authController");
 const app = express();
 // ============ imporing routes ================
 
-const userRoute= require("./src/routes/userRoute");
-const clientRoute= require("./src/routes/clientRoute");
-const employeeRoute= require("./src/routes/employeeRoute");
+const authRoute = require("./src/routes/authRoute");
+const clientRoute = require("./src/routes/clientRoute");
+const employeeRoute = require("./src/routes/employeeRoute");
+
 
 
 
@@ -38,12 +41,11 @@ app.use((req, res, next) => {
     next();
   }
 });
-//mongodb+srv://root:root@opmcluster.dvzi5iq.mongodb.net/?retryWrites=true&w=majority
 //=========== connecting to database ==============
 mongoose.set("strictQuery", true);
 mongoose   
   .connect(
-    "mongodb://localhost:27017/gbs",
+    "mongodb+srv://root:root@opmcluster.dvzi5iq.mongodb.net/OPM?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -56,9 +58,10 @@ mongoose
 
 // ========= configurring routes ==========
 
-app.use("/user", userRoute);
-app.use("/client", clientRoute);
-app.use("/employee", employeeRoute);
+//app.use("/user", userRoute); not going to use those
+app.use("/",authRoute);
+app.use("/client", auth.verify, clientRoute);
+app.use("/employee", auth.verify, employeeRoute);
 
 
 // ======== exporting app ========

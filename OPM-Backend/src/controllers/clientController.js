@@ -1,46 +1,4 @@
 const Client = require('../models/clientModel');
-const User = require('../models/userModel')
-const bcrypt = require('bcrypt');
-
-//register
-exports.register = async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const userExists = await User.findOne({ username });
-    if (userExists) {
-      return res.status(400).json({ message: 'Username already exists' });
-    }
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    let obj = (Client) (req.body) ;
-    obj.password = hashedPassword;
-    await obj.save();
-
-    res.status(201).json({ message: 'User created successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error registering user' });
-  }
-};
-
-
-// Login
-exports.login = async (req, res) => {
-  try {
-    const client = await User.findOne({ username: req.body.username });
-    if (!client) {
-      return res.status(401).json({ message: 'Invalid username or password' });
-    }
-    const isMatch = await bcrypt.compare(req.body.password, client.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid username or password' });
-    }
-    res.json({ message: 'Login successful', res: client });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
 
 // Get all clients
 exports.getAllClients = async (req, res) => {
