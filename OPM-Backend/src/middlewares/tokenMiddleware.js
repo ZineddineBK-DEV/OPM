@@ -53,7 +53,7 @@ exports.verifyToken = async (accessToken) => {
               const AccessToken = jwt.sign(
                   payload,
                   process.env.ACCESS_TOKEN_PRIVATE_KEY,
-                  { expiresIn: "5s" }
+                  { expiresIn: "30d" }
               );
               await Token.findOneAndUpdate({accessToken: accessToken}, {accessToken: AccessToken});
               return { AccessToken, error: false, message: "New token generated" };
