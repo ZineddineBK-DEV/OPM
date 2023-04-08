@@ -1,11 +1,10 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/userModel');
 const Client = require('../models/clientModel');
 const Employee = require('../models/employeeModel');
 const tokenGen = require("../middlewares/tokenMiddleware");
 
 exports.register = async (req, res) => {
-  const { username, password, authority } = req.body;
+  const { email, password, authority } = req.body;
   let Model;
   switch (authority) {
     case 'client':
@@ -22,9 +21,9 @@ exports.register = async (req, res) => {
   }
 
   try {
-    const userExists = await Model.findOne({ username });
+    const userExists = await Model.findOne({ email });
     if (userExists) {
-      return res.status(400).json({ message: 'Username already exists' });
+      return res.status(400).json({ message: 'User already exists' });
     }
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -41,7 +40,7 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { username, password, authority } = req.body;
+  const { email, password, authority } = req.body;
   let Model;
   switch (authority) {
     case 'client':
@@ -58,18 +57,18 @@ exports.login = async (req, res) => {
   }
 
   try {
-    const user = await Model.findOne({ username });
+    const user = await Model.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: 'Invalid username or password' });
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(401).json({ message: 'Invalid username or password' });
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
     const { accessToken } = await tokenGen.generateToken(user);
     res.setHeader('Authorization', `Bearer ${accessToken}`);
-    //res.setHeader('Refresh-Token', refreshToken);
+    //res.setHeader('Refresh-Token', refreshToken); it will be sent with httpOnly cookie 
     res.status(200).json({ message: 'Login successful' });
   } catch (error) {
     console.error(error);
@@ -77,16 +76,16 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.verifyToken = async (req, res) => {
-  try {
-    const token = req.headers.authorization.split(' ')[1];
-    const { tokenDetails, message, error } = await tokenGen.verifyToken(token);
-    res.status(200).json({ tokenDetails, message, error });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: error });
-  }
-};
+// exports.verifyToken = async (req, res) => {
+//   try {
+//     const token = req.headers.authorization.split(' ')[1];
+//     const { tokenDetails, message, error } = await tokenGen.verifyToken(token);
+//     res.status(200).json({ tokenDetails, message, error });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: error });
+//   }
+// };
 
 
 exports.verify = async (req, res, next) => {
@@ -108,8 +107,8 @@ exports.verify = async (req, res, next) => {
 exports.logout = async (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
-    const { message, error } = await tokenGen.deleteToken(token);
-    res.status(200).json({ message, error });
+    const { message } = await tokenGen.deleteToken(token);
+    res.status(200).json({ message });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: error });

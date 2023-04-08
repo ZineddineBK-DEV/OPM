@@ -13,7 +13,7 @@ exports.getAllEmployees = async (req, res) => {
 // Get a single clinet 
 exports.getEmployeeByUsername = async (req, res, next) => {
     try {
-      const employee = await Employee.findOne({ username: req.params.username });
+      const employee = await Employee.findOne({ email: req.params.email });
       if (!employee) {
         return res.status(404).json({ message: 'User not found' });
       }
@@ -26,9 +26,9 @@ exports.getEmployeeByUsername = async (req, res, next) => {
 // Update a user still working on it username
 exports.updateEmployee = async (req, res) => {
   try {
-    const { username, password, authority, image } = req.body;
+    const { email, password, authority, image } = req.body;
     const updatedEmployee = await Employee.findOneAndUpdate(
-      { username },
+      { email },
       { password, authority, image },
       { new: true }
     );
@@ -45,14 +45,14 @@ exports.updateEmployee = async (req, res) => {
 // Delete a employee
 exports.deleteEmployee = async (req, res, next) => {
   try {
-    const employee = await Employee.findOne({ username: req.params.username });
-    
+    const employee = await Employee.findOneAndUpdate(
+      { email: req.params.email },
+      { valid: false },
+      { new: true }
+    );
     if (!employee) {
       return res.status(404).json({ message: 'User not found' });
     }
-    
-    await Employee.deleteOne({ username: req.params.username });
-
     res.status(200).json({ message: 'User deleted', employee });
   } catch (err) {
     next(err);

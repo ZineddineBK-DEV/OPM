@@ -13,7 +13,7 @@ exports.getAllClients = async (req, res) => {
 // Get a single clinet 
 exports.getClientByUsername = async (req, res, next) => {
     try {
-      const client = await Client.findOne({ username: req.params.username });
+      const client = await Client.findOne({ email: req.params.email });
       if (!client) {
         return res.status(404).json({ message: 'User not found' });
       }
@@ -26,9 +26,9 @@ exports.getClientByUsername = async (req, res, next) => {
 // Update a user still working on it username
 exports.updateClient = async (req, res) => {
   try {
-    const { username, password, authority, image } = req.body;
+    const { email, password, authority, image } = req.body;
     const updatedClient = await Client.findOneAndUpdate(
-      { username },
+      { email },
       { password, authority, image },
       { new: true }
     );
@@ -45,13 +45,14 @@ exports.updateClient = async (req, res) => {
 // Delete a client
 exports.deleteClient = async (req, res, next) => {
   try {
-    const client = await Client.findOne({ username: req.params.username });
-    
+    const client = await Client.findOneAndUpdate(
+      { email: req.params.email },
+      { password, authority, image },
+      { new: true }
+    );
     if (!client) {
       return res.status(404).json({ message: 'User not found' });
     }
-    
-    await Client.deleteOne({ username: req.params.username });
 
     res.status(200).json({ message: 'User deleted', client });
   } catch (err) {

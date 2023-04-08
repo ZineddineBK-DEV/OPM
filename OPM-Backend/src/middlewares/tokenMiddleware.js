@@ -5,7 +5,7 @@ const User = require('../models/userModel');
 exports.generateToken = async (user) => {
     try {
         
-        const payload = { _id: user._id, roles: user.authority };
+        const payload = { _id: user._id, email: user.email, authority: user.authority };
         const accessToken = jwt.sign(
             payload,
             process.env.ACCESS_TOKEN_PRIVATE_KEY,
@@ -49,7 +49,7 @@ exports.verifyToken = async (accessToken) => {
             // generate and update new access token
             const user = await User.findOne({_id: doc.userId});
             try {
-              const payload = { _id: user._id, roles: user.__t };
+              const payload = { _id: user._id, email: user.email, authority: user.authority };
               const AccessToken = jwt.sign(
                   payload,
                   process.env.ACCESS_TOKEN_PRIVATE_KEY,
@@ -69,7 +69,6 @@ exports.verifyToken = async (accessToken) => {
         return { AccessToken, error: false, message: "Valid access token" };
       }
     });
-    console.log(tokenDetails)
     if(tokenDetails)
     return { tokenDetails };
 

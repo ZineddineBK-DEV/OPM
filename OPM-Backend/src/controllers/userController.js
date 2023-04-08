@@ -13,7 +13,7 @@ exports.getAllUsers = async (req, res) => {
 // Get a single user 
 exports.getUserByUsername = async (req, res, next) => {
     try {
-      const user = await User.findOne({ username: req.params.username });
+      const user = await User.findOne({ email: req.params.email });
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
@@ -26,9 +26,9 @@ exports.getUserByUsername = async (req, res, next) => {
 // Update a user still working on it 
 exports.updateUser = async (req, res) => {
   try {
-    const { username, password, authority, image } = req.body;
+    const { email, password, authority, image } = req.body;
     const updatedUser = await User.findOneAndUpdate(
-      { username },
+      { email },
       { password, authority, image },
       { new: true }
     );
@@ -45,14 +45,16 @@ exports.updateUser = async (req, res) => {
 // Delete a user 
 exports.deleteUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({ username: req.params.username });
+    const user = await User.findOneAndUpdate(
+      { email: req.params.email },
+      { valid: false },
+      { new: true }
+    );
     
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
     
-    await User.deleteOne({ username: req.params.username });
-
     res.status(200).json({ message: 'User deleted', user });
   } catch (err) {
     next(err);
