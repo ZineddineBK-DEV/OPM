@@ -45,6 +45,7 @@ app.use((req, res, next) => {
 mongoose.set("strictQuery", true);
 mongoose   
   .connect(
+    // "mongodb://localhost:27017/gbs",
     "mongodb+srv://root:root@opmcluster.dvzi5iq.mongodb.net/OPM?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,

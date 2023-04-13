@@ -23,6 +23,17 @@ const routes: Routes = [
           import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
       },
       {
+        path: "accounting/plan",
+        loadChildren: () =>
+          import("../components/accounting-plan/accounting-plan.module").then(
+            (m) => m.AccountingPlanModule
+          ),
+      },
+      {
+        path: "tax",
+        loadChildren: () => import("./tax/tax.module").then((m) => m.TaxModule),
+      },
+      {
         path: "company",
         loadChildren: () => import("./company/company.module").then((m) => m.CompanyModule),
       },
@@ -48,7 +59,7 @@ const routes: Routes = [
           },
         ]
       },
-      
+
       // {
       //   path: "redirection/:refreshToken",
       //   loadChildren: () =>
@@ -76,7 +87,7 @@ const routes: Routes = [
 
   {
     path: "",
-    redirectTo: "/home",
+    redirectTo: "/signin",
     pathMatch: "full",
   },
   {
