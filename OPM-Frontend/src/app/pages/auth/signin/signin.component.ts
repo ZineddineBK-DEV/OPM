@@ -8,6 +8,7 @@ import { BackendService } from "../../../services/backend.service";
 import Observer from "../../../services/observer";
 import { SharedService } from "../../../services/shared.service";
 
+
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -24,6 +25,8 @@ export class SigninComponent implements OnInit {
 
   login(form: NgForm) {
     const payload = { ...form.value };
+    console.log(payload);
+
     this.backendService.post(SIGNIN_END_POINT, payload).subscribe(
       new Observer(this.router, "/app/dashboard", false).OBSERVER_SIGNIN(
         (response: any) => {
