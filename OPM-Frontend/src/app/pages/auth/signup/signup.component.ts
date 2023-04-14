@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {}
 
   signup(form: NgForm) {
-    const payload = { ...form.value };
+    const payload = { ...form.value,authority:"client" };
     delete payload["pass2"];
     this.backendService
       .post(SIGNUP_END_POINT, payload)
