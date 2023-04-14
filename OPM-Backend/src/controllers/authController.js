@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const User = require('../models/userModel');
 const Client = require('../models/clientModel');
 const Employee = require('../models/employeeModel');
 const tokenGen = require("../middlewares/tokenMiddleware");
@@ -40,24 +41,9 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { email, password, authority } = req.body;
-  let Model;
-  switch (authority) {
-    case 'client':
-      Model = Client;
-      break;
-    case 'commercial':
-      Model = Employee;
-      break;
-    case 'technician':
-      Model = Employee;
-      break;
-    default:
-      return res.status(400).json({ message: 'Invalid role' });
-  }
-
+  const { email, password } = req.body;
   try {
-    const user = await Model.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
