@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 const Client = require('../models/clientModel');
 const Employee = require('../models/employeeModel');
+const Contract = require('../models/contractModel');
 const tokenGen = require("../middlewares/tokenMiddleware");
 
 exports.register = async (req, res) => {
@@ -11,10 +12,7 @@ exports.register = async (req, res) => {
     case 'client':
       Model = Client;
       break;
-    case 'commercial':
-      Model = Employee;
-      break;
-    case 'technician':
+    case 'commercial' || 'technician':
       Model = Employee;
       break;
     default:
@@ -28,9 +26,14 @@ exports.register = async (req, res) => {
     }
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
-
     let obj = (Model) (req.body) ;
     obj.password = hashedPassword;
+    //creating contract
+    if (authority == 'client'){
+      const contract = Contract(req.body);
+      await contract.save();
+      obj.contractId = contract._id;
+    }
     await obj.save();
 
     res.status(201).json({ message: 'User created successfully'});
