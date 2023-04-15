@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const contractSchema = new mongoose.Schema({
+    terms: {
+        type: String,
+        required: true
+      },
     type: {
       type: String,
       required: true
