@@ -4,8 +4,8 @@ const clientController = require('../controllers/clientController');
 
 // client routes
 router.get('/all', clientController.getAllClients);
-router.get('/:username', clientController.getClientByUsername);
-router.patch('/:id', clientController.updateClient);
-router.delete('/:username', clientController.deleteClient);
+router.get('/', clientController.getClientByEmail);
+router.patch('/', clientController.updateClient);
+router.delete('/', clientController.deleteClient);
 
 module.exports = router;

@@ -12,6 +12,7 @@ const app = express();
 const authRoute = require("./src/routes/authRoute");
 const clientRoute = require("./src/routes/clientRoute");
 const employeeRoute = require("./src/routes/employeeRoute");
+const contractRoute = require("./src/routes/contractRoute");
 
 
 
@@ -63,6 +64,7 @@ mongoose
 app.use("/",authRoute);
 app.use("/client", auth.verify, clientRoute);
 app.use("/employee", auth.verify, employeeRoute);
+app.use("/contract", auth.verify, contractRoute);
 
 
 // ======== exporting app ========

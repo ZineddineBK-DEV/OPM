@@ -4,8 +4,8 @@ const employeeController = require('../controllers/employeeController');
 
 //employee routes
 router.get('/all', employeeController.getAllEmployees);
-router.get('/:username', employeeController.getEmployeeByUsername);
-router.patch('/:id', employeeController.updateEmployee);
-router.delete('/:username', employeeController.deleteEmployee);
+router.get('/', employeeController.getEmployeeByEmail);
+router.patch('/', employeeController.updateEmployee);
+router.delete('/', employeeController.deleteEmployee);
 
 module.exports = router;
