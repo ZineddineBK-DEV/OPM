@@ -25,7 +25,7 @@ export class SigninComponent implements OnInit {
 
   login(form: NgForm) {
     const payload = { ...form.value };
-    console.log(payload);
+    // console.log(payload);
 
     this.backendService.post(SIGNIN_END_POINT, payload).subscribe(
       new Observer(this.router, "/app/dashboard", false).OBSERVER_SIGNIN(
@@ -33,6 +33,7 @@ export class SigninComponent implements OnInit {
           const { accessToken, refreshToken } = response;
           this.sharedService.setItem("accessToken", accessToken);
           this.sharedService.setItem("refreshToken", refreshToken);
+          //
           // }
         }
       )
