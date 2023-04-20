@@ -18,6 +18,7 @@ const contractRoute = require("./src/routes/contractRoute");
 
 
 
+
 //========== configuration ============
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
