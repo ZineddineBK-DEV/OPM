@@ -57,10 +57,16 @@ exports.login = async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
+    var contract;
+    if (user.authority == "client"){
+      contract = await Contract.findById(user.contractId);
+    }
+    
+    const payload = {user, contract};
     const { accessToken } = await tokenGen.generateToken(user);
     res.setHeader('Authorization', `Bearer ${accessToken}`);
     //res.setHeader('Refresh-Token', refreshToken); it will be sent with httpOnly cookie 
-    res.status(200).json({ message: 'Login successful', user });
+    res.status(200).json({ message: 'Login successful', payload });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error logging in' });
