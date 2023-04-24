@@ -11,11 +11,14 @@ import { SIGNUP_END_POINT } from "../../../services/endpoints";
   styleUrls: ["./signup.component.scss"],
 })
 export class SignupComponent implements OnInit {
-
+  actualDate: string;
+  birthdateinputype: string;
   constructor(
     private backendService: BackendService,
     public router: Router
   ) {
+    this.actualDate = new Date().toDateString();
+    this.birthdateinputype = "Date";
   }
 
   ngOnInit() {}
@@ -27,5 +30,8 @@ export class SignupComponent implements OnInit {
       .post(SIGNUP_END_POINT, payload)
       .subscribe(new Observer(this.router,"/signin",false,true).OBSERVER_POST());
   }
-
+  setinputtype(event, type: string) {
+    if (type === "birthdate") this.birthdateinputype = "date";
+    // if (type === "hiredate") this.hiredateinputype = "date";
+  }
 }

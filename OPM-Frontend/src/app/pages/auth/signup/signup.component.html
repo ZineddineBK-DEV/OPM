@@ -75,25 +75,64 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12 mb-4">
+              <div class="col-md-6 mb-4">
                 <div class="form-outline mb-4">
-                  <input type="text" name="company" ngModel #company="ngModel" placeholder="Company Name"
+                  <input type="text" ngModel #company="ngModel" name="company" placeholder="Company Name"
                     class="form-control" required />
                   <div *ngIf="company.invalid && company.touched" class="alert alert-danger p-2" role="alert">
                     Enter Company Name
                   </div>
                 </div>
               </div>
+              <div class="col-md-6 mb-4">
+                <div class="form-outline mb-4">
+                  <input type="text" name="terms" ngModel #terms="ngModel" placeholder="Terms"
+                    class="form-control" required />
+                  <div *ngIf="
+                      (terms.invalid && terms.touched)
+                    " class="alert alert-danger p-2" role="alert">
+                    ne pas correspondre
+                  </div>
+                </div>
+              </div>
             </div>
+            <!--  -->
+
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div class="form-outline mb-4">
+                  <input type="text" name="type" ngModel #type="ngModel" placeholder="Type"
+                    class="form-control" required />
+                  <div *ngIf="type.invalid && type.touched" class="alert alert-danger p-2" role="alert">
+                    Enter type
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="form-outline mb-4">
+                  <!-- <input type="text" name="terms" ngModel #terms="ngModel" placeholder="Terms"
+                  class="form-control" required /> -->
+                  <input class="form-control textbox-n" type="date"
+                  [placeholder]="'tetetetetet'" onkeydown="return false" name="endDate"
+                  ngModel #endDate="ngModel" required
+                  (click)="setinputtype($event,'endDate')" min="{{ this.actualDate | date: 'yyyy-MM-dd' }}" />
+                    <div *ngIf="endDate.invalid && endDate.touched" class="alert alert-danger p-2" role="alert">
+                      Enter End Date
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <!--  -->
+
 <!-- contract contract -->
             <div class="row">
               <div class="col-md-12 mb-4">
                 <div class="input-group date" id="datepicker">
-                  <select class="form-select" aria-label="Default select example" name="contract" ngModel #contract="ngModel" placeholder="contract">
+                  <select class="form-select" aria-label="Default select example" name="sla" ngModel #sla="ngModel" placeholder="sls">
                     <option selected>Contract Type</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
-                    <option value="3">Three</option>
                   </select>
                 </div>
               </div>

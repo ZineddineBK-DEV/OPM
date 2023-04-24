@@ -23,31 +23,31 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sharedService.getSelectedCompany((id) => {
-      if (id) {
-        this.id_company = id;
-        this.getDashboard("0");
-        this.getDashboard("1");
-      } else {
-        return swal("Failure!", "No company selected !", "info");
-      }
-    });
+    // this.sharedService.getSelectedCompany((id) => {
+    //   if (id) {
+    //     this.id_company = id;
+    //     this.getDashboard("0");
+    //     this.getDashboard("1");
+    //   } else {
+    //     return swal("Failure!", "No company selected !", "info");
+    //   }
+    // });
   }
-  getDashboard(operation: string) {
-    this.backendService
-      .get(`${USER_DASHBOARD_END_POINT}/${this.id_company}/${operation}`)
-      .subscribe(
-        new Observer().OBSERVER_GET((response) => {
-          const { rows } = response;
-          switch (operation) {
-            case "0":
-              this.purchases = rows[0].totalprix?rows[0].totalprix.toFixed(2):0.00;
-              break;
-            case "1":
-              this.sales = rows[0].totalprix?rows[0].totalprix.toFixed(2):0.00;
-              break;
-          }
-        })
-      );
-  }
+  // getDashboard(operation: string) {
+  //   this.backendService
+  //     .get(`${USER_DASHBOARD_END_POINT}/${this.id_company}/${operation}`)
+  //     .subscribe(
+  //       new Observer().OBSERVER_GET((response) => {
+  //         const { rows } = response;
+  //         switch (operation) {
+  //           case "0":
+  //             this.purchases = rows[0].totalprix?rows[0].totalprix.toFixed(2):0.00;
+  //             break;
+  //           case "1":
+  //             this.sales = rows[0].totalprix?rows[0].totalprix.toFixed(2):0.00;
+  //             break;
+  //         }
+  //       })
+  //     );
+  // }
 }
