@@ -3,6 +3,7 @@ import { environment } from "../../environments/environment";
 //AUTH ENDPOINTS
 export const SIGNIN_END_POINT: string = `${environment.apiUrl}/login`;
 export const SIGNUP_END_POINT: string = `${environment.apiUrl}/register`;
+export const USER_LOGOUT_END_POINT: string = `${environment.apiUrl}/logout`;
 
 // ******************************//
 export const VERIFY_ACCOUNT_END_POINT: string = `${environment.apiUrl}/auth/user/validate`;
@@ -10,7 +11,6 @@ export const RESET_VERIFY_EMAIL_END_POINT: string = `${environment.apiUrl}/auth/
 export const RESET_VERIFY_CODE_END_POINT: string = `${environment.apiUrl}/auth/user/verify/reset/code`;
 export const RESET_PASSWORD_END_POINT: string = `${environment.apiUrl}/auth/user/reset/password`;
 export const GET_USER_REFRESH_TOKEN_END_POINT: string = `${environment.apiUrl}/auth/user/refresh`;
-export const USER_LOGOUT_END_POINT: string = `${environment.apiUrl}/auth/user/logout`;
 
 //DASHBOARD ENDPOINTS
 export const USER_DASHBOARD_END_POINT: string = `${environment.apiUrl}/dashboard/get`;

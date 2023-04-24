@@ -3,29 +3,16 @@
     <div class="row align-items-end">
       <div class="col-lg-8">
         <div class="page-header-title">
-          <span><i class="fas fa-receipt" style="background-color: #000080"></i></span>
+          <span><i class="fas fa-file-invoice-dollar" style="background-color: #000080"></i></span>
           <div class="d-inline">
             <span class="d-block text-primary">
-              <h4>{{'ACCOUNTING_PLAN_COMPONENT.TITLE'|translate}}</h4>
+              <h4>{{'TAX_COMPONENT.TITLE'|translate}}</h4>
             </span>
-            <!-- <span class="text-dark">Accounting plan</span> -->
+            <!-- <span class="text-dark">Tax Page</span> -->
           </div>
         </div>
       </div>
-      <!-- <div class="col-lg-4">
-                <div class="page-header-breadcrumb">
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a [routerLink]="'/'">
-                                <i class="icofont icofont-home" style="color: #000080"></i>
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a class="text-dark">Accounting Plan</a>
-                        </li>
-                    </ul>
-                </div>
-            </div> -->
+
     </div>
   </div>
   <!-- Page-header end -->
@@ -37,103 +24,61 @@
           <div class="card">
             <div class="col-sm-12">
               <div class="card-header">
-                <h5 class="card-header-text">{{'ACCOUNTING_PLAN_COMPONENT.HEADER'|translate}}</h5>
-              </div>
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm-4 mb-5 mr-2">
-                    <select class="form-select" value="-1" (change)="changeSelectedFile($event.target.value)">
-                      <option value="-1" disabled>
-                        {{'ACCOUNTING_PLAN_COMPONENT.SELECT.SELECT_FILE'|translate}}
-                      </option>
-                      <option *ngFor="let file of this.sourceFiles;let i=index" [value]="file.upload+';'+file.id">
-                        {{file.source}}
-                      </option>
-                    </select>
-                  </div>
-
-                  <div class="col-sm-1 mb-5 inputWrapper" style="height: 60px; width: 105px;">
-                    <button class="btn">
-                      <input type="file"
-                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                        (change)="changeFile($event)" name="file1" class="fileInput" />
-                      <i class="fas fa-file-import"></i>
-                      {{'ACCOUNTING_PLAN_COMPONENT.IMPORT'|translate}}
-                    </button>
-                  </div>
-                  <div class="col-sm-1 mb-5 mr-2">
-                    <button class="btn" (click)="exportFile()">
-                      <i class="fas fa-file-export"></i>
-                      {{'ACCOUNTING_PLAN_COMPONENT.EXPORT'|translate}}
-                    </button>
-                  </div>
-
-                  <div class="col-sm-1 mb-5 mr-2 ml-4">
-                    <button class="btn" (click)="OpenModal('NEW_ACCOUNTING_PLAN')">
-                      <i class="fas fa-file-signature"></i>
-                      {{'ACCOUNTING_PLAN_COMPONENT.NEW_PLAN'|translate}}
-                    </button>
-                  </div>
-                  <div class="col-sm-1 mb-5 mr-2 ml-5">
-                    <button class="btn" (click)="unlinkFile()">
-                      <i class="fas fa-trash"></i>
-                      {{'ACCOUNTING_PLAN_COMPONENT.DELETE'|translate}}
-                    </button>
-                  </div>
-
-                  <div class="col-sm-1 mb-5 mr-2 ml-4" *ngIf="this.upload">
-                    <button class="btn" (click)="OpenModal('NEW_ACCOUNTING_PLAN_ROW')">
-                      <i class="fas fa-plus-square"></i>
-                      {{'ACCOUNTING_PLAN_COMPONENT.NEW_ROW'|translate}}
-                    </button>
+                <h5 class="card-header-text">{{'TAX_COMPONENT.HEADER'|translate}}</h5>
+                <div class="col-md-12 col-lg-3 offset-lg-10">
+                  <div class="pcoded-search">
+                    <div class="pcoded-search-box">
+                      <button class="btn " (click)="OpenModal('NEW_TAX')">
+                        <i class="icofont icofont-ui-add"></i>
+                        {{'NEW'|translate}}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <!-- Begin Table -->
               <div class="table-responsive">
-                <!-- style="margin-bottom: 50px; margin-left: 50px; margin-right: 50px;" -->
-                <!-- <div> -->
+                <div style="margin-bottom: 50px; margin-left: 50px; margin-right: 50px;">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr style="text-align: center">
+                        <th scope="col">
+                          {{'TAX_COMPONENT.TABLE.NAME'|translate}}
+                        </th>
 
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">{{'ACTIONS'|translate}}</th>
-                      <th scope="col">
-                        {{'ACCOUNTING_PLAN_COMPONENT.TABLE.ACCOUNT_NUMBER'|translate}}
-                      </th>
-                      <th scope="col">
-                        {{'ACCOUNTING_PLAN_COMPONENT.TABLE.DESCRIPTION'|translate}}
-                      </th>
-                    </tr>
-                  </thead>
-                  <!-- <ng-container> -->
-                  <tbody *ngFor="let accounting_plan of this.accountingPlansList| slice">
-                    <tr>
-                      <td scope="row">
-                        <i (click)="OpenModal('UPDATE_ACCOUNTING_PLAN_ROW',accounting_plan)" class="fas fa-edit"></i>
-                        <i (click)="deleteAccountingPlanRow(accounting_plan.id)" class="fa fa-trash-o ml-2"></i>
-                      </td>
-                      <td scope="row">{{ accounting_plan.account_number}} </td>
-                      <td scope="row"> {{accounting_plan.description}} </td>
-                    </tr>
-                  </tbody>
-                  <!-- </ng-container> -->
-                </table>
-                <div class="d-flex justify-content-between p-2">
-                  <ngb-pagination [(page)]="page" (pageChange)="handlePageChange($event)" [pageSize]="pageSize"
-                    [collectionSize]="collectionSize">
-                  </ngb-pagination>
-                  <select class="custom-select" style="width: auto" name="pageSize"
-                    (change)="handlePageSizeChange($event)">
-                    <option *ngFor="let size of pageSizes" [ngValue]="size">
-                      {{ size }}
-                    </option>
-                  </select>
-                </div>
+                        <th scope="col">
+                          {{'TAX_COMPONENT.TABLE.AGENCY_NAME'|translate}}
+                        </th>
 
-                <!-- <div class="d-flex justify-content-between p-2">
-                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="accountingPlansList.length">
+                        <th scope="col">
+                          {{'TAX_COMPONENT.TABLE.START_PERIOD'|translate}}
+                        </th>
+                        <th scope="col">{{'ACTIONS'|translate}}</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let tax of this.taxesList|slice">
+                      <tr style="text-align: center">
+                        <td scope="row">{{
+                          tax.name
+                          }} </td>
+
+                        <td scope="row"> {{
+                          tax.agency_name
+                          }} </td>
+
+                        <td scope="row"> {{
+                          tax.start_period|date:'dd/MM/yyyy'
+                          }} </td>
+                        <td scope="row">
+                          <i (click)="OpenModal('UPDATE_TAX',tax)" class="fas fa-edit"></i>
+                          <i (click)="deleteTax(tax.id)" class="fa fa-trash-o ml-2"></i>
+                          <i (click)="OpenDetails('TAX_DETAILS',tax)" class="fa fa-eye ml-2"></i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="d-flex justify-content-between p-2">
+                    <ngb-pagination [(page)]="page" (pageChange)="handlePageChange($event)" [pageSize]="pageSize"
+                      [collectionSize]="collectionSize">
                     </ngb-pagination>
                     <select class="custom-select" style="width: auto" name="pageSize"
                       (change)="handlePageSizeChange($event)">
@@ -141,8 +86,8 @@
                         {{ size }}
                       </option>
                     </select>
-                  </div> -->
-                <!-- </div> -->
+                  </div>
+                </div>
               </div>
               <!-- </app-card> -->
             </div>

@@ -1,118 +1,71 @@
-import { Component, OnInit } from "@angular/core";
-import { BackendService } from "../../services/backend.service";
-import swal from "sweetalert";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { Router } from "@angular/router";
-import { SharedService } from "../../services/shared.service";
-import {
-  DELETE_USER_ACCOUNTING_PLAN_ROW_END_POINT,
-  GET_USER_ACCOUNTING_PLAN_END_POINT,
-  GET_USER_ACCOUNTING_PLAN_SOURCES_END_POINT,
-  IMPORT_USER_ACCOUNTING_PLAN_END_POINT,
-  UNLINK_USER_ACCOUNTING_PLAN_END_POINT,
-} from "../../services/endpoints";
-import Observer from "../../services/observer";
-import { PostComponent } from "../../popup/post/post.component";
-import { PutComponent } from "../../popup/put/put.component";
-import {
-  ACCOUNTING_PLAN_POPUP_TYPE,
-  ACCOUNTING_PLAN_ROW_POPUP_TYPE,
-} from "../../popup/popup-type";
-import { ExcelService } from "../../services/excel.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PostComponent } from '../../popup/post/post.component';
+import { PutComponent } from '../../popup/put/put.component';
+import { BackendService } from '../../services/backend.service';
+import { SharedService } from '../../services/shared.service';
+import { DELETE_USER_TAXES_END_POINT, GET_USER_TAXES_END_POINT } from '../../services/endpoints';
+import { DetailsComponent } from '../../popup/details/details.component';
+import { TAX_POPUP_TYPE } from '../../popup/popup-type';
 
+import Observer from '../../services/observer';
+import swal from 'sweetalert';
 @Component({
   selector: 'app-employers',
   templateUrl: './employers.component.html',
   styleUrls: ['./employers.component.scss']
 })
 export class EmployersComponent implements OnInit {
-  accountingPlansList: [] = [];
-  sourceFiles = [];
-  id_company: string;
-  upload: string;
-  id_source: string;
+
+  taxesList: [] = [];
   collectionSize: number = 0;
   page = 1;
-  pageSize = 100;
-  pageSizes = [100, 150, 200];
-
+  pageSize = 5;
+  pageSizes = [5, 20, 100];
+  id_company:string;
   constructor(
     private backendService: BackendService,
     private router: Router,
     private modalService: NgbModal,
-    private sharedService: SharedService,
-    private excelService: ExcelService
+    private sharedService: SharedService
   ) {}
 
   ngOnInit() {
-    this.sharedService.getSelectedCompany((id) => {
+    this.sharedService.getSelectedCompany((id)=>{
       if (id) {
         this.id_company = id;
-        this.getsources();
+        this.getTaxes();
       } else {
         return swal("Failure!", "No company selected !", "info");
       }
     });
   }
 
-  getsources() {
-    if (this.id_company) {
-      this.backendService
-        .get(`${GET_USER_ACCOUNTING_PLAN_SOURCES_END_POINT}/${this.id_company}`)
-        .subscribe(
-          new Observer().OBSERVER_GET((response) => {
-            const { rows } = response;
-            const { err } = rows[0];
-            if (!err) {
-              this.sourceFiles = rows;
-            }
-          })
-        );
-    } else {
-      return swal("Failure!", "No company selected !", "info");
-    }
-  }
+  getTaxes() {
 
-  changeSelectedFile(selected: string) {
-    const [a, b] = selected.split(";");
-    this.upload = a;
-    this.id_source = b;
-    this.accountingPlansList.length = 0;
-    this.collectionSize = 1;
-    if (this.id_company) this.getAccountingPlans(a);
-  }
-
-  getAccountingPlans(upload: string) {
     const offset = (this.page - 1) * this.pageSize;
-    this.upload = upload;
-    this.backendService
-      .get(
-        `${GET_USER_ACCOUNTING_PLAN_END_POINT}/${this.id_company}/${upload}`,
-        this.pageSize,
-        offset
-      )
-      .subscribe(
-        new Observer().OBSERVER_GET((response) => {
-          if (!response.err) {
-            this.accountingPlansList = response.rows;
-            this.collectionSize = response.totalItems;
-          }
-        })
-      );
+    this.backendService.get(`${GET_USER_TAXES_END_POINT}/${this.id_company}`,this.pageSize,offset).subscribe(
+      new Observer().OBSERVER_GET((response) => {
+        this.collectionSize=response.totalItems;
+         this.taxesList = response.rows;
+      })
+    );
   }
 
-  deleteAccountingPlanRow(id: string) {
+  deleteTax(id_tax: string) {
+    const lang=JSON.parse(localStorage.getItem('lang')).lang;
     swal({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: lang&&lang=='en'?"Are you sure?":'Êtes-vous sûr?',
+      text: lang&&lang=='en'?"You won't be able to revert this !":'Vous ne pourrez pas revenir en arrière !',
       icon: "warning",
       closeOnEsc: true,
       closeOnClickOutside: true,
-      buttons: ["cancel", "confirm"],
+      buttons: lang&&lang=='en'?["Cancel", "Confirm"]:["Annuler","Confirmer"],
     }).then((result) => {
       if (result) {
         this.backendService
-          .delete(`${DELETE_USER_ACCOUNTING_PLAN_ROW_END_POINT}/${id}`)
+          .delete(`${DELETE_USER_TAXES_END_POINT}/${id_tax}`)
           .subscribe(
             new Observer(
               this.router,
@@ -127,126 +80,41 @@ export class EmployersComponent implements OnInit {
     });
   }
 
-  OpenModal(title: string, accounting_plan?) {
-    if (this.id_company) {
-      if (this.sourceFiles.length > 0 || title.includes("NEW")) {
-        const modalRef = this.modalService.open(
-          title.split("_")[0] === "NEW" ? PostComponent : PutComponent
-        );
-        modalRef.componentInstance.title = title;
-        modalRef.componentInstance.type = title.includes("ROW")
-          ? ACCOUNTING_PLAN_ROW_POPUP_TYPE
-          : ACCOUNTING_PLAN_POPUP_TYPE;
-        modalRef.componentInstance.payload = accounting_plan
-          ? {
-              ...accounting_plan,
-            }
-          : { id_company: this.id_company, id_source: this.id_source };
-      } else return swal("Failure!", "No file selected !", "info");
-    } else {
-      return swal("Failure!", "No company selected !", "info");
-    }
+  OpenModal(title: string, tax?) {
+    if(this.id_company){
+    const modalRef = this.modalService.open(
+      title.split("_")[0] === "NEW" ? PostComponent : PutComponent,
+      { size: "lg", backdrop: "static" }
+    );
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.type = TAX_POPUP_TYPE;
+
+    modalRef.componentInstance.payload = tax!=null ? tax:{id_company:this.id_company};
+  } else {
+    return swal("Failure!", "No company selected !", "info");
+  }
   }
 
-  changeFile(event) {
-    if (this.id_company) {
-      const fileList: FileList = event.target.files;
-      if (fileList.length > 0) {
-        const file: File = fileList[0];
-        const formData = new FormData();
-        formData.append("accounting-plan-excel-file", file);
-        this.backendService
-          .post(
-            `${IMPORT_USER_ACCOUNTING_PLAN_END_POINT}/${this.id_company}`,
-            formData
-          )
-          .subscribe(
-            new Observer(
-              this.router,
-              null,
-              true,
-              true,
-              this.sharedService,
-              null
-            ).OBSERVER_POST()
-          );
-      }
-    } else {
-      return swal("Failure!", "No company selected !", "info");
-    }
-  }
-
-  unlinkFile() {
-    if (this.id_company) {
-      if (this.sourceFiles.length > 0) {
-        const lang = JSON.parse(localStorage.getItem("lang")).lang;
-        swal({
-          title: lang && lang == "en" ? "Are you sure?" : "Êtes-vous sûr?",
-          text:
-            lang && lang == "en"
-              ? "You won't be able to revert this !"
-              : "Vous ne pourrez pas revenir en arrière !",
-          icon: "warning",
-          closeOnEsc: true,
-          closeOnClickOutside: true,
-          buttons:
-            lang && lang == "en"
-              ? ["cancel", "confirm"]
-              : ["annuler", "confirmer"],
-        }).then((result) => {
-          if (result) {
-            this.backendService
-              .delete(
-                `${UNLINK_USER_ACCOUNTING_PLAN_END_POINT}/${this.id_company}/${this.upload}`
-              )
-              .subscribe(
-                new Observer(
-                  this.router,
-                  null,
-                  true,
-                  true,
-                  this.sharedService,
-                  null
-                ).OBSERVER_DELETE()
-              );
-          }
-        });
-      } else return swal("Failure!", "No file selected !", "info");
-    } else {
-      return swal("Failure!", "No company selected !", "info");
-    }
-  }
-
-  exportFile() {
-    if (this.id_company) {
-      if (this.sourceFiles.length > 0) {
-        this.backendService
-          .get(
-            `${GET_USER_ACCOUNTING_PLAN_END_POINT}/${this.id_company}/${this.upload}`
-          )
-          .subscribe(
-            new Observer().OBSERVER_GET((response) => {
-              if (!response.err) {
-                this.excelService.exportAsExcelFile(response.rows);
-              }
-            })
-          );
-      } else {
-        return swal("Failure!", "No file selected !", "info");
-      }
-    } else {
-      return swal("Failure!", "No company selected !", "info");
-    }
+  OpenDetails(title: string, payload:any) {
+    const modalRef = this.modalService.open(DetailsComponent);
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.type = TAX_POPUP_TYPE;
+    modalRef.componentInstance.payload = { ...payload };
   }
 
   handlePageSizeChange(event: any): void {
+    if(this.id_company){
+
+      this.getTaxes();
+    }
     this.pageSize = event.target.value;
     this.page = 1;
-    if (this.id_company) this.getAccountingPlans(this.upload);
   }
 
   handlePageChange(currentPage: number) {
+    if(this.id_company){
+      this.getTaxes();
+    }
     this.page = currentPage;
-    if (this.id_company) this.getAccountingPlans(this.upload);
   }
 }

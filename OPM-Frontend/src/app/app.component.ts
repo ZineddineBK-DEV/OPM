@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
     private translate: TranslateService,
     private sharedService: SharedService
   ) {
-    this.translate.addLangs(["en", "fr"]);
+    this.translate.addLangs(["en"]);
     const defaultLang = this.sharedService.getItem("lang");
     const langList = [
       {
@@ -22,11 +22,11 @@ export class AppComponent implements OnInit {
         language: "English",
         lang: "en",
       },
-      {
-        image: "assets/images/flags/FRANCE.jpg",
-        language: "France",
-        lang: "fr",
-      },
+      // {
+      //   image: "assets/images/flags/FRANCE.jpg",
+      //   language: "France",
+      //   lang: "fr",
+      // },
     ];
     if (defaultLang) {
       const parsedLang = JSON.parse(defaultLang);
@@ -42,17 +42,17 @@ export class AppComponent implements OnInit {
       }
     }
     const browserLang = translate.getBrowserLang();
-    this.translate.use(browserLang.match(/en|fr/) ? browserLang : "en");
-    localStorage.setItem(
-      "lang",
-      JSON.stringify({
-        image: `assets/images/flags/${
-          browserLang == "en" ? "ENGLISH" : "FRANCE"
-        }.jpg`,
-        language: browserLang == "en" ? "English" : "France",
-        lang: browserLang,
-      })
-    );
+    this.translate.use("en");
+    // localStorage.setItem(
+    //   "lang",
+    //   JSON.stringify({
+    //     image: `assets/images/flags/${
+    //       browserLang == "en" ? "ENGLISH" : "FRANCE"
+    //     }.jpg`,
+    //     language: browserLang == "en" ? "English" : "France",
+    //     lang: browserLang,
+    //   })
+    // );
   }
 
   ngOnInit() {
