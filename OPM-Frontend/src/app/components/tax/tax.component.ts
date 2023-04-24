@@ -5,7 +5,7 @@ import { PostComponent } from '../../popup/post/post.component';
 import { PutComponent } from '../../popup/put/put.component';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { DELETE_USER_TAXES_END_POINT, GET_USER_TAXES_END_POINT } from '../../services/endpoints';
+import { DELETE_USER_TAXES_END_POINT, GET_USER_employers_END_POINT } from '../../services/endpoints';
 import { DetailsComponent } from '../../popup/details/details.component';
 import { TAX_POPUP_TYPE } from '../../popup/popup-type';
 
@@ -46,7 +46,7 @@ export class TaxComponent implements OnInit {
   getTaxes() {
 
     const offset = (this.page - 1) * this.pageSize;
-    this.backendService.get(`${GET_USER_TAXES_END_POINT}/${this.id_company}`,this.pageSize,offset).subscribe(
+    this.backendService.get(`${GET_USER_employers_END_POINT}/${this.id_company}`,this.pageSize,offset).subscribe(
       new Observer().OBSERVER_GET((response) => {
         this.collectionSize=response.totalItems;
          this.taxesList = response.rows;

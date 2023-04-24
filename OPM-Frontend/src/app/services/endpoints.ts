@@ -5,6 +5,9 @@ export const SIGNIN_END_POINT: string = `${environment.apiUrl}/login`;
 export const SIGNUP_END_POINT: string = `${environment.apiUrl}/register`;
 export const USER_LOGOUT_END_POINT: string = `${environment.apiUrl}/logout`;
 
+//employers
+export const GET_USER_employers_END_POINT: string = `${environment.apiUrl}/tax/get`;
+
 // ******************************//
 export const VERIFY_ACCOUNT_END_POINT: string = `${environment.apiUrl}/auth/user/validate`;
 export const RESET_VERIFY_EMAIL_END_POINT: string = `${environment.apiUrl}/auth/user/verify/reset/email`;
@@ -46,7 +49,7 @@ export const POST_USER_ACCOUNTING_PLAN_END_POINT: string = `${environment.apiUrl
 
 
 //TAXES ENDPOINTS
-export const GET_USER_TAXES_END_POINT: string = `${environment.apiUrl}/tax/get`;
+
 export const DELETE_USER_TAXES_END_POINT: string = `${environment.apiUrl}/tax/delete`;
 export const POST_USER_TAXES_END_POINT: string = `${environment.apiUrl}/tax/add`;
 export const PUT_USER_TAXES_END_POINT: string = `${environment.apiUrl}/tax/update`;
