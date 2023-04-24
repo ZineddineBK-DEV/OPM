@@ -63,10 +63,10 @@ exports.login = async (req, res) => {
     }
     
     const payload = {user, contract};
-    const { accessToken } = await tokenGen.generateToken(user);
+    const { accessToken, refreshToken } = await tokenGen.generateToken(user);
     res.setHeader('Authorization', `Bearer ${accessToken}`);
     //res.setHeader('Refresh-Token', refreshToken); it will be sent with httpOnly cookie 
-    res.status(200).json({ message: 'Login successful', payload });
+    res.status(200).json({ message: 'Login successful', payload, accessToken, refreshToken});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error logging in' });
