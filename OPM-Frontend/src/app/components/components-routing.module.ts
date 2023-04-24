@@ -30,35 +30,35 @@ const routes: Routes = [
           ),
       },
       {
-        path: "tax",
-        loadChildren: () => import("./tax/tax.module").then((m) => m.TaxModule),
-      },
-      {
-        path: "company",
-        loadChildren: () => import("./company/company.module").then((m) => m.CompanyModule),
+        path: "employers",
+        loadChildren: () =>
+          import("../components/employers/employers.module").then(
+            (m) => m.EmployersModule
+          ),
       },
 
-      {
-        path: "expenses-sales",
-        children: [
-          {
-            path: 'transactions',
-            loadChildren: () => import('./expenses/transactions/transactions.module').then(m => m.TransactionsModule)
-          },
-          {
-            path: 'products-services',
-            loadChildren: () => import('./expenses/prodserv/prodserv.module').then(m => m.ProdservModule)
-          },
-          {
-            path: 'suppliers',
-            loadChildren: () => import('./expenses/suppliers/suppliers.module').then(m => m.SuppliersModule)
-          },
-          {
-            path: 'customers',
-            loadChildren: () => import('./expenses/customers/customers.module').then(m => m.CustomersModule)
-          },
-        ]
-      },
+
+      // {
+      //   path: "expenses-sales",
+      //   children: [
+      //     {
+      //       path: 'transactions',
+      //       loadChildren: () => import('./expenses/transactions/transactions.module').then(m => m.TransactionsModule)
+      //     },
+      //     {
+      //       path: 'products-services',
+      //       loadChildren: () => import('./expenses/prodserv/prodserv.module').then(m => m.ProdservModule)
+      //     },
+      //     {
+      //       path: 'suppliers',
+      //       loadChildren: () => import('./expenses/suppliers/suppliers.module').then(m => m.SuppliersModule)
+      //     },
+      //     {
+      //       path: 'customers',
+      //       loadChildren: () => import('./expenses/customers/customers.module').then(m => m.CustomersModule)
+      //     },
+      //   ]
+      // },
 
       // {
       //   path: "redirection/:refreshToken",
