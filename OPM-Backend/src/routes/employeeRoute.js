@@ -4,6 +4,7 @@ const employeeController = require('../controllers/employeeController');
 
 //employee routes
 router.get('/all', employeeController.getAllEmployees);
+router.get('/', employeeController.getAllEmployeesByAuthority);
 router.get('/', employeeController.getEmployeeByEmail);
 router.patch('/', employeeController.updateEmployee);
 router.delete('/', employeeController.deleteEmployee);

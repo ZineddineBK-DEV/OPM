@@ -21,7 +21,7 @@ exports.generateToken = async (user) => {
         if (token) await Token.remove();
 
         await new Token({ userId: user._id, accessToken: accessToken, refreshToken: refreshToken }).save();
-        return ({ accessToken });
+        return ({ accessToken, refreshToken });
     } catch (err) {
         return err;
     }
@@ -36,7 +36,6 @@ exports.verifyToken = async (accessToken) => {
       return { error: true, message: "Invalid access token" };
     }
 
- 
     const tokenDetails = await jwt.verify(accessToken, privateKey, async function(err, AccessToken) {
       if (err) {
         console.log("accessToken expired");
