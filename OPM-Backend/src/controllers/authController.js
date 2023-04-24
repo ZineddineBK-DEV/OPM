@@ -45,24 +45,14 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { email, password, authority } = req.body;
-  let Model;
-  switch (authority) {
-    case 'admin':
-      Model = Admin;
-      break;
-    case 'commercial' || 'technician' || 'client':
-      Model = User;
-      break;
-    default:
-      return res.status(400).json({ message: 'Invalid role' });
-  }
+  const { email, password } = req.body;
   try {
-    const user = await Model.findOne({ email });
+    var user = await Admin.findOne({ email });
+    if (!user){
+    user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
-    }
-
+    }}
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
@@ -70,7 +60,7 @@ exports.login = async (req, res) => {
     const { accessToken } = await tokenGen.generateToken(user);
     res.setHeader('Authorization', `Bearer ${accessToken}`);
     //res.setHeader('Refresh-Token', refreshToken); it will be sent with httpOnly cookie 
-    res.status(200).json({ message: 'Login successful' });
+    res.status(200).json({ message: 'Login successful', user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error logging in' });

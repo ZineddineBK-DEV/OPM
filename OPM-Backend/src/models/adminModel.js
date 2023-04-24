@@ -10,7 +10,19 @@ const adminSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  authority: {
+    type: String,
+    default: "admin"
+  },
 });
 
 // Hash password before saving admin user
@@ -27,17 +39,19 @@ adminSchema.pre('save', async function(next) {
 const Admin = mongoose.model('Admin', adminSchema);
 
 // // Create admin user with encrypted password
-// const admin = new Admin({
-//   email: 'admin',
-//   password: 'password'
-// });
+//  const admin = new Admin({
+//    email: 'admin',
+//    password: 'password',
+//    firstName: 'admin',
+//    lastName: 'admin'
+//  });
 
-// admin.save((err) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
+//  admin.save((err) => {
+//    if (err) {
+//      console.log(err);
+//    } else {
 //     console.log('Admin user created');
 //   }
-// });
+//  });
 
 module.exports = Admin;

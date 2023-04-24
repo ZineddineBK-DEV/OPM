@@ -1,5 +1,17 @@
 const Contract = require('../models/contractModel');
 
+//create contract
+exports.createContract = async (req, res) => {
+  try {
+    const contract = Contract(req.body);
+    await contract.save();
+    res.status(201).json({ message: 'Contract created successfully' , contract});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error registering user' });
+  }
+};
+
 // Get all contracts
 exports.getAllContracts = async (req, res) => {
   try {
