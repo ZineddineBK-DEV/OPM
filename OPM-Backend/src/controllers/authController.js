@@ -13,7 +13,10 @@ exports.register = async (req, res) => {
     case 'client':
       Model = Client;
       break;
-    case 'commercial' || 'technician':
+    case 'commercial':
+      Model = Employee;
+      break;
+    case 'technician':
       Model = Employee;
       break;
     default:

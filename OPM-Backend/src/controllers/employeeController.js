@@ -9,6 +9,16 @@ exports.getAllEmployees = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+// Get all employees by authority
+exports.getAllEmployeesByAuthority = async (req, res) => {
+  const { authority } = req.body
+  try {
+    const employee = await Employee.find({ authority });
+    res.json(employee);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 // Get a single clinet 
 exports.getEmployeeByEmail = async (req, res, next) => {
