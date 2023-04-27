@@ -6,7 +6,7 @@ export const SIGNUP_END_POINT: string = `${environment.apiUrl}/register`;
 export const USER_LOGOUT_END_POINT: string = `${environment.apiUrl}/logout`;
 
 //employers
-export const GET_USER_employers_END_POINT: string = `${environment.apiUrl}/tax/get`;
+export const GET_USER_employers_END_POINT: string = `${environment.apiUrl}/employee/getAllEmployeesByAuthority`;
 
 // ******************************//
 export const VERIFY_ACCOUNT_END_POINT: string = `${environment.apiUrl}/auth/user/validate`;

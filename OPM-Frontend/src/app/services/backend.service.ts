@@ -13,6 +13,7 @@ export class BackendService {
     );
   }
 
+
   delete(endpoint: string) {
     return this.httpClient.delete(endpoint);
   }

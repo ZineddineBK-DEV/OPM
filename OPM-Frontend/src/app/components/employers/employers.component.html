@@ -55,23 +55,23 @@
                         <th scope="col">{{'ACTIONS'|translate}}</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let tax of this.taxesList|slice">
+                    <tbody *ngFor="let employer of this.employerslist|slice">
                       <tr style="text-align: center">
                         <td scope="row">{{
-                          tax.name
+                          employer.name
                           }} </td>
 
                         <td scope="row"> {{
-                          tax.agency_name
+                          employer.email
                           }} </td>
 
                         <td scope="row"> {{
-                          tax.start_period|date:'dd/MM/yyyy'
+                          employer.start_period|date:'dd/MM/yyyy'
                           }} </td>
                         <td scope="row">
-                          <i (click)="OpenModal('UPDATE_TAX',tax)" class="fas fa-edit"></i>
+                          <!-- <i (click)="OpenModal('UPDATE_TAX',tax)" class="fas fa-edit"></i>
                           <i (click)="deleteTax(tax.id)" class="fa fa-trash-o ml-2"></i>
-                          <i (click)="OpenDetails('TAX_DETAILS',tax)" class="fa fa-eye ml-2"></i>
+                          <i (click)="OpenDetails('TAX_DETAILS',tax)" class="fa fa-eye ml-2"></i> -->
                         </td>
                       </tr>
                     </tbody>

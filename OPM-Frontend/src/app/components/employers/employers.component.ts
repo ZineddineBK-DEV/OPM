@@ -11,6 +11,7 @@ import { TAX_POPUP_TYPE } from '../../popup/popup-type';
 
 import Observer from '../../services/observer';
 import swal from 'sweetalert';
+import { log } from 'util';
 @Component({
   selector: 'app-employers',
   templateUrl: './employers.component.html',
@@ -18,7 +19,7 @@ import swal from 'sweetalert';
 })
 export class EmployersComponent implements OnInit {
 
-  taxesList: [] = [];
+  employerslist: [] = [];
   collectionSize: number = 0;
   page = 1;
   pageSize = 5;
@@ -32,16 +33,19 @@ export class EmployersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-        this.getTaxes();
+        this.getAllEmployeesByAuthority("commercial");
   }
 
-  getTaxes() {
+  getAllEmployeesByAuthority(typeEmp:string ) {
+    console.log("rrrrrrrrrrrrrrrrrrrrr1");
 
-    const offset = (this.page - 1) * this.pageSize;
-    this.backendService.get(`${GET_USER_employers_END_POINT}/${this.id_company}`,this.pageSize,offset).subscribe(
+
+    this.backendService.get(`${GET_USER_employers_END_POINT}/${typeEmp}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
-        this.collectionSize=response.totalItems;
-         this.taxesList = response.rows;
+    console.log(response);
+
+        // this.collectionSize=response.totalItems;
+         this.employerslist = response;
       })
     );
   }
@@ -98,7 +102,7 @@ export class EmployersComponent implements OnInit {
   handlePageSizeChange(event: any): void {
     if(this.id_company){
 
-      this.getTaxes();
+      this.getAllEmployeesByAuthority("");
     }
     this.pageSize = event.target.value;
     this.page = 1;
@@ -106,7 +110,7 @@ export class EmployersComponent implements OnInit {
 
   handlePageChange(currentPage: number) {
     if(this.id_company){
-      this.getTaxes();
+      this.getAllEmployeesByAuthority("");
     }
     this.page = currentPage;
   }
