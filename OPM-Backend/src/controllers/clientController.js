@@ -4,9 +4,9 @@ const Client = require('../models/clientModel');
 exports.getAllClients = async (req, res) => {
   try {
     const client = await Client.find();
-    res.json(client);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(200).json({err: false, message: "Successful operation !", rows: client});
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
   }
 };
 
@@ -15,11 +15,11 @@ exports.getClientByEmail = async (req, res, next) => {
     try {
       const client = await Client.findOne({ email: req.body.email });
       if (!client) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
-      res.json(client);
+      res.status(200).json({err: false, message: "Successful operation !", rows: client});
     } catch (err) {
-      next(err);
+      res.status(500).json({ err: true, message: error.message });
     }
   };
 
@@ -33,17 +33,17 @@ exports.updateClient = async (req, res) => {
       { new: true }
     );
     if (!updatedClient) {
-      return res.status(404).send({ message: "User not found" });
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
-    res.status(200).send(updatedClient);
+    res.status(200).json({err: false, message: "Successful operation !", rows: updatedClient });
   } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Internal server error" });
+    console.error(error);
+    res.status(500).json({ err: true, message: error.message });
   }
 };
 
 // Delete a client
-exports.deleteClient = async (req, res, next) => {
+exports.deleteClient = async (req, res) => {
   try {
     const client = await Client.findOneAndUpdate(
       { email: req.body.email },
@@ -51,11 +51,11 @@ exports.deleteClient = async (req, res, next) => {
       { new: true }
     );
     if (!client) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
 
-    res.status(200).json({ message: 'User deleted', client });
+    res.status(200).json({err: false, message: "Successful operation !", rows: client});
   } catch (err) {
-    next(err);
+    res.status(500).json({ err: true, message: error.message });
   }
 };

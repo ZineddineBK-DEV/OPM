@@ -4,19 +4,23 @@ const Employee = require('../models/employeeModel');
 exports.getAllEmployees = async (req, res) => {
   try {
     const employee = await Employee.find();
-    res.json(employee);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(200).json({err: false, message: "Successful operation !", rows: employee});
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
   }
 };
 // Get all employees by authority
 exports.getAllEmployeesByAuthority = async (req, res) => {
-  const { authority } = req.body
+  const { authority } = req.params;
   try {
+    if(!authority){
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
     const employee = await Employee.find({ authority });
-    res.json(employee);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.log(authority);
+    res.status(200).json({err: false, message: "Successful operation !", rows: employee});
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
   }
 };
 
@@ -25,11 +29,11 @@ exports.getEmployeeByEmail = async (req, res, next) => {
     try {
       const employee = await Employee.findOne({ email: req.body.email });
       if (!employee) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
-      res.json(employee);
-    } catch (err) {
-      next(err);
+      res.status(200).json({err: false, message: "Successful operation !", rows: employee});
+    } catch (error) {
+      res.status(500).json({ err: true, message: error.message });
     }
   };
 
@@ -43,17 +47,17 @@ exports.updateEmployee = async (req, res) => {
       { new: true }
     );
     if (!updatedEmployee) {
-      return res.status(404).send({ message: "User not found" });
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) !" });
     }
-    res.status(200).send(updatedEmployee);
+    res.status(200).json({err: false, message: "Successful operation !", rows: updatedEmployee});
   } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Internal server error" });
+    console.error(error);
+    res.status(500).send({ err:true, message: error.message });
   }
 };
 
 // Delete a employee
-exports.deleteEmployee = async (req, res, next) => {
+exports.deleteEmployee = async (req, res) => {
   try {
     const employee = await Employee.findOneAndUpdate(
       { email: req.body.email },
@@ -61,10 +65,10 @@ exports.deleteEmployee = async (req, res, next) => {
       { new: true }
     );
     if (!employee) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ err: true, message: 'No (data,operation) (found,done) ! ' });
     }
-    res.status(200).json({ message: 'User deleted', employee });
-  } catch (err) {
-    next(err);
+    res.status(200).json({err: false, message: "Successful operation !", rows: employee});
+  } catch (error) {
+    res.status(500).send({ err:true, message: error.message });
   }
 };

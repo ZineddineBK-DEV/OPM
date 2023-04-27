@@ -5,10 +5,9 @@ exports.createContract = async (req, res) => {
   try {
     const contract = Contract(req.body);
     await contract.save();
-    res.status(201).json({ message: 'Contract created successfully' , contract});
+    res.status(200).json({err: false, message: "Successful operation !", rows: contract});
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error registering user' });
+    res.status(500).json({ err: true, message: error.message });
   }
 };
 
@@ -16,22 +15,22 @@ exports.createContract = async (req, res) => {
 exports.getAllContracts = async (req, res) => {
   try {
     const contract = await Contract.find();
-    res.json(contract);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(200).json({err: false, message: "Successful operation !", rows: contract});
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
   }
 };
 
 // Get a single contract
-exports.getContractById = async (req, res, next) => {
+exports.getContractById = async (req, res) => {
     try {
       const contract = await Contract.findById(req.body.contractId );
       if (!contract) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
-      res.json(contract);
-    } catch (err) {
-      next(err);
+      res.status(200).json({err: false, message: "Successful operation !", rows: contract});
+    } catch (error) {
+      res.status(500).json({ err: true, message: error.message });
     }
   };
 
@@ -45,25 +44,24 @@ exports.updateContract = async (req, res) => {
       { new: true }
     );
     if (!updatedContract) {
-      return res.status(404).send({ message: "Contract not found" });
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
-    res.status(200).send(updatedContract);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Internal server error" });
+    res.status(200).json({err: false, message: "Successful operation !", rows: updatedContract});
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
   }
 };
 
 // Delete a contract
-exports.deleteContract = async (req, res, next) => {
+exports.deleteContract = async (req, res) => {
   try {
     const contract = await Contract.findOneAndDelete({ email: req.body.contractId });
     if (!contract) {
-      return res.status(404).json({ message: 'contract not found' });
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
 
-    res.status(200).json({ message: 'Contract deleted', contract });
-  } catch (err) {
-    next(err);
+    res.status(200).json({err: false, message: "Successful operation !", rows: contract});
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
   }
 };
