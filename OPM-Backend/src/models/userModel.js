@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
   valid: {
     type: Boolean,
     default: false
+  },
+  firstConnection: {
+    type: Boolean,
+    default: false
   }
 });
 const User = mongoose.model('User', userSchema);

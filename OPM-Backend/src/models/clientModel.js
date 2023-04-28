@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const User = require('./userModel')
 
 const clientSchema = new mongoose.Schema({
-    contractId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    contractId: { type: mongoose.Schema.Types.ObjectId, ref:'Contract', required: true },
     company: {
       type: String,
       required: true

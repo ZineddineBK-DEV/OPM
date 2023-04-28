@@ -4,6 +4,7 @@ const User = require('../models/userModel');
 const Client = require('../models/clientModel');
 const Employee = require('../models/employeeModel');
 const Contract = require('../models/contractModel');
+const Folder = require('../models/folderModel');
 const tokenGen = require("../middlewares/tokenMiddleware");
 
 exports.register = async (req, res) => {
@@ -37,6 +38,8 @@ exports.register = async (req, res) => {
       const contract = Contract(req.body);
       await contract.save();
       obj.contractId = contract._id;
+      const folder = Folder({ name: obj.company, contractId: contract._id, clientId: obj._id });
+      await folder.save();
     }
     await obj.save();
 
@@ -56,6 +59,10 @@ exports.login = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }}
+    if (user.valid == false) {
+      return res.status(401).json({ message: 'account in progress' });
+    }
+    
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });

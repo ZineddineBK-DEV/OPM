@@ -40,10 +40,10 @@ exports.getEmployeeByEmail = async (req, res, next) => {
 // Update a user still working on it username
 exports.updateEmployee = async (req, res) => {
   try {
-    const { email, password, firstName, lastName, birthDate, image, newEmail } = req.body;
+    const { email, password, firstName, lastName, birthDate, image, newEmail, valid, firstConnection } = req.body;
     const updatedEmployee = await Employee.findOneAndUpdate(
       { email },
-      { email: newEmail, password, firstName, lastName, birthDate, image },
+      { email: newEmail, password, firstName, lastName, birthDate, image, valid, firstConnection },
       { new: true }
     );
     if (!updatedEmployee) {

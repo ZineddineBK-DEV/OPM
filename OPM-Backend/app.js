@@ -13,6 +13,7 @@ const authRoute = require("./src/routes/authRoute");
 const clientRoute = require("./src/routes/clientRoute");
 const employeeRoute = require("./src/routes/employeeRoute");
 const contractRoute = require("./src/routes/contractRoute");
+const fileRoute = require("./src/routes/fileRoute");
 
 
 
@@ -66,7 +67,7 @@ app.use("/",authRoute);
 app.use("/client", auth.verify, clientRoute);
 app.use("/employee", auth.verify, employeeRoute);
 app.use("/contract", auth.verify, contractRoute);
-
+app.use("/file", auth.verify, fileRoute);
 
 // ======== exporting app ========
 module.exports = app;
