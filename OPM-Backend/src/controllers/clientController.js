@@ -26,10 +26,10 @@ exports.getClientByEmail = async (req, res) => {
 // Update a user still working on it username
 exports.updateClient = async (req, res) => {
   try {
-    const { email, password, company, image, valid, firstConnection, newEmail } = req.body;
+    const { email, password, company, image, valid, newEmail } = req.body;
     const updatedClient = await Client.findOneAndUpdate(
       { email },
-      { email: newEmail, password, company, image, valid, firstConnection },
+      { email: newEmail, password, company, image, valid },
       { new: true }
     );
     if (!updatedClient) {
