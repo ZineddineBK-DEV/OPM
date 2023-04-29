@@ -7,7 +7,7 @@ import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
 import { DELETE_USER_TAXES_END_POINT, GET_USER_employers_END_POINT } from '../../services/endpoints';
 import { DetailsComponent } from '../../popup/details/details.component';
-import { TAX_POPUP_TYPE } from '../../popup/popup-type';
+import { EMPLOYERS_POPUP_TYPE } from '../../popup/popup-type';
 
 import Observer from '../../services/observer';
 import swal from 'sweetalert';
@@ -45,7 +45,7 @@ export class EmployersComponent implements OnInit {
     console.log(response);
 
         // this.collectionSize=response.totalItems;
-         this.employerslist = response;
+         this.employerslist = response.rows;
       })
     );
   }
@@ -78,24 +78,22 @@ export class EmployersComponent implements OnInit {
   }
 
   OpenModal(title: string, tax?) {
-    if(this.id_company){
+
     const modalRef = this.modalService.open(
       title.split("_")[0] === "NEW" ? PostComponent : PutComponent,
       { size: "lg", backdrop: "static" }
     );
     modalRef.componentInstance.title = title;
-    modalRef.componentInstance.type = TAX_POPUP_TYPE;
+    modalRef.componentInstance.type = EMPLOYERS_POPUP_TYPE;
 
     modalRef.componentInstance.payload = tax!=null ? tax:{id_company:this.id_company};
-  } else {
-    return swal("Failure!", "No company selected !", "info");
-  }
+
   }
 
   OpenDetails(title: string, payload:any) {
     const modalRef = this.modalService.open(DetailsComponent);
     modalRef.componentInstance.title = title;
-    modalRef.componentInstance.type = TAX_POPUP_TYPE;
+    modalRef.componentInstance.type = EMPLOYERS_POPUP_TYPE;
     modalRef.componentInstance.payload = { ...payload };
   }
 

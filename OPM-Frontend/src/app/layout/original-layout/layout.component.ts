@@ -210,8 +210,7 @@ export class LayoutComponent implements OnInit {
     ];
     this.selectedLanguage=JSON.parse(localStorage.getItem('lang'));
 
-    this.getUserInfo();
-    this.getCompanies();
+
     this.setBackgroundPattern("pattern2");
   }
   getUserInfo() {

@@ -3,10 +3,10 @@
     <div class="row align-items-end">
       <div class="col-lg-8">
         <div class="page-header-title">
-          <span><i class="fas fa-file-invoice-dollar" style="background-color: #000080"></i></span>
+          <span><i class="fas fas fa-users" style="background-color: #000080"></i></span>
           <div class="d-inline">
             <span class="d-block text-primary">
-              <h4>{{'TAX_COMPONENT.TITLE'|translate}}</h4>
+              <h4>Employers</h4>
             </span>
             <!-- <span class="text-dark">Tax Page</span> -->
           </div>
@@ -18,21 +18,44 @@
   <!-- Page-header end -->
 
   <div class="row">
+
     <div class="col-lg-12">
       <div class="md-tabs">
         <div class="m-t-15">
           <div class="card">
             <div class="col-sm-12">
               <div class="card-header">
-                <h5 class="card-header-text">{{'TAX_COMPONENT.HEADER'|translate}}</h5>
+                <h5 class="card-header-text">Employers list</h5>
                 <div class="col-md-12 col-lg-3 offset-lg-10">
                   <div class="pcoded-search">
                     <div class="pcoded-search-box">
                       <button class="btn " (click)="OpenModal('NEW_TAX')">
                         <i class="icofont icofont-ui-add"></i>
-                        {{'NEW'|translate}}
+                        NEW
                       </button>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-4 mb-5 mr-2">
+                    <select class="form-select" value="-1" (change)="changeSelectedFile($event.target.value)">
+                      <option value="-1" disabled>
+                        {{'ACCOUNTING_PLAN_COMPONENT.SELECT.SELECT_FILE'|translate}}
+                      </option>
+                      <option *ngFor="let file of this.sourceFiles;let i=index" [value]="file.upload+';'+file.id">
+                        {{file.source}}
+                      </option>
+                    </select>
+                  </div>
+
+
+                  <div class="col-sm-1 mb-5 mr-2 ml-4" *ngIf="this.upload">
+                    <button class="btn" (click)="OpenModal('NEW_ACCOUNTING_PLAN_ROW')">
+                      <i class="fas fa-plus-square"></i>
+                      {{'ACCOUNTING_PLAN_COMPONENT.NEW_ROW'|translate}}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -42,36 +65,42 @@
                     <thead>
                       <tr style="text-align: center">
                         <th scope="col">
-                          {{'TAX_COMPONENT.TABLE.NAME'|translate}}
+                          First Name
                         </th>
 
                         <th scope="col">
-                          {{'TAX_COMPONENT.TABLE.AGENCY_NAME'|translate}}
+                          Last Name
                         </th>
 
                         <th scope="col">
-                          {{'TAX_COMPONENT.TABLE.START_PERIOD'|translate}}
+                          Email
                         </th>
-                        <th scope="col">{{'ACTIONS'|translate}}</th>
+                        <th scope="col">
+                          Birth Date
+                        </th>
+                        <th scope="col">ACTIONS</th>
                       </tr>
                     </thead>
                     <tbody *ngFor="let employer of this.employerslist|slice">
                       <tr style="text-align: center">
                         <td scope="row">{{
-                          employer.name
+                          employer.firstName
                           }} </td>
 
                         <td scope="row"> {{
-                          employer.email
+                          employer.lastName
                           }} </td>
+                          <td scope="row"> {{
+                            employer.email
+                            }} </td>
 
                         <td scope="row"> {{
-                          employer.start_period|date:'dd/MM/yyyy'
+                          employer.birthDate|date:'dd/MM/yyyy'
                           }} </td>
                         <td scope="row">
-                          <!-- <i (click)="OpenModal('UPDATE_TAX',tax)" class="fas fa-edit"></i>
+                          <i (click)="OpenModal('UPDATE_TAX',tax)" class="fas fa-edit"></i>
                           <i (click)="deleteTax(tax.id)" class="fa fa-trash-o ml-2"></i>
-                          <i (click)="OpenDetails('TAX_DETAILS',tax)" class="fa fa-eye ml-2"></i> -->
+                          <!-- <i (click)="OpenDetails('TAX_DETAILS',tax)" class="fa fa-eye ml-2"></i> -->
                         </td>
                       </tr>
                     </tbody>

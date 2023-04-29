@@ -9,6 +9,112 @@
 
 
   <div class="modal-body">
+    <!-- EMPLOYERS -->
+    <ng-container *ngIf="this.type==='EMPLOYERS'">
+      <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+        <div class="input-group">
+          <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-presentation"></i></label></span>
+          <input type="text" class="form-control" [placeholder]="'First Name'" name="firstName"
+            ngModel #firstName="ngModel" required />
+        </div>
+        <div *ngIf="firstName.invalid && firstName.touched" class="alert alert-danger p-2" role="alert">
+          <span>ENTER First Name</span>
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-company"></i></label></span>
+          <input type="text" class="form-control" placeholder="Last Name" name="lastName" ngModel
+            #lastName="ngModel" required />
+        </div>
+        <div *ngIf="lastName.invalid && lastName.touched" class="alert alert-danger p-2" role="alert">
+          <span>Enter Last Name !
+          </span>
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-company"></i></label></span>
+          <input type="text" class="form-control" [placeholder]="'Email'"
+            name="email" ngModel #email="ngModel" email="true" required />
+        </div>
+        <div *ngIf="email.invalid && email.touched || email.errors?.email" class="alert alert-danger p-2" role="alert">
+          <span>Enter Email</span>
+        </div>
+
+      <!--    <div class="form-outline mb-4">
+
+            <div *ngIf="endDate.invalid && endDate.touched" class="alert alert-danger p-2" role="alert">
+              Enter End Date
+            </div>
+        </div>
+
+       *ngIf="" -->
+
+        <div class="input-group">
+          <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-company"></i></label></span>
+                <input class="form-control textbox-n" type="date"
+                [placeholder]="'tetetetetet'" onkeydown="return false" name="endDate"
+                ngModel #endDate="ngModel" required
+                (click)="setinputtype($event,'endDate')" min="{{ this.actualDate | date: 'yyyy-MM-dd' }}" />
+        </div>
+
+
+        <div class="input-group">
+          <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-company"></i></label></span>
+          <input class="form-control" [type]="startperiodinputype"
+          [placeholder]="'TAX_COMPONENT.POPUP.STARTPERIOD'|translate"
+          (click)="setinputtype('start_period')"
+            onkeydown="return false" name="start_period" ngModel #start_period="ngModel" required />
+
+        </div>
+        <div *ngIf="start_period.invalid && start_period.touched" class="alert alert-danger p-2" role="alert">
+          <span>{{"TAX_COMPONENT.POPUP.ENTER_STARTPERIOD"|translate}}</span>
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-company"></i></label></span>
+          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.FILLINGFREQ'|translate"
+            name="filling_frequency" ngModel #filling_frequency="ngModel" required />
+        </div>
+        <div *ngIf="filling_frequency.invalid && filling_frequency.touched" class="alert alert-danger p-2" role="alert">
+          <span>{{"TAX_COMPONENT.POPUP.ENTER_FILLINGFREQ"|translate}}</span>
+        </div>
+
+        <div class="input-group">
+          <span class="input-group-prepend"><label class="input-group-text"><i
+                class="icofont icofont-company"></i></label></span>
+          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.COLLECTION_TYPE'|translate"
+            name="collection_type" ngModel #collection_type="ngModel" required />
+        </div>
+        <div *ngIf="collection_type.invalid && collection_type.touched" class="alert alert-danger p-2" role="alert">
+          <span>{{"TAX_COMPONENT.POPUP.ENTER_COLLECTIONTYPE"|translate}}</span>
+        </div>
+
+        <div class="modal-footer">
+          <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
+            class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+            {{'CANCEL'|translate}}
+          </button>
+        </div>
+
+
+
+
+      </form>
+    </ng-container>
+
+
+
+
+
+
+
     <!-- COMPANY -->
     <ng-container *ngIf="this.type==='COMPANY'">
       <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
@@ -199,90 +305,7 @@
       </form>
     </ng-container>
 
-    <!-- TAX -->
-    <ng-container *ngIf="this.type==='TAX'">
-      <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
-        <div class="input-group">
-          <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-presentation"></i></label></span>
-          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.NAME'|translate" name="name"
-            ngModel #name="ngModel" required />
-        </div>
-        <div *ngIf="name.invalid && name.touched" class="alert alert-danger p-2" role="alert">
-          <span>{{"TAX_COMPONENT.POPUP.ENTER_NAME"|translate}}</span>
-        </div>
 
-        <div class="input-group">
-          <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-company"></i></label></span>
-          <input type="text" class="form-control" placeholder="Description" name="description" ngModel
-            #description="ngModel" required />
-        </div>
-        <div *ngIf="description.invalid && description.touched" class="alert alert-danger p-2" role="alert">
-          <span>{{"TAX_COMPONENT.POPUP.ENTER_DESCRIPTION"|translate}}</span>
-        </div>
-
-        <div class="input-group">
-          <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-company"></i></label></span>
-          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.AGENCYNAME'|translate"
-            name="agency_name" ngModel #agency_name="ngModel" required />
-        </div>
-        <div *ngIf="agency_name.invalid && agency_name.touched" class="alert alert-danger p-2" role="alert">
-          <span>{{"TAX_COMPONENT.POPUP.ENTER_AGENCYNAME"|translate}}</span>
-        </div>
-
-        <div class="input-group">
-          <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-company"></i></label></span>
-          <input type="number" class="form-control"
-          [placeholder]="'TAX_COMPONENT.POPUP.BUSINESS'|translate"
-            name="businessNo" ngModel #businessNo="ngModel" />
-        </div>
-
-
-        <div class="input-group">
-          <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-company"></i></label></span>
-          <input class="form-control" [type]="startperiodinputype"
-          [placeholder]="'TAX_COMPONENT.POPUP.STARTPERIOD'|translate"
-          (click)="setinputtype('start_period')"
-            onkeydown="return false" name="start_period" ngModel #start_period="ngModel" required />
-
-        </div>
-        <div *ngIf="start_period.invalid && start_period.touched" class="alert alert-danger p-2" role="alert">
-          <span>{{"TAX_COMPONENT.POPUP.ENTER_STARTPERIOD"|translate}}</span>
-        </div>
-
-        <div class="input-group">
-          <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-company"></i></label></span>
-          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.FILLINGFREQ'|translate"
-            name="filling_frequency" ngModel #filling_frequency="ngModel" required />
-        </div>
-        <div *ngIf="filling_frequency.invalid && filling_frequency.touched" class="alert alert-danger p-2" role="alert">
-          <span>{{"TAX_COMPONENT.POPUP.ENTER_FILLINGFREQ"|translate}}</span>
-        </div>
-
-        <div class="input-group">
-          <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-company"></i></label></span>
-          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.COLLECTION_TYPE'|translate"
-            name="collection_type" ngModel #collection_type="ngModel" required />
-        </div>
-        <div *ngIf="collection_type.invalid && collection_type.touched" class="alert alert-danger p-2" role="alert">
-          <span>{{"TAX_COMPONENT.POPUP.ENTER_COLLECTIONTYPE"|translate}}</span>
-        </div>
-
-        <div class="modal-footer">
-          <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
-            class="btn btn-outline-primary" />
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
-            {{'CANCEL'|translate}}
-          </button>
-        </div>
-      </form>
-    </ng-container>
   </div>
 
   <ng-container *ngIf="this.type==='CUSTOMER'">
