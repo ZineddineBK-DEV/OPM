@@ -97,6 +97,9 @@ exports.login = async (req, res) => {
 
 exports.verify = async (req, res, next) => {
   try {
+    if (!req.headers.authorization){
+      throw("invalid token");
+    }
     const token = req.headers.authorization.split(' ')[1];
     const { tokenDetails, message ,error } = await tokenGen.verifyToken(token);
     if(error){
@@ -106,7 +109,6 @@ exports.verify = async (req, res, next) => {
     res.setHeader('Authorization', `Bearer ${tokenDetails.AccessToken}`);
     next();
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: error });
   }
 };

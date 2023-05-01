@@ -14,6 +14,7 @@ const clientRoute = require("./src/routes/clientRoute");
 const employeeRoute = require("./src/routes/employeeRoute");
 const contractRoute = require("./src/routes/contractRoute");
 const fileRoute = require("./src/routes/fileRoute");
+const folderRoute = require("./src/routes/folderRoute");
 
 
 
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
   }
 });
 //=========== connecting to database ==============
+let gfs;
 mongoose.set("strictQuery", true);
 mongoose   
   .connect(
@@ -60,6 +62,11 @@ mongoose
   })
   .catch((err) => console.log("error has been occured: ", err));
 
+// connecting the file upload to mongoose
+
+
+
+
 // ========= configurring routes ==========
 
 //app.use("/user", userRoute); not going to use those
@@ -68,6 +75,7 @@ app.use("/client", auth.verify, clientRoute);
 app.use("/employee", auth.verify, employeeRoute);
 app.use("/contract", auth.verify, contractRoute);
 app.use("/file", auth.verify, fileRoute);
+app.use("/folder", auth.verify, folderRoute);
 
 // ======== exporting app ========
 module.exports = app;

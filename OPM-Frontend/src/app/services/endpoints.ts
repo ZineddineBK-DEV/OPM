@@ -7,7 +7,9 @@ export const USER_LOGOUT_END_POINT: string = `${environment.apiUrl}/logout`;
 
 //employers
 export const GET_USER_employers_END_POINT: string = `${environment.apiUrl}/employee/getAllEmployeesByAuthority`;
-
+export const GET_USER_employers_BY_VALID_END_POINT: string = `${environment.apiUrl}/employee/getAllEmployeesByValid`;
+export const PUT_USER_USER_employers_BY_VALIDE: string = `${environment.apiUrl}/employee/updateEmployee`;
+//
 // ******************************//
 export const VERIFY_ACCOUNT_END_POINT: string = `${environment.apiUrl}/auth/user/validate`;
 export const RESET_VERIFY_EMAIL_END_POINT: string = `${environment.apiUrl}/auth/user/verify/reset/email`;

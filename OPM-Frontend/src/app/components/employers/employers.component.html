@@ -42,11 +42,10 @@
                   <div class="col-sm-4 mb-5 mr-2">
                     <select class="form-select" value="-1" (change)="changeSelectedFile($event.target.value)">
                       <option value="-1" disabled>
-                        {{'ACCOUNTING_PLAN_COMPONENT.SELECT.SELECT_FILE'|translate}}
+                        Select Option
                       </option>
-                      <option *ngFor="let file of this.sourceFiles;let i=index" [value]="file.upload+';'+file.id">
-                        {{file.source}}
-                      </option>
+                      <option value="true" > Active Account </option>
+                      <option value="false"> Inactive Account</option>
                     </select>
                   </div>
 
@@ -97,11 +96,11 @@
                         <td scope="row"> {{
                           employer.birthDate|date:'dd/MM/yyyy'
                           }} </td>
-                        <td scope="row">
-                          <i (click)="OpenModal('UPDATE_TAX',tax)" class="fas fa-edit"></i>
-                          <i (click)="deleteTax(tax.id)" class="fa fa-trash-o ml-2"></i>
-                          <!-- <i (click)="OpenDetails('TAX_DETAILS',tax)" class="fa fa-eye ml-2"></i> -->
-                        </td>
+                          <td scope="row">
+                            <i  *ngIf=" employer.valid== false "(click)="changeEtaEmpl(true,employer.email)" class="fa  fa-times"  ></i>
+                            <i *ngIf=" employer.valid==  true"(click)="changeEtaEmpl(false,employer.email)" class="fa fa-check" aria-hidden="true" ></i>
+                            <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
+                          </td>
                       </tr>
                     </tbody>
                   </table>
