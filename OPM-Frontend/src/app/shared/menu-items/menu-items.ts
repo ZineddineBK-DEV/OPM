@@ -44,6 +44,14 @@ const MENUITEMS:Menu[] = [
         routerLink:"/app/dashboard"
       },
       {
+        state: 'employees',
+        short_label: 'EMP',
+        name: 'EMPLOYEES',
+        type: 'link',
+        icon: 'fas fa-user-friends',
+        routerLink:"/app/employers"
+      },
+      {
         state: 'accounting-plan',
         short_label: 'A-P',
         name: 'ACCOUNTING_PLAN',
@@ -67,14 +75,7 @@ const MENUITEMS:Menu[] = [
         icon: 'fas fa-file-invoice-dollar',
         routerLink:"/app/tax"
       },
-      {
-        state: 'employees',
-        short_label: 'EMP',
-        name: 'EMPLOYEES',
-        type: 'link',
-        icon: 'fas fa-user-friends',
-        routerLink:"/app/employees"
-      },
+
 
     ],
   },
