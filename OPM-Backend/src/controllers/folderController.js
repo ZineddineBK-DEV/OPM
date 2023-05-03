@@ -14,10 +14,10 @@ const File = require('../models/fileModel');
 // Add file to the folder
  exports.addFile = async (req, res) => {
    try {
-    const file = File(req.body);
+    const file = File({fileName: req.file.filename, path:req.file.destination});
     await file.save();
     const folder = await Folder.findOneAndUpdate(
-      req.body.clientId,
+      { clientId: req.body.clientId },
       { $push: { listOfFiles: file } },
       { new: true }
      );
@@ -31,7 +31,7 @@ const File = require('../models/fileModel');
 exports.removeFile = async (req, res) => {
   try {
    const folder = await Folder.findOneAndUpdate(
-     req.body.clientId,
+     { clientId: req.body.clientId },
      { $pull: { listOfFiles: req.body.fileId } },
      { new: true }
     );

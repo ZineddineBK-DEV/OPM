@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const folderController = require('../controllers/folderController');
-const storage = require('../middlewares/fileMiddleware');
+const upload = require('../middlewares/fileMiddleware');
 
 // folder routes
 //router.post('/', folderController.createFolder);
-router.post('/add', folderController.addFile);
+router.post('/add', upload.single('file'), folderController.addFile);
 router.post('/remove', folderController.removeFile);
 router.get('/all', folderController.getAllFolders);
 router.get('/', folderController.getFolderById);

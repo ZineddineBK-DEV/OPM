@@ -1,22 +1,22 @@
-// const multer = require("multer");
-// const GridFsStorage = require("multer-gridfs-storage");
+ const multer = require("multer");
 
-// const storage = new GridFsStorage({
-//     url: "mongodb+srv://root:root@opmcluster.dvzi5iq.mongodb.net/OPM?retryWrites=true&w=majority",
-//     options: { useNewUrlParser: true, useUnifiedTopology: true },
-//     file: (req, file) => {
-//         const match = ["image/png", "image/jpeg"];
+ const storage = multer.diskStorage ({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads');
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
+    }
+ });
 
-//         if (match.indexOf(file.mimetype) === -1) {
-//             const filename = `${file.originalname}`;
-//             return filename;
-//         }
+ const filefilter = (req, file, cb) => {
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
+        || file.mimetype === 'image/jpeg'){
+            cb(null, true);
+        }else {
+            cb(null, false);
+        }
+}
 
-//         return {
-//             bucketName: "photos",
-//             filename: `${file.originalname}`,
-//         };
-//     },
-// });
-
-// module.exports = multer({ storage });
+const upload = multer({storage: storage, fileFilter: filefilter});
+ module.exports = upload;
