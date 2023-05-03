@@ -9,6 +9,14 @@ export const USER_LOGOUT_END_POINT: string = `${environment.apiUrl}/logout`;
 export const GET_USER_employers_END_POINT: string = `${environment.apiUrl}/employee/getAllEmployeesByAuthority`;
 export const GET_USER_employers_BY_VALID_END_POINT: string = `${environment.apiUrl}/employee/getAllEmployeesByValid`;
 export const PUT_USER_USER_employers_BY_VALIDE: string = `${environment.apiUrl}/employee/updateEmployee`;
+
+
+//*****company******* */
+export const GET_LIST_CLIENTS_BAY_Type : string = `${environment.apiUrl}/client/get_bay_type_active_compte`;
+export const GET_LIST_CLIENTS_All : string = `${environment.apiUrl}/client/all`;
+export const PUT_USER_USER_CLIENTS_BY_VALIDE: string = `${environment.apiUrl}/client/updateClient`;
+
+
 //
 // ******************************//
 export const VERIFY_ACCOUNT_END_POINT: string = `${environment.apiUrl}/auth/user/validate`;

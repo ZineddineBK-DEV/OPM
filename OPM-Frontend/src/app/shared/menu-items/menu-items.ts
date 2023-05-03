@@ -52,14 +52,6 @@ const MENUITEMS:Menu[] = [
         routerLink:"/app/employers"
       },
       {
-        state: 'accounting-plan',
-        short_label: 'A-P',
-        name: 'ACCOUNTING_PLAN',
-        type: 'link',
-        icon: 'fas fa-receipt',
-        routerLink:"/app/accounting/plan"
-      },
-      {
         state: 'company',
         short_label: 'C',
         name: 'COMPANY',
@@ -67,6 +59,15 @@ const MENUITEMS:Menu[] = [
         icon: 'fas fa-building',
         routerLink:"/app/company"
       },
+      {
+        state: 'accounting-plan',
+        short_label: 'A-P',
+        name: 'ACCOUNTING_PLAN',
+        type: 'link',
+        icon: 'fas fa-receipt',
+        routerLink:"/app/accounting/plan"
+      },
+
       {
         state: 'tax',
         short_label: 'T',

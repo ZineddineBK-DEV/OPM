@@ -36,6 +36,13 @@ const routes: Routes = [
             (m) => m.EmployersModule
           ),
       },
+      {
+        path: "company",
+        loadChildren: () =>
+          import("../components/companies/companies.module").then(
+            (m) => m.CompaniesModule
+          ),
+      },
 
 
       // {
