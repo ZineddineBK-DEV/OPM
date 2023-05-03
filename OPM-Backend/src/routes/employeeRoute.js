@@ -3,7 +3,7 @@ const router = express.Router();
 const employeeController = require('../controllers/employeeController');
 
 //employee routes
-router.get('/all', employeeController.getAllEmployees);
+router.get('/all',employeeController.getAllEmployees);
 router.get('/getAllEmployeesByAuthority/:authority', employeeController.getAllEmployeesByAuthority);
 router.get('/getAllEmployeesByValid/:valid', employeeController.getAllEmployeesByValid);
 router.get('/getEmployeeByEmail', employeeController.getEmployeeByEmail);

@@ -23,6 +23,21 @@ exports.getClientByEmail = async (req, res) => {
     }
   };
 
+  exports.get_bay_type_active_compte = async (req, res) => {
+    const { valid } = req.params;
+
+    try {
+      if(!valid){
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+      const client = await Client.find({valid});
+      res.status(200).json({err: false, message: "Successful operation !", rows: client});
+    } catch (error) {
+      res.status(500).json({ err: true, message: error.message });
+    }
+  };
+  
+// 
 // Update a user still working on it username
 exports.updateClient = async (req, res) => {
   try {
