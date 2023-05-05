@@ -23,7 +23,7 @@ exports.getClientByEmail = async (req, res) => {
     }
   };
 
-  exports.get_bay_type_active_compte = async (req, res) => {
+  exports.getAllClientsByValid = async (req, res) => {
     const { valid } = req.params;
 
     try {

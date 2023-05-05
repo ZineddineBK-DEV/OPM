@@ -12,11 +12,7 @@ const fileSchema = new mongoose.Schema({
     path: {
       type: String,
       required: true
-    },
-    valid: {
-        type: Boolean,
-        default: false
-      }
+    }
   });
 
 const File = mongoose.model("File", fileSchema);

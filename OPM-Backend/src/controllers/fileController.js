@@ -23,7 +23,7 @@ exports.getAllFiles = async (req, res) => {
 // Get a single file
 exports.getFileById = async (req, res) => {
     try {
-      const file = await File.findById(req.body._id);
+      const file = await File.findById(req.params.id);
       if (!file) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
@@ -36,10 +36,10 @@ exports.getFileById = async (req, res) => {
 // Update a user still working on it username
 exports.updateFile = async (req, res) => {
   try {
-    const { _id, path, valid } = req.body;
+    const { _id, path, fileName } = req.body;
     const updatedFile = await File.findByIdAndUpdate(
       { _id },
-      { path, valid },
+      { path, fileName },
       { new: true }
     );
     if (!updatedFile) {
@@ -55,11 +55,7 @@ exports.updateFile = async (req, res) => {
 // Delete a file
 exports.deleteFile = async (req, res) => {
   try {
-    const file = await File.findByIdAndUpdate(
-       req.body._id ,
-      { valid: false },
-      { new: true }
-    );
+    const file = await File.findByIdAndUpdate(req.body._id);
     if (!file) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }

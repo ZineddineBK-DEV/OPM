@@ -5,7 +5,7 @@ const fileController = require('../controllers/fileController');
 // file routes
 router.post('/', fileController.createFile);
 router.get('/all', fileController.getAllFiles);
-router.get('/', fileController.getFileById);
+router.get('/:id', fileController.getFileById);
 router.put('/', fileController.updateFile);
 router.delete('/', fileController.deleteFile);
 

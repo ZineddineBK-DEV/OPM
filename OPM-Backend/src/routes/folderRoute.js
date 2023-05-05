@@ -5,10 +5,10 @@ const upload = require('../middlewares/fileMiddleware');
 
 // folder routes
 //router.post('/', folderController.createFolder);
-router.post('/add', upload.single('file'), folderController.addFile);
-router.post('/remove', folderController.removeFile);
+router.post('/addFile', upload.single('file'), folderController.addFile);
+router.post('/removeFile', folderController.removeFile);
 router.get('/all', folderController.getAllFolders);
-router.get('/', folderController.getFolderById);
+router.get('/:id', folderController.getFolderById);
 router.put('/', folderController.updateFolder);
 router.delete('/', folderController.deleteFolder);
 

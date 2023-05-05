@@ -11,11 +11,7 @@ const folderSchema = new mongoose.Schema({
     },
     contractId: { type: mongoose.Schema.Types.ObjectId, required: true },
     clientId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    listOfFiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }],
-    valid: {
-        type: Boolean,
-        default: false
-      }
+    listOfFiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }]
   });
 
 const Folder = mongoose.model("Folder", folderSchema);

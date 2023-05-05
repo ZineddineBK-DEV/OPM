@@ -14,7 +14,7 @@ const File = require('../models/fileModel');
 // Add file to the folder
  exports.addFile = async (req, res) => {
    try {
-    const file = File({fileName: req.file.filename, path:req.file.destination});
+    const file = File({ fileName: req.file.filename, path:req.file.destination+'/'+req.file.filename });
     await file.save();
     const folder = await Folder.findOneAndUpdate(
       { clientId: req.body.clientId },
@@ -30,6 +30,10 @@ const File = require('../models/fileModel');
 // remove file to the folder
 exports.removeFile = async (req, res) => {
   try {
+   const file = await File.findByIdAndDelete(req.body.fileId);
+   if (!file){
+    return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+   }
    const folder = await Folder.findOneAndUpdate(
      { clientId: req.body.clientId },
      { $pull: { listOfFiles: req.body.fileId } },
@@ -54,7 +58,7 @@ exports.getAllFolders = async (req, res) => {
 // Get a single folder
 exports.getFolderById = async (req, res) => {
     try {
-      const folder = await Folder.findById(req.body.id);
+      const folder = await Folder.findById(req.params.id);
       if (!folder) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
@@ -67,10 +71,10 @@ exports.getFolderById = async (req, res) => {
 // Update a user still working on it username
 exports.updateFolder = async (req, res) => {
   try {
-    const { _id, name, valid } = req.body;
+    const { _id, name, contractId, clientId } = req.body;
     const updatedFolder = await Folder.findByIdAndUpdate(
       { _id },
-      { name, valid },
+      { name, contractId, clientId },
       { new: true }
     );
     if (!updatedFolder) {
@@ -86,11 +90,7 @@ exports.updateFolder = async (req, res) => {
 // Delete a folder
 exports.deleteFolder = async (req, res) => {
   try {
-    const folder = await Folder.findByIdAndUpdate(
-       req.body.id ,
-      { valid: false },
-      { new: true }
-    );
+    const folder = await Folder.findByIdAndDelete(req.body.id);
     if (!folder) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
