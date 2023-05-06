@@ -10,6 +10,7 @@ router.post('/removeFile', folderController.removeFile);
 router.get('/all', folderController.getAllFolders);
 router.get('/:id', folderController.getFolderById);
 router.get('/countFilesByClientId/:id', folderController.countFilesByClientId);
+router.get('/getFilesByclientId/:id', folderController.getFilesByclientId);
 router.put('/', folderController.updateFolder);
 router.delete('/', folderController.deleteFolder);
 

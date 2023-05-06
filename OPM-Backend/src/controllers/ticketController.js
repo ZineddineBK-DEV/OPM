@@ -47,6 +47,20 @@ exports.getTicketByWorkOrderId = async (req, res) => {
   }
 };
 
+  // Get a ticket by client id
+  exports.getTicketByClientId = async (req, res) => {
+    const clientId = req.params.id;
+    try {
+      const ticket = await Ticket.findOne({ clientId });
+      if (!ticket) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+      res.status(200).json({err: false, message: "Successful operation !", rows: ticket});
+    } catch (err) {
+      res.status(500).json({ err: true, message: error.message });
+    }
+  };
+
   exports.countTicketsByClientId = async (req, res) => {
     const clientId = req.params.id;
     try {

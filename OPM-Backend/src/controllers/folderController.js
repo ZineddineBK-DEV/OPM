@@ -63,10 +63,24 @@ exports.getFolderById = async (req, res) => {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
       res.status(200).json({err: false, message: "Successful operation !", rows: folder});
-    } catch (err) {
+    } catch (error) {
       res.status(500).json({ err: true, message: error.message });
     }
   };
+
+  // Get a just files
+exports.getFilesByclientId = async (req, res) => {
+  const clientId = req.params.id;
+  try {
+    const folder = await Folder.findOne({ clientId }).populate('listOfFiles');
+    if (!folder) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    res.status(200).json({ err: false, message: "Successful operation !", rows: folder.listOfFiles });
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
 
   exports.countFilesByClientId = async (req, res) => {
     const  clientId = req.params.id;
