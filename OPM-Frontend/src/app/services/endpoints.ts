@@ -12,12 +12,29 @@ export const PUT_USER_USER_employers_BY_VALIDE: string = `${environment.apiUrl}/
 
 
 //*****company******* */
-export const GET_LIST_CLIENTS_BAY_Type : string = `${environment.apiUrl}/client/get_bay_type_active_compte`;
+export const GET_LIST_CLIENTS_BAY_Type : string = `${environment.apiUrl}/client/getAllClientsByValid`;
 export const GET_LIST_CLIENTS_All : string = `${environment.apiUrl}/client/all`;
 export const PUT_USER_USER_CLIENTS_BY_VALIDE: string = `${environment.apiUrl}/client/updateClient`;
 
 
-//
+//********admin********** */
+export const GET_LIST_FOLDERS_All: string = `${environment.apiUrl}/folder/all`;
+
+// ***********static for admi for users ************ */
+export const GET_USER_COUNT_files_BY_VALID_END_POINT: string = `${environment.apiUrl}/folder/countFilesByClientId`;
+export const GET_USER_COUNT_tickrt_END_POINT: string = `${environment.apiUrl}/ticket/countTIcketsByClientId`;
+export const GET_USER_USER_COUNT_worekorder_BY_VALIDE: string = `${environment.apiUrl}/workOrder/countWorkOrderByClientId`;
+
+
+
+
+
+
+
+
+
+
+
 // ******************************//
 export const VERIFY_ACCOUNT_END_POINT: string = `${environment.apiUrl}/auth/user/validate`;
 export const RESET_VERIFY_EMAIL_END_POINT: string = `${environment.apiUrl}/auth/user/verify/reset/email`;

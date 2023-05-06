@@ -43,6 +43,46 @@ const routes: Routes = [
             (m) => m.CompaniesModule
           ),
       },
+      {
+        path: "folders",
+        loadChildren: () =>
+          import("../components/foldres/foldres.module").then(
+            (m) => m.FoldresModule
+          ),
+      },
+      {
+        path: "dashAdminCli/:id",
+        loadChildren: () =>
+          import("../components/dash-admin-clint-stat/dash-admin-clint-stat.module").then(
+            (m) => m.DashAdminClintStatModule
+          ),
+      },
+      // {
+      //   path: "ticketDetail",
+      //   loadChildren: () =>
+      //     import("../components/ticket-details-admin/ticket-details-admin-routing.module").then(
+      //       (m) => m.TicketDetailsAdminRoutingModule
+      //     ),
+      // },
+
+
+      // {
+      //   path: "FilesDetail",
+      //   loadChildren: () =>
+      //     import("../components/files-details-admin/files-details-admin-routing.module").then(
+      //       (m) => m.FilesDetailsAdminRoutingModule
+      //     ),
+      // },
+
+
+      // {
+      //   path: "workOrderDetail",
+      //   loadChildren: () =>
+      //     import("../components/work-order-details-admin/work-order-details-admin-routing.module").then(
+      //       (m) => m.WorkOrderDetailsAdminRoutingModule
+      //     ),
+      // },
+
 
 
       // {

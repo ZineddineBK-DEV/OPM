@@ -60,6 +60,14 @@ const MENUITEMS:Menu[] = [
         routerLink:"/app/company"
       },
       {
+        state: 'folders',
+        short_label: 'T',
+        name: 'FOLDERS',
+        type: 'link',
+        icon: 'fas fa-solid fa-folder',
+        routerLink:"/app/folders"
+      },
+      {
         state: 'accounting-plan',
         short_label: 'A-P',
         name: 'ACCOUNTING_PLAN',
@@ -68,14 +76,7 @@ const MENUITEMS:Menu[] = [
         routerLink:"/app/accounting/plan"
       },
 
-      {
-        state: 'tax',
-        short_label: 'T',
-        name: 'TAX',
-        type: 'link',
-        icon: 'fas fa-file-invoice-dollar',
-        routerLink:"/app/tax"
-      },
+
 
 
     ],
