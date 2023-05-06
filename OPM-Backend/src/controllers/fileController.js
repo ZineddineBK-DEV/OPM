@@ -32,6 +32,17 @@ exports.getFileById = async (req, res) => {
       res.status(500).json({ err: true, message: error.message });
     }
   };
+  
+  exports.countFilesByClientId = async (req, res) => {
+    const clientId = req.params.id;
+    try {
+      const count = await File.countDocuments({ clientId });
+      res.status(200).json({err: false, message: "Successful operation !", rows: count, clientId });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ err: true, message: error.message });
+    }
+  };
 
 // Update a user still working on it username
 exports.updateFile = async (req, res) => {

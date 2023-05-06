@@ -11,7 +11,7 @@ const ticketSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['In progress', 'Done'],
+        enum: ['In progress', 'Done', 'Expired'],
         default: 'In progress'
       },
     clientId: { type: mongoose.Schema.Types.ObjectId, required: true },

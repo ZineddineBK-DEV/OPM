@@ -33,6 +33,20 @@ exports.getFollowUpById = async (req, res) => {
     }
   };
 
+  // Get a follow up by ticket id
+exports.gefollowUpByTicketId = async (req, res) => {
+  const ticketId = req.params.id;
+  try {
+    const followUp = await FollowUp.findOne({ ticketId });
+    if (!followUp) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    res.status(200).json({err: false, message: "Successful operation !", rows: followUp});
+  } catch (err) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
 // Update a user still working on it username
 exports.updateFollowUp = async (req, res) => {
   try {

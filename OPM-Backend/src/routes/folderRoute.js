@@ -9,6 +9,7 @@ router.post('/addFile', upload.single('file'), folderController.addFile);
 router.post('/removeFile', folderController.removeFile);
 router.get('/all', folderController.getAllFolders);
 router.get('/:id', folderController.getFolderById);
+router.get('/countFilesByClientId/:id', folderController.countFilesByClientId);
 router.put('/', folderController.updateFolder);
 router.delete('/', folderController.deleteFolder);
 

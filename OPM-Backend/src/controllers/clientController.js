@@ -37,8 +37,7 @@ exports.getClientByEmail = async (req, res) => {
     }
   };
   
-// 
-// Update a user still working on it username
+// Update a user client
 exports.updateClient = async (req, res) => {
   try {
     const { email, password, company, image, valid, newEmail } = req.body;

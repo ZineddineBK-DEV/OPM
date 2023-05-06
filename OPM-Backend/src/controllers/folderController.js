@@ -48,7 +48,7 @@ exports.removeFile = async (req, res) => {
 // Get all folders
 exports.getAllFolders = async (req, res) => {
   try {
-    const folder = await Folder.find();
+    var folder = await Folder.find().populate('clientId', 'company');
     res.status(200).json({err: false, message: "Successful operation !", rows: folder});
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
@@ -58,12 +58,25 @@ exports.getAllFolders = async (req, res) => {
 // Get a single folder
 exports.getFolderById = async (req, res) => {
     try {
-      const folder = await Folder.findById(req.params.id);
+      const folder = await Folder.findById(req.params.id).populate('listOfFiles');
       if (!folder) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
       res.status(200).json({err: false, message: "Successful operation !", rows: folder});
     } catch (err) {
+      res.status(500).json({ err: true, message: error.message });
+    }
+  };
+
+  exports.countFilesByClientId = async (req, res) => {
+    const  clientId = req.params.id;
+  
+    try {
+      const folder = await Folder.findOne({ clientId });
+      const count = folder.listOfFiles.length;
+      res.status(200).json({ err: false, message: "Successful operation !", rows: {count, clientId} });
+    } catch (error) {
+      console.error(error);
       res.status(500).json({ err: true, message: error.message });
     }
   };

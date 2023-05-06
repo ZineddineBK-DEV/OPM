@@ -33,6 +33,31 @@ exports.getTicketById = async (req, res) => {
     }
   };
 
+  // Get a ticket by work order id
+exports.getTicketByWorkOrderId = async (req, res) => {
+  const workOrderId = req.params.id;
+  try {
+    const ticket = await Ticket.findOne({ workOrderId });
+    if (!ticket) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    res.status(200).json({err: false, message: "Successful operation !", rows: ticket});
+  } catch (err) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
+  exports.countTicketsByClientId = async (req, res) => {
+    const clientId = req.params.id;
+    try {
+      const count = await Ticket.countDocuments({ clientId });
+      res.status(200).json({err: false, message: "Successful operation !", rows: {count, clientId} });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ err: true, message: error.message });
+    }
+  };
+
 // Update a user still working on it username
 exports.updateTicket = async (req, res) => {
   try {

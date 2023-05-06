@@ -10,7 +10,7 @@ const folderSchema = new mongoose.Schema({
       required: true
     },
     contractId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    clientId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    clientId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Client' },
     listOfFiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }]
   });
 

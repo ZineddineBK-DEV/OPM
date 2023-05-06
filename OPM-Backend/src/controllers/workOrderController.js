@@ -71,6 +71,31 @@ exports.getWorkOrderById = async (req, res) => {
     }
   };
 
+    // Get a work order by client id
+exports.getWorkOrderByClientId = async (req, res) => {
+  const clientId = req.params.id;
+  try {
+    const workOrder = await WorkOrder.findOne({ clientId });
+    if (!workOrder) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+  } catch (err) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
+  exports.countWorkOrderByClientId = async (req, res) => {
+    const clientId = req.params.id;
+    try {
+      const count = await WorkOrder.countDocuments({ clientId });
+      res.status(200).json({err: false, message: "Successful operation !", rows: {count, clientId} });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ err: true, message: error.message });
+    }
+  };
+
 // Update a user still working on it username
 exports.updateWorkOrder = async (req, res) => {
   try {
