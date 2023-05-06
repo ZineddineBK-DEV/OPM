@@ -3,10 +3,10 @@
     <div class="row align-items-end">
       <div class="col-lg-8">
         <div class="page-header-title">
-          <span><i class="fas fas fa-users" style="background-color: #000080"></i></span>
+          <span><i class="fas fa-solid fa-folder" style="background-color: #000080"></i></span>
           <div class="d-inline">
             <span class="d-block text-primary">
-              <h4>Employers</h4>
+              <h4>Folders</h4>
             </span>
             <!-- <span class="text-dark">Tax Page</span> -->
           </div>
@@ -25,7 +25,7 @@
           <div class="card">
             <div class="col-sm-12">
               <div class="card-header">
-                <h5 class="card-header-text">Employers list</h5>
+                <h5 class="card-header-text">Folders list</h5>
                 <div class="col-md-12 col-lg-3 offset-lg-10">
                   <div class="pcoded-search">
                     <div class="pcoded-search-box">
@@ -39,7 +39,7 @@
               </div>
               <div class="container">
                 <div class="row">
-                  <div class="col-sm-4 mb-5 mr-2">
+                  <!-- <div class="col-sm-4 mb-5 mr-2">
                     <select class="form-select" value="-1" (change)="changeSelectedFile($event.target.value)">
                       <option value="-1" disabled>
                         Select Option
@@ -47,7 +47,7 @@
                       <option value="true" > Active Account </option>
                       <option value="false"> Inactive Account</option>
                     </select>
-                  </div>
+                  </div> -->
 
 
                   <div class="col-sm-1 mb-5 mr-2 ml-4" *ngIf="this.upload">
@@ -64,10 +64,10 @@
                     <thead>
                       <tr style="text-align: center">
                         <th scope="col">
-                          First Name
+                          Company name
                         </th>
                         <th scope="col">
-                          Email
+                          Folders name
                         </th>
 
                         <th scope="col">ACTIONS</th>
@@ -76,18 +76,16 @@
                     <tbody *ngFor="let client of this.clientList|slice">
                       <tr style="text-align: center">
                         <td scope="row">{{
-                          client.company
+                          client.name
                           }} </td>
 
                           <td scope="row"> {{
-                            client.email
+                            client.clientId.company
                             }} </td>
 
 
                           <td scope="row">
-                            <i  *ngIf=" client.valid== false "(click)="changeEtaClient(true,client.email)" class="fa  fa-times"  ></i>
-                            <i *ngIf=" client.valid==  true"(click)="changeEtaClient(false,client.email)" class="fa fa-check" aria-hidden="true" ></i>
-                            <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
+                            <a [routerLink]="['/app/dashAdminCli/', client.clientId._id]">  <i  class="fa fa-eye ml-2"></i></a>                            <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
                           </td>
                       </tr>
                     </tbody>
