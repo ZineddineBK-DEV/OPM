@@ -38,7 +38,7 @@ exports.register = async (req, res) => {
       const contract = Contract(req.body);
       await contract.save();
       obj.contractId = contract._id;
-      const folder = Folder({ name: obj.company, contractId: contract._id, clientId: obj._id });
+      const folder = Folder({ name: obj.company+"'s folder", contractId: contract._id, clientId: obj._id });
       await folder.save();
     }
     await obj.save();
