@@ -69,4 +69,5 @@ this.id=this.route.snapshot.paramMap.get("id");
       })
     );
   }
+
 }

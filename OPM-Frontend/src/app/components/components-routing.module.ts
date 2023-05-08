@@ -57,31 +57,31 @@ const routes: Routes = [
             (m) => m.DashAdminClintStatModule
           ),
       },
-      // {
-      //   path: "ticketDetail",
-      //   loadChildren: () =>
-      //     import("../components/ticket-details-admin/ticket-details-admin-routing.module").then(
-      //       (m) => m.TicketDetailsAdminRoutingModule
-      //     ),
-      // },
+      {
+        path: "ticketDetail/:id",
+        loadChildren: () =>
+          import("../components/ticket-details-admin/ticket-details-admin.module").then(
+            (m) => m.TicketDetailsAdminModule
+          ),
+      },
 
 
-      // {
-      //   path: "FilesDetail",
-      //   loadChildren: () =>
-      //     import("../components/files-details-admin/files-details-admin-routing.module").then(
-      //       (m) => m.FilesDetailsAdminRoutingModule
-      //     ),
-      // },
+      {
+        path: "filesDetail/:id",
+        loadChildren: () =>
+          import("../components/files-details-admin/files-details-admin.module").then(
+            (m) => m.FilesDetailsAdminModule
+          ),
+      },
 
 
-      // {
-      //   path: "workOrderDetail",
-      //   loadChildren: () =>
-      //     import("../components/work-order-details-admin/work-order-details-admin-routing.module").then(
-      //       (m) => m.WorkOrderDetailsAdminRoutingModule
-      //     ),
-      // },
+      {
+        path: "workOrderDetail/:id",
+        loadChildren: () =>
+          import("../components/work-order-details-admin/work-order-details-admin.module").then(
+            (m) => m.WorkOrderDetailsAdminModule
+          ),
+      },
 
 
 
