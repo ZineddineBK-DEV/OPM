@@ -75,7 +75,7 @@ exports.getWorkOrderById = async (req, res) => {
 exports.getWorkOrderByClientId = async (req, res) => {
   const clientId = req.params.id;
   try {
-    const workOrder = await WorkOrder.findOne({ clientId });
+    const workOrder = await WorkOrder.find({ clientId });
     if (!workOrder) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }

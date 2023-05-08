@@ -51,7 +51,7 @@ exports.getTicketByWorkOrderId = async (req, res) => {
   exports.getTicketByClientId = async (req, res) => {
     const clientId = req.params.id;
     try {
-      const ticket = await Ticket.findOne({ clientId });
+      const ticket = await Ticket.find({ clientId });
       if (!ticket) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
