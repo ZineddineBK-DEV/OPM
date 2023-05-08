@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import {  GET_LIST_CLIENTS_BAY_Type, GET_LIST_FOLDERS_All,   PUT_USER_USER_CLIENTS_BY_VALIDE } from '../../services/endpoints';
+import {  GET_LIST_CLIENTS_BAY_Type, GET_LIST_FILES_BY_CLIENTS, GET_LIST_FOLDERS_All,   PUT_USER_USER_CLIENTS_BY_VALIDE } from '../../services/endpoints';
 import { ActivatedRoute } from '@angular/router';
 import Observer from '../../services/observer';
 
@@ -38,7 +38,8 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
 
   getListFolder() {
 
-    this.backendService.get(`${GET_LIST_FOLDERS_All}`).subscribe(
+    this.backendService.get(`${GET_LIST_FILES_BY_CLIENTS}/${this.id}`).subscribe(
+
       new Observer().OBSERVER_GET((response) => {
     console.log(response);
 

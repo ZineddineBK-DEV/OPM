@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { GET_LIST_CLIENTS_All, GET_LIST_CLIENTS_BAY_Type, GET_LIST_FOLDERS_All, GET_USER_employers_BY_VALID_END_POINT, GET_USER_employers_END_POINT, PUT_USER_USER_CLIENTS_BY_VALIDE, PUT_USER_USER_employers_BY_VALIDE } from '../../services/endpoints';
+import { GET_LIST_FILES_BY_CLIENTS } from '../../services/endpoints';
 import { ActivatedRoute } from '@angular/router';
 import Observer from '../../services/observer';
 
@@ -13,7 +13,7 @@ import Observer from '../../services/observer';
   styleUrls: ['./files-details-admin.component.scss']
 })
 export class FilesDetailsAdminComponent implements OnInit {
-  clientList: [] = [];
+  filesListe: [] = [];
   collectionSize: number = 0;
   page = 1;
   p: number = 1;
@@ -33,53 +33,29 @@ export class FilesDetailsAdminComponent implements OnInit {
   }
 
   ngOnInit() {
-        this.getListFolder();
+        this.getListFilesByClients();
   }
 
-  getListFolder() {
-
-    this.backendService.get(`${GET_LIST_FOLDERS_All}`).subscribe(
+  getListFilesByClients() {
+    this.backendService.get(`${GET_LIST_FILES_BY_CLIENTS}/${this.id}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
     console.log(response);
-
-        // this.collectionSize=response.totalItems;
-         this.clientList = response.rows;
-      })
-    );
-  }
-
-  getListFolderByValid(valide:string ) {
-
-    this.backendService.get(`${GET_LIST_CLIENTS_BAY_Type}/${valide}`).subscribe(
-      new Observer().OBSERVER_GET((response) => {
-    console.log(response);
-
-        // this.collectionSize=response.totalItems;
-         this.clientList = response.rows;
+         this.filesListe = response.rows;
       })
     );
   }
 
 
 
+openFile(url :string){
+  const filesUrl = "E:/project/OPM-main/OPM-Backend/"+url ;
+  window.open(url, '_blank');
+}
 
-  changeEtaClient(etat:boolean,email:string){
-    const payload ={valid:etat,email:email}
-     this.backendService
-     .put(PUT_USER_USER_CLIENTS_BY_VALIDE, payload)
-     .subscribe(
-       new Observer(
-         this.router,// just un class dans angular
-         null,//target : lin eli machilou
-         true,//relode
-         true,//swwet alert
-         this.sharedService,//obligtour si ona reload
-       ).OBSERVER_EDIT()
-     );
-       }
+
 
   changeSelectedFile(valid) {
-    this.getListFolderByValid(valid);
+    // this.getListFolderByValid(valid);
 
   }
   handlePageSizeChange(event: any): void {
@@ -91,7 +67,7 @@ export class FilesDetailsAdminComponent implements OnInit {
 
   handlePageChange(currentPage: number) {
     if(this.id_company){
-      this.getListFolder();
+      // this.getListFolder();
     }
     this.page = currentPage;
   }

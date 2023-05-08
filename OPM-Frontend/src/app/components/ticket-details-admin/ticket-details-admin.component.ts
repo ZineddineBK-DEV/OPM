@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { GET_LIST_CLIENTS_All, GET_LIST_CLIENTS_BAY_Type, GET_LIST_FOLDERS_All, GET_USER_employers_BY_VALID_END_POINT, GET_USER_employers_END_POINT, PUT_USER_USER_CLIENTS_BY_VALIDE, PUT_USER_USER_employers_BY_VALIDE } from '../../services/endpoints';
+import { GET_LIST_Ticket_BY_CLIENTS } from '../../services/endpoints';
 import { ActivatedRoute } from '@angular/router';
 import Observer from '../../services/observer';
 
@@ -14,7 +14,7 @@ import Observer from '../../services/observer';
 })
 export class TicketDetailsAdminComponent implements OnInit {
 
-  clientList: [] = [];
+  ticketList: [] = [];
   collectionSize: number = 0;
   page = 1;
   p: number = 1;
@@ -39,24 +39,11 @@ export class TicketDetailsAdminComponent implements OnInit {
 
   getListFolder() {
 
-    this.backendService.get(`${GET_LIST_FOLDERS_All}`).subscribe(
+    this.backendService.get(`${GET_LIST_Ticket_BY_CLIENTS}/${this.id}`).subscribe(
+
       new Observer().OBSERVER_GET((response) => {
-    console.log(response);
 
-        // this.collectionSize=response.totalItems;
-         this.clientList = response.rows;
-      })
-    );
-  }
-
-  getListFolderByValid(valide:string ) {
-
-    this.backendService.get(`${GET_LIST_CLIENTS_BAY_Type}/${valide}`).subscribe(
-      new Observer().OBSERVER_GET((response) => {
-    console.log(response);
-
-        // this.collectionSize=response.totalItems;
-         this.clientList = response.rows;
+         this.ticketList = response.rows;
       })
     );
   }
@@ -64,23 +51,24 @@ export class TicketDetailsAdminComponent implements OnInit {
 
 
 
-  changeEtaClient(etat:boolean,email:string){
-    const payload ={valid:etat,email:email}
-     this.backendService
-     .put(PUT_USER_USER_CLIENTS_BY_VALIDE, payload)
-     .subscribe(
-       new Observer(
-         this.router,// just un class dans angular
-         null,//target : lin eli machilou
-         true,//relode
-         true,//swwet alert
-         this.sharedService,//obligtour si ona reload
-       ).OBSERVER_EDIT()
-     );
-       }
+
+  // changeEtaClient(etat:boolean,email:string){
+  //   const payload ={valid:etat,email:email}
+  //    this.backendService
+  //    .put(PUT_USER_USER_CLIENTS_BY_VALIDE, payload)
+  //    .subscribe(
+  //      new Observer(
+  //        this.router,// just un class dans angular
+  //        null,//target : lin eli machilou
+  //        true,//relode
+  //        true,//swwet alert
+  //        this.sharedService,//obligtour si ona reload
+  //      ).OBSERVER_EDIT()
+  //    );
+  //      }
 
   changeSelectedFile(valid) {
-    this.getListFolderByValid(valid);
+    // this.getListFolderByValid(valid);
 
   }
   handlePageSizeChange(event: any): void {

@@ -3,10 +3,10 @@
     <div class="row align-items-end">
       <div class="col-lg-8">
         <div class="page-header-title">
-          <span><i class="fas fa-solid fa-folder" style="background-color: #000080"></i></span>
+          <span><i class="fas fa-solid  fa-files-o" style="background-color: #000080"></i></span>
           <div class="d-inline">
             <span class="d-block text-primary">
-              <h4>Folders</h4>
+              <h4>Files</h4>
             </span>
             <!-- <span class="text-dark">Tax Page</span> -->
           </div>
@@ -25,7 +25,7 @@
           <div class="card">
             <div class="col-sm-12">
               <div class="card-header">
-                <h5 class="card-header-text">Folders list</h5>
+                <h5 class="card-header-text">Files list</h5>
                 <div class="col-md-12 col-lg-3 offset-lg-10">
                   <div class="pcoded-search">
                     <div class="pcoded-search-box">
@@ -73,19 +73,19 @@
                         <th scope="col">ACTIONS</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let client of this.clientList|slice">
+                    <tbody *ngFor="let files of this.filesListe|slice">
                       <tr style="text-align: center">
                         <td scope="row">{{
-                          client.name
+                          files.fileName
                           }} </td>
 
                           <td scope="row"> {{
-                            client.clientId.company
+                            files.uploadDate
                             }} </td>
 
 
                           <td scope="row">
-                            <a [routerLink]="['/app/dashAdminCli/', client.clientId._id]">  <i  class="fa fa-eye ml-2"></i></a>                            <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
+                              <i (click)="openFile(files.path)" class="fa fa-eye ml-2"></i>                           <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
                           </td>
                       </tr>
                     </tbody>
