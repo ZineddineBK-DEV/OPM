@@ -14,7 +14,7 @@ const workOrderSchema = new mongoose.Schema({
       enum: ['In progress', 'Done', 'Expired'],
       default: 'In progress'
     },
-    clientId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    clientId: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'Client' },
     listOfTickets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ticket' }]
   });
 

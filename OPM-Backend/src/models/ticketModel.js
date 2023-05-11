@@ -14,9 +14,9 @@ const ticketSchema = new mongoose.Schema({
         enum: ['In progress', 'Done', 'Expired'],
         default: 'In progress'
       },
-    clientId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    employeeId: { type: mongoose.Schema.Types.ObjectId, default: 'none' },
-    workOrderId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    clientId: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'Client' },
+    employeeId: { type: mongoose.Schema.Types.ObjectId, default: 'none', ref:'Employee' },
+    workOrderId: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'WorkOrder' },
   });
 
 const Ticket = mongoose.model("Ticket", ticketSchema);

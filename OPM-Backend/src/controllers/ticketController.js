@@ -51,7 +51,9 @@ exports.getTicketByWorkOrderId = async (req, res) => {
   exports.getTicketByClientId = async (req, res) => {
     const clientId = req.params.id;
     try {
-      const ticket = await Ticket.find({ clientId });
+      const ticket = await Ticket.find({ clientId }).populate(
+        'clientId employeeId workOrderId', 
+        'company firstName lastName title creationDate');
       if (!ticket) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
