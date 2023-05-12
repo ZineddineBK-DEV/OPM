@@ -14,7 +14,7 @@ const followUpSchema = new mongoose.Schema({
         enum: ['In progress', 'Done'],
         default: 'In progress'
       },
-    ticketId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    workOrderId: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'WorkOrder' },
   });
 
 const FollowUp = mongoose.model("FollowUp", followUpSchema);

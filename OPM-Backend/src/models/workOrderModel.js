@@ -9,12 +9,17 @@ const workOrderSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    description: {
+      type: String,
+      required: true
+    },
     status: {
       type: String,
       enum: ['In progress', 'Done', 'Expired'],
       default: 'In progress'
     },
     clientId: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'Client' },
+    employeeId: { type: mongoose.Schema.Types.ObjectId, default: null, ref:'Employee' },
     listOfTickets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ticket' }]
   });
 

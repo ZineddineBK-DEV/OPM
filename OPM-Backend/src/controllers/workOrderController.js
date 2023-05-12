@@ -83,14 +83,14 @@ exports.getWorkOrderByClientId = async (req, res) => {
           select: 'company',
         },
         {
+          path: 'employeeId',
+          model: 'Employee',
+          select: 'firstName lastName'
+        },
+        {
           path: 'listOfTickets',
           model: 'Ticket',
-          select: 'title status creationDate',
-            populate: {
-              path: 'employeeId',
-              model: 'Employee',
-              select: 'firstName lastName'
-		  }
+          select: 'title status creationDate'
         },
       ]);
     if (!workOrder) {
