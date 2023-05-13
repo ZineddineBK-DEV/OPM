@@ -9,12 +9,18 @@ const ticketSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    description: {
+      type: String,
+      required: true
+    },
     status: {
         type: String,
         enum: ['In progress', 'Done', 'Expired'],
         default: 'In progress'
-      },
-    fileId: { type: mongoose.Schema.Types.ObjectId, default: null, ref:'File' }
+    },
+    adminId: { type: mongoose.Schema.Types.ObjectId,  ref:'Admin' },
+    employeeId: { type: mongoose.Schema.Types.ObjectId, ref:'Employee' },
+    fileId: { type: mongoose.Schema.Types.ObjectId, ref:'File' }
   });
 
 const Ticket = mongoose.model("Ticket", ticketSchema);

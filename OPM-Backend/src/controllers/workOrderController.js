@@ -66,10 +66,28 @@ exports.getWorkOrderById = async (req, res) => {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
       res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
-    } catch (err) {
+    } catch (error) {
       res.status(500).json({ err: true, message: error.message });
     }
   };
+
+  // Get a workOrder by status
+exports.getWorkOrderByStatus = async (req, res) => {
+  const clientId = req.params.id;
+  const status = req.body.status;
+  try {
+    if (!status) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    const workOrder = await WorkOrder.find({clientId, status});
+    if (!workOrder) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
 
     // Get a work order by client id
 exports.getWorkOrderByClientId = async (req, res) => {
@@ -116,10 +134,10 @@ exports.getWorkOrderByClientId = async (req, res) => {
 // Update a user still working on it username
 exports.updateWorkOrder = async (req, res) => {
   try {
-    const { _id, title, clientId, status } = req.body;
+    const { _id, title, clientId, status, description, employeeId } = req.body;
     const updatedWorkOrder = await WorkOrder.findByIdAndUpdate(
       { _id },
-      { title, clientId, status },
+      { title, clientId, status, description, employeeId },
       { new: true }
     );
     if (!updatedWorkOrder) {

@@ -14,6 +14,7 @@ const File = require('../models/fileModel');
 // Add file to the folder
  exports.addFile = async (req, res) => {
    try {
+    console.log(req.file.originalname);
     const file = File({ fileName: req.file.filename, path:req.file.destination+'/'+req.file.filename });
     await file.save();
     const folder = await Folder.findOneAndUpdate(
@@ -21,7 +22,7 @@ const File = require('../models/fileModel');
       { $push: { listOfFiles: file } },
       { new: true }
      );
-     res.status(200).json({ err: false, message: "Successful operation !", rows: folder });
+     res.status(200).json({ err: false, message: "Successful operation !", rows: [folder, req.file.originalname] });
    } catch (error) {
      res.status(500).json({ err: true, message: error.message });
    }

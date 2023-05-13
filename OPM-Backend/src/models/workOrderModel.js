@@ -5,6 +5,9 @@ const workOrderSchema = new mongoose.Schema({
       type: Date,
       default: Date.now
     },
+    finishDate:{
+      type: Date
+    },
     title: {
       type: String,
       required: true
@@ -19,7 +22,7 @@ const workOrderSchema = new mongoose.Schema({
       default: 'In progress'
     },
     clientId: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'Client' },
-    employeeId: { type: mongoose.Schema.Types.ObjectId, default: null, ref:'Employee' },
+    employeeId: { type: mongoose.Schema.Types.ObjectId, ref:'Employee' },
     listOfTickets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ticket' }]
   });
 
