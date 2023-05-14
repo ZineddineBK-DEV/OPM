@@ -21,14 +21,20 @@ export const PUT_USER_USER_CLIENTS_BY_VALIDE: string = `${environment.apiUrl}/cl
 export const GET_LIST_FOLDERS_All: string = `${environment.apiUrl}/folder/all`;
 export const GET_LIST_Ticket_BY_CLIENTS: string = `${environment.apiUrl}/ticket/getTicketByClientId`;
 export const GET_LIST_FILES_BY_CLIENTS: string = `${environment.apiUrl}/folder/getFilesByclientId`;
-export const GET_LIST_Work_Orders_BY_CLIENTS: string = `${environment.apiUrl}/workOrder/getWorkOrderByClientid`;
+export const GET_LIST_Work_Orders_BY_CLIENTS: string = `${environment.apiUrl}/workOrder/getWorkOrderByClientId`;
 
 // ***********static for admi for users ************ */
 export const GET_USER_COUNT_tickrt_END_POINT: string = `${environment.apiUrl}/ticket/countTIcketsByClientId`;
 export const GET_USER_COUNT_files_BY_VALID_END_POINT: string = `${environment.apiUrl}/folder/countFilesByClientId`;
 export const GET_USER_USER_COUNT_worekorder_BY_VALIDE: string = `${environment.apiUrl}/workOrder/countWorkOrderByClientId`;
 
+// ********* worek order ******/
 
+export const POST_WOREK_ORDER_ADMIN_END_POINT: string = `${environment.apiUrl}/workOrder/createWorkOrder`;
+
+export const PUT_WOREK_ORDER_END_POINT: string = `${environment.apiUrl}/workOrder/updateWorkOrder`;
+
+export const DELETE_USER_WORK_ORDER_END_POINT: string = `${environment.apiUrl}/workOrder/deleteWorkOrder`;
 
 
 

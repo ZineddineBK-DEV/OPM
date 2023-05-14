@@ -3,9 +3,15 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import {  GET_LIST_CLIENTS_BAY_Type, GET_LIST_FILES_BY_CLIENTS, GET_LIST_FOLDERS_All,   PUT_USER_USER_CLIENTS_BY_VALIDE } from '../../services/endpoints';
+import { DELETE_USER_TAXES_END_POINT, DELETE_USER_WORK_ORDER_END_POINT, GET_LIST_FILES_BY_CLIENTS, GET_LIST_Ticket_BY_CLIENTS, GET_LIST_Work_Orders_BY_CLIENTS } from '../../services/endpoints';
 import { ActivatedRoute } from '@angular/router';
 import Observer from '../../services/observer';
+import { DetailsComponent } from './../../popup/details/details.component';
+import { PostComponent } from '../../popup/post/post.component';
+import { PutComponent } from '../../popup/put/put.component';
+import { WORK_ORDER_POPUP_TYPE } from '../../popup/popup-type';
+import swal from 'sweetalert';
+
 
 @Component({
   selector: 'app-work-order-details-admin',
@@ -13,7 +19,7 @@ import Observer from '../../services/observer';
   styleUrls: ['./work-order-details-admin.component.scss']
 })
 export class WorkOrderDetailsAdminComponent implements OnInit {
-  clientList: [] = [];
+  WorekOrderList;
   collectionSize: number = 0;
   page = 1;
   p: number = 1;
@@ -33,54 +39,72 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
   }
 
   ngOnInit() {
-        this.getListFolder();
+        this.getListWorkorderList();
   }
-
-  getListFolder() {
-
-    this.backendService.get(`${GET_LIST_FILES_BY_CLIENTS}/${this.id}`).subscribe(
-
+  //OpenModal(sch:string){}
+  getListWorkorderList() {
+    this.backendService.get(`${GET_LIST_Work_Orders_BY_CLIENTS}/${this.id}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
-    console.log(response);
-
-        // this.collectionSize=response.totalItems;
-         this.clientList = response.rows;
+    console.log(response.rows);
+         this.WorekOrderList = response.rows;
       })
     );
   }
 
-  getListFolderByValid(valide:string ) {
+  OpenModal(title: string) {
+   
+    const modalRef = this.modalService.open(PostComponent ,{ size: "lg", backdrop: "static" });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.type = WORK_ORDER_POPUP_TYPE;
 
-    this.backendService.get(`${GET_LIST_CLIENTS_BAY_Type}/${valide}`).subscribe(
-      new Observer().OBSERVER_GET((response) => {
-    console.log(response);
+    modalRef.componentInstance.payload = {"clientId":this.id};
 
-        // this.collectionSize=response.totalItems;
-         this.clientList = response.rows;
-      })
-    );
+  }
+
+  OpenModalUp(title: string,item?) {
+   
+    const modalRef = this.modalService.open(PutComponent ,{ size: "lg", backdrop: "static" });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.type = WORK_ORDER_POPUP_TYPE;
+    modalRef.componentInstance.payload = {...item,"clientId":this.id};
   }
 
 
+  OpenDetails(title: string, payload:any){
 
-
-  changeEtaClient(etat:boolean,email:string){
-    const payload ={valid:etat,email:email}
-     this.backendService
-     .put(PUT_USER_USER_CLIENTS_BY_VALIDE, payload)
-     .subscribe(
-       new Observer(
-         this.router,// just un class dans angular
-         null,//target : lin eli machilou
-         true,//relode
-         true,//swwet alert
-         this.sharedService,//obligtour si ona reload
-       ).OBSERVER_EDIT()
-     );
-       }
+    const modalRef = this.modalService.open(DetailsComponent);
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.type = "tiket_detalise";
+    modalRef.componentInstance.payload = { ...payload };
+  }
+  deleteWork(id_work_order: string) {
+    swal({
+      title: "Are you sure?",
+      text: "You won't be able to revert this !",
+      icon: "warning",
+      closeOnEsc: true,
+      closeOnClickOutside: true,
+      buttons:["Cancel", "Confirm"],
+    }).then((result) => {
+      if (result) {
+        this.backendService
+          .delete(`${DELETE_USER_WORK_ORDER_END_POINT}/${id_work_order}`)
+          .subscribe(
+            new Observer(
+              this.router,
+              null,
+              true,
+              true,
+              this.sharedService,
+              null
+            ).OBSERVER_DELETE()
+          );
+      }
+    });
+  }
 
   changeSelectedFile(valid) {
-    this.getListFolderByValid(valid);
+    // this.getListFolderByValid(valid);
 
   }
   handlePageSizeChange(event: any): void {
@@ -92,7 +116,7 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
 
   handlePageChange(currentPage: number) {
     if(this.id_company){
-      this.getListFolder();
+      // this.getListFolder();
     }
     this.page = currentPage;
   }

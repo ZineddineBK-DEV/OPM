@@ -9,7 +9,92 @@
 
 
   <div class="modal-body">
-    <!-- EMPLOYERS -->
+
+    <ng-container *ngIf="this.type==='WORK_ORDER'">
+      <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+
+        <div class="input-group">
+
+          <select class="form-select" value="-1" name="employeeId" ngModel #employeeId="ngModel" required>
+            <option disabled value="">{{"Select a technician"}}</option>
+            <option *ngFor="let tech of this.listTechnician;" value="{{tech._id}}">
+              {{tech.firstName+" "+tech.lastName}}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="employeeId.invalid && employeeId.touched" class="alert alert-danger p-2" role="alert">
+          <span>Select an Technician</span>
+        </div>
+
+
+
+
+        <div class="input-group">
+
+          <input type="text" class="form-control" [placeholder]="'Title'" name="title"
+            ngModel #title="ngModel" required />
+        </div>
+        <div *ngIf="title.invalid && title.touched" class="alert alert-danger p-2" role="alert">
+          <span>ENTER Title</span>
+        </div>
+            <div class="input-group">
+          <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Description" rows="2"
+            name="description" ngModel #description="ngModel" required></textarea>
+
+        </div>
+        <div *ngIf="description.invalid && description.touched" class="alert alert-danger p-2" role="alert">
+          <span>ENTER Description</span>
+        </div>
+
+
+
+        <!-- <div class="input-group">
+
+          <input class="form-control" [type]="startperiodinputype"
+          [placeholder]="'TAX_COMPONENT.POPUP.STARTPERIOD'|translate"
+          (click)="setinputtype('start_period')"
+            onkeydown="return false" name="start_period" ngModel #start_period="ngModel" required />
+
+        </div> -->
+        <!-- <div *ngIf="start_period.invalid && start_period.touched" class="alert alert-danger p-2" role="alert">
+          <span>{{"TAX_COMPONENT.POPUP.ENTER_STARTPERIOD"|translate}}</span>
+        </div> -->
+
+        <!-- <div class="input-group">
+
+          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.FILLINGFREQ'|translate"
+            name="filling_frequency" ngModel #filling_frequency="ngModel" required />
+        </div>
+        <div *ngIf="filling_frequency.invalid && filling_frequency.touched" class="alert alert-danger p-2" role="alert">
+          <span>{{"TAX_COMPONENT.POPUP.ENTER_FILLINGFREQ"|translate}}</span>
+        </div> -->
+
+        <!-- <div class="input-group">
+
+          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.COLLECTION_TYPE'|translate"
+            name="collection_type" ngModel #collection_type="ngModel" required />
+        </div>
+        <div *ngIf="collection_type.invalid && collection_type.touched" class="alert alert-danger p-2" role="alert">
+          <span>{{"TAX_COMPONENT.POPUP.ENTER_COLLECTIONTYPE"|translate}}</span>
+        </div> -->
+
+        <div class="modal-footer">
+          <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
+            class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+            {{'CANCEL'|translate}}
+          </button>
+        </div>
+
+
+
+
+      </form>
+    </ng-container>
+
+
+
+    <!--
     <ng-container *ngIf="this.type==='EMPLOYERS'">
       <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
         <div class="input-group">
@@ -23,8 +108,7 @@
         </div>
 
         <div class="input-group">
-          <span class="input-group-prepend"><label class="input-group-text"><i
-                class="icofont icofont-company"></i></label></span>
+
           <input type="text" class="form-control" placeholder="Last Name" name="lastName" ngModel
             #lastName="ngModel" required />
         </div>
@@ -42,15 +126,6 @@
         <div *ngIf="email.invalid && email.touched || email.errors?.email" class="alert alert-danger p-2" role="alert">
           <span>Enter Email</span>
         </div>
-
-      <!--    <div class="form-outline mb-4">
-
-            <div *ngIf="endDate.invalid && endDate.touched" class="alert alert-danger p-2" role="alert">
-              Enter End Date
-            </div>
-        </div>
-
-       *ngIf="" -->
 
         <div class="input-group">
           <span class="input-group-prepend"><label class="input-group-text"><i
@@ -115,7 +190,6 @@
 
 
 
-    <!-- COMPANY -->
     <ng-container *ngIf="this.type==='COMPANY'">
       <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
         <div class="input-group">
@@ -148,7 +222,6 @@
         </div>
       </form>
     </ng-container>
-    <!-- EMPLOYEE -->
     <ng-container *ngIf="this.type==='EMPLOYEE'">
       <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
         <div class="input-group">
@@ -247,7 +320,6 @@
         </div>
       </form>
     </ng-container>
-    <!-- ACCOUNTING_PLAN -->
     <ng-container *ngIf="this.type==='ACCOUNTING_PLAN_ROW'">
       <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
         <div class="input-group">
@@ -362,7 +434,6 @@
       <div class="input-group">
         <span class="input-group-prepend"><label class="input-group-text"><i
               class="icofont icofont-brand-myspace"></i></label></span>
-        <!-- <select ngModel="{{ '-1' }}"  [(ngModel)]="payment_method" name="payment_method" class="form-control" required> -->
         <select ngModel='-1' #payment_method="ngModel" name="payment_method" class="form-control" required>
           <option value="-1" disabled selected>{{"CUSTOMERS_COMPONENT.POPUP.PAYMENT_METHOD"|translate}}</option>
           <option value="credit_cards">{{"CUSTOMERS_COMPONENT.POPUP.CARD"|translate}}</option>
@@ -440,7 +511,6 @@
       <div class="input-group">
         <span class="input-group-prepend"><label class="input-group-text"><i
               class="icofont icofont-brand-myspace"></i></label></span>
-        <!-- <select ngModel="{{ '-1' }}"  [(ngModel)]="payment_method" name="payment_method" class="form-control" required> -->
         <select class="form-select" value="-1" name="id_suppliers" ngModel #id_suppliers="ngModel" required>
           <option disabled value="">{{"PRODUCTS_SERVICES_COMPONENT.PRODUCTS.POPUP.SUPPLIER"|translate}}</option>
 
@@ -483,7 +553,7 @@
       <div *ngIf="quantity.invalid && quantity.touched" class="alert alert-danger p-2" role="alert">
         <span>{{"PRODUCTS_SERVICES_COMPONENT.PRODUCTS.POPUP.ENTER_QUANTITY"|translate}}</span>
       </div>
-      <!--  -->
+
       <div class="input-group">
         <span class="input-group-prepend"><label class="input-group-text"><i
               class="icofont icofont-file-text"></i></label></span>
@@ -636,5 +706,5 @@
 
 
 </ng-container>
-
+ -->
 <!-- update -->

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PostComponent } from '../../popup/post/post.component';
-import { PutComponent } from '../../popup/put/put.component';
+
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
 import { DELETE_USER_TAXES_END_POINT, GET_USER_employers_END_POINT } from '../../services/endpoints';
 import { DetailsComponent } from '../../popup/details/details.component';
 import { EMPLOYERS_POPUP_TYPE } from '../../popup/popup-type';
+import { PostComponent } from '../../popup/post/post.component';
+import { PutComponent } from '../../popup/put/put.component';
 
 import Observer from '../../services/observer';
 import swal from 'sweetalert';

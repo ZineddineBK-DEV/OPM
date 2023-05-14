@@ -3,9 +3,12 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { GET_LIST_Ticket_BY_CLIENTS } from '../../services/endpoints';
+import { GET_LIST_FILES_BY_CLIENTS, GET_LIST_Ticket_BY_CLIENTS } from '../../services/endpoints';
 import { ActivatedRoute } from '@angular/router';
 import Observer from '../../services/observer';
+import { DetailsComponent } from './../../popup/details/details.component';
+
+
 
 @Component({
   selector: 'app-ticket-details-admin',
@@ -13,8 +16,7 @@ import Observer from '../../services/observer';
   styleUrls: ['./ticket-details-admin.component.scss']
 })
 export class TicketDetailsAdminComponent implements OnInit {
-
-  ticketList: [] = [];
+  filesListe;
   collectionSize: number = 0;
   page = 1;
   p: number = 1;
@@ -34,38 +36,27 @@ export class TicketDetailsAdminComponent implements OnInit {
   }
 
   ngOnInit() {
-        this.getListFolder();
+        this.getListFilesByClients();
   }
-
-  getListFolder() {
-
+  //OpenModal(sch:string){}
+  getListFilesByClients() {
     this.backendService.get(`${GET_LIST_Ticket_BY_CLIENTS}/${this.id}`).subscribe(
-
       new Observer().OBSERVER_GET((response) => {
-
-         this.ticketList = response.rows;
+    console.log(response.rows);
+         this.filesListe = response.rows;
       })
     );
   }
 
 
 
+  OpenDetails(title: string, payload:any){
+    const modalRef = this.modalService.open(DetailsComponent);
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.type = "tiket_detalise";
+    modalRef.componentInstance.payload = { ...payload };
+  }
 
-
-  // changeEtaClient(etat:boolean,email:string){
-  //   const payload ={valid:etat,email:email}
-  //    this.backendService
-  //    .put(PUT_USER_USER_CLIENTS_BY_VALIDE, payload)
-  //    .subscribe(
-  //      new Observer(
-  //        this.router,// just un class dans angular
-  //        null,//target : lin eli machilou
-  //        true,//relode
-  //        true,//swwet alert
-  //        this.sharedService,//obligtour si ona reload
-  //      ).OBSERVER_EDIT()
-  //    );
-  //      }
 
   changeSelectedFile(valid) {
     // this.getListFolderByValid(valid);
@@ -80,7 +71,7 @@ export class TicketDetailsAdminComponent implements OnInit {
 
   handlePageChange(currentPage: number) {
     if(this.id_company){
-      this.getListFolder();
+      // this.getListFolder();
     }
     this.page = currentPage;
   }

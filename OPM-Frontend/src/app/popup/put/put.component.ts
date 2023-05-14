@@ -5,6 +5,7 @@ import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import {
   GET_SUPPLIETS_SERVICES_END_POINT,
   GET_USER_ACCOUNTING_LIST_PLAN_END_POINT,
+  GET_USER_employers_END_POINT,
   PUT_PRODUCTS_CUSTOMERS_END_POINT,
   PUT_SERVICES_END_POINT,
   PUT_SUPPLIETS_CUSTOMERS_END_POINT,
@@ -13,10 +14,12 @@ import {
   PUT_USER_CUSTOMERS_END_POINT,
   PUT_USER_EMPLOYEES_END_POINT,
   PUT_USER_TAXES_END_POINT,
+  PUT_WOREK_ORDER_END_POINT,
 } from "../../services/endpoints";
 import { BackendService } from "../../services/backend.service";
 import { SharedService } from "../../services/shared.service";
 import Observer from "../../services/observer";
+import { log } from "util";
 
 @Component({
   selector: "app-put",
@@ -29,7 +32,7 @@ export class PutComponent implements OnInit {
   @Input("payload") payload: any;
 
   actualDate: string;
-
+  listTechnician: [] = [];
   birthdateinputype: string;
   hiredateinputype: string;
   companyList: [];
@@ -46,10 +49,24 @@ export class PutComponent implements OnInit {
     this.hiredateinputype = "text";
   }
   ngOnInit() {
-    if (this.type == "SERVICES" || this.type == "PRODUCTS") {
-      this.getSuppliers();
-      this.getAccounts();
-    }
+    this.getEmployesByOutherty("technician");
+  
+    // if (this.type == "SERVICES" || this.type == "PRODUCTS") {
+    //   this.getSuppliers();
+    //   this.getAccounts();
+    // }
+  }
+  getEmployesByOutherty(type: string) {
+    this.backendService
+      .get(
+        `${GET_USER_employers_END_POINT}/${type}`)
+      .subscribe(
+        new Observer().OBSERVER_GET((response) => {
+          this.listTechnician = response.rows;
+          
+
+        })
+      );
   }
   getSuppliers() {
 
@@ -83,46 +100,46 @@ export class PutComponent implements OnInit {
     let payload = { ...form.value };
 
     switch (this.type) {
-      case "COMPANY":
-        endpoint = PUT_USER_COMPANIES_END_POINT;
-        payload = { ...payload, id_company: this.payload.id_company };
+      case "WORK_ORDER":
+        endpoint = PUT_WOREK_ORDER_END_POINT;
+        payload = { ...payload, clientId:this.payload.clientId,_id:this.payload._id };
         break;
-      case "EMPLOYEE":
-        endpoint = PUT_USER_EMPLOYEES_END_POINT;
-        payload = {
-          ...payload,
-          id_employee: this.payload.id_employee,
-          id_company: this.payload.id_company,
-        };
+      // case "EMPLOYEE":
+      //   endpoint = PUT_USER_EMPLOYEES_END_POINT;
+      //   payload = {
+      //     ...payload,
+      //     id_employee: this.payload.id_employee,
+      //     id_company: this.payload.id_company,
+      //   };
 
-        break;
-      case "ACCOUNTING_PLAN_ROW":
-        endpoint = `${PUT_USER_ACCOUNTING_PLAN_ROW_END_POINT}/${this.payload.id}`;
-        break;
-      case "TAX":
-        endpoint = PUT_USER_TAXES_END_POINT;
-        payload = {
-          ...payload,
-          id: this.payload.id,
-          id_company: this.payload.id_company,
-        };
-        break;
-      case "CUSTOMER":
-        endpoint = PUT_USER_CUSTOMERS_END_POINT;
-        payload = { ...payload, id: this.payload.id };
-        break;
-      case "SUPPLIERS":
-        endpoint = PUT_SUPPLIETS_CUSTOMERS_END_POINT;
-        payload = { ...payload, id: this.payload.id };
-        break;
-      case "PRODUCTS":
-        endpoint = PUT_PRODUCTS_CUSTOMERS_END_POINT;
-        payload = { ...payload, id_product: this.payload.id_product };
-        break;
-      case "SERVICES":
-        endpoint = PUT_SERVICES_END_POINT;
-        payload = { ...payload, id_service: this.payload.id_service };
-        break;
+      //   break;
+      // case "ACCOUNTING_PLAN_ROW":
+      //   endpoint = `${PUT_USER_ACCOUNTING_PLAN_ROW_END_POINT}/${this.payload.id}`;
+      //   break;
+      // case "TAX":
+      //   endpoint = PUT_USER_TAXES_END_POINT;
+      //   payload = {
+      //     ...payload,
+      //     id: this.payload.id,
+      //     id_company: this.payload.id_company,
+      //   };
+      //   break;
+      // case "CUSTOMER":
+      //   endpoint = PUT_USER_CUSTOMERS_END_POINT;
+      //   payload = { ...payload, id: this.payload.id };
+      //   break;
+      // case "SUPPLIERS":
+      //   endpoint = PUT_SUPPLIETS_CUSTOMERS_END_POINT;
+      //   payload = { ...payload, id: this.payload.id };
+      //   break;
+      // case "PRODUCTS":
+      //   endpoint = PUT_PRODUCTS_CUSTOMERS_END_POINT;
+      //   payload = { ...payload, id_product: this.payload.id_product };
+      //   break;
+      // case "SERVICES":
+      //   endpoint = PUT_SERVICES_END_POINT;
+      //   payload = { ...payload, id_service: this.payload.id_service };
+      //   break;
     }
 
     this.backendService

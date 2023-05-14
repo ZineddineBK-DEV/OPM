@@ -3,10 +3,12 @@
     <div class="row align-items-end">
       <div class="col-lg-8">
         <div class="page-header-title">
-          <span><i class="fas fa-solid fa-folder" style="background-color: #000080"></i></span>
+          <span><i class="fas fa-solid  fa-tasks" style="background-color: #000080"></i>
+
+          </span>
           <div class="d-inline">
             <span class="d-block text-primary">
-              <h4>Folders</h4>
+              <h4>Worek Order</h4>
             </span>
             <!-- <span class="text-dark">Tax Page</span> -->
           </div>
@@ -25,14 +27,14 @@
           <div class="card">
             <div class="col-sm-12">
               <div class="card-header">
-                <h5 class="card-header-text">Folders list</h5>
+                <h5 class="card-header-text">Worek Order List</h5>
                 <div class="col-md-12 col-lg-3 offset-lg-10">
                   <div class="pcoded-search">
                     <div class="pcoded-search-box">
-                      <!-- <button class="btn " (click)="OpenModal('NEW_TAX')">
+                      <button class="btn " (click)="OpenModal('New Worek Order')">
                         <i class="icofont icofont-ui-add"></i>
                         NEW
-                      </button> -->
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -51,9 +53,9 @@
 
 
                   <div class="col-sm-1 mb-5 mr-2 ml-4" *ngIf="this.upload">
-                    <button class="btn" (click)="OpenModal('NEW_ACCOUNTING_PLAN_ROW')">
+                    <button class="btn" (click)="OpenModal('fdfdf')">
                       <i class="fas fa-plus-square"></i>
-                      {{'ACCOUNTING_PLAN_COMPONENT.NEW_ROW'|translate}}
+                      <!-- {{'ACCOUNTING_PLAN_COMPONENT.NEW_ROW'|translate}} -->
                     </button>
                   </div>
                 </div>
@@ -64,36 +66,55 @@
                     <thead>
                       <tr style="text-align: center">
                         <th scope="col">
-                          Company name
+                          Titre
                         </th>
                         <th scope="col">
-                          Folders name
+                          Creating Date
+                                                </th>
+                        <th scope="col">
+                          status
                         </th>
-
+                        <!-- <th scope="col">
+                          Employee Name
+                        </th> -->
                         <th scope="col">ACTIONS</th>
+
+                        <!--   employee Name-->
+
                       </tr>
                     </thead>
-                    <tbody *ngFor="let client of this.clientList|slice">
+                    <tbody *ngFor="let item of this.WorekOrderList">
                       <tr style="text-align: center">
                         <td scope="row">{{
-                          client.name
+                          item.title
                           }} </td>
 
                           <td scope="row"> {{
-                            client.clientId.company
+                            item.creationDate|date:'dd/MM/yyyy HH:MM'
                             }} </td>
+                            <td scope="row"> {{
+                              item.status
+                              }} </td>
+
+                              <!-- <td scope="row"> {{
+                                item.employeeId.firstName+ " "+item.employeeId.lastName
+                                }} </td> -->
+                            <!--  -->
+                            <td scope="row">
+                              <i (click)="OpenModalUp('Update Worek Order',item)" class="fas fa-edit"></i>
+                              <i (click)="deleteWork(item._id)" class="fa fa-trash-o ml-2"></i>
+                              <i (click)="OpenDetails('Delete Worek Order',item)" class="fa fa-eye ml-2"></i>
+                            </td>
+    
 
 
-                          <td scope="row">
-                            <a [routerLink]="['/app/dashAdminCli/', client.clientId._id]">  <i  class="fa fa-eye ml-2"></i></a>                            <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
-                          </td>
                       </tr>
                     </tbody>
                   </table>
                   <div class="d-flex justify-content-between p-2">
-                    <ngb-pagination [(page)]="page" (pageChange)="handlePageChange($event)" [pageSize]="pageSize"
+                    <!-- <ngb-pagination [(page)]="page" (pageChange)="handlePageChange($event)" [pageSize]="pageSize"
                       [collectionSize]="collectionSize">
-                    </ngb-pagination>
+                    </ngb-pagination> -->
                     <select class="custom-select" style="width: auto" name="pageSize"
                       (change)="handlePageSizeChange($event)">
                       <!-- <option *ngFor="let size of pageSizes" [ngValue]="size">

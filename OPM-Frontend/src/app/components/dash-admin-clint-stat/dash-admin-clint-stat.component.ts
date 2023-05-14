@@ -14,19 +14,25 @@ export class DashAdminClintStatComponent implements OnInit {
   ticket: number;
   files: number;
   id:string ;
-  workorder
-: number;
+  workorder: number;
+namCLient:any;
+folderName:any;
 
   constructor(
     private backendService: BackendService,
     private sharedService: SharedService,
     private route: ActivatedRoute
   ) {
+    this.id =""
+    this.folderName =""
+    this.namCLient =""
+    this.workorder = 0 ;
+    this.ticket = 0 ;
+    this.files = 0 ;
 
 this.id=this.route.snapshot.paramMap.get("id");
-
-
-
+this.folderName=this.route.snapshot.paramMap.get("folderName");
+this.namCLient=this.route.snapshot.paramMap.get("clientName");
   }
   ngOnInit() {
     this.getTicket(this.id);
