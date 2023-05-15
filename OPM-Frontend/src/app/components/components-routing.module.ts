@@ -51,19 +51,29 @@ const routes: Routes = [
           ),
       },
       {
-        path: "dashAdminCli/:id",
+        path: "tickets",
+        loadChildren: () =>
+          import("../components/tickets-adm/tickets-adm.module").then(
+            (m) => m.TicketsAdmModule
+          ),
+      },
+
+
+      // 
+      {
+        path: "dashAdminCli/:id/:folderName/:clientName",
         loadChildren: () =>
           import("../components/dash-admin-clint-stat/dash-admin-clint-stat.module").then(
             (m) => m.DashAdminClintStatModule
           ),
       },
-      {
-        path: "ticketDetail/:id",
-        loadChildren: () =>
-          import("../components/ticket-details-admin/ticket-details-admin.module").then(
-            (m) => m.TicketDetailsAdminModule
-          ),
-      },
+      // {
+      //   path: "ticketDetail/:id",
+      //   loadChildren: () =>
+      //     import("../components/ticket-details-admin/ticket-details-admin.module").then(
+      //       (m) => m.TicketDetailsAdminModule
+      //     ),
+      // },
 
 
       {
@@ -71,6 +81,13 @@ const routes: Routes = [
         loadChildren: () =>
           import("../components/files-details-admin/files-details-admin.module").then(
             (m) => m.FilesDetailsAdminModule
+          ),
+      },
+      {
+        path: "partOrderDetail/:id",
+        loadChildren: () =>
+          import("../components/part-order-details-admin/part-order-details-admin-routing.module").then(
+            (m) => m.PartOrderDetailsAdminRoutingModule
           ),
       },
 

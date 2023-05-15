@@ -76,24 +76,29 @@
                     <tbody *ngFor="let client of this.clientList|slice">
                       <tr style="text-align: center">
                         <td scope="row">{{
-                          client.name
+                          client.clientId.company
                           }} </td>
 
                           <td scope="row"> {{
-                            client.clientId.company
+                            client.name
+
                             }} </td>
 
 
                           <td scope="row">
-                            <a [routerLink]="['/app/dashAdminCli/', client.clientId._id]">  <i  class="fa fa-eye ml-2"></i></a>                            <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
+                            <a [routerLink]="[
+                            '/app/dashAdminCli/',
+                             client.clientId._id,
+                             client.name,
+                             client.clientId.company]">  <i  class="fa fa-eye ml-2"></i></a>                            <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
                           </td>
                       </tr>
                     </tbody>
                   </table>
                   <div class="d-flex justify-content-between p-2">
-                    <ngb-pagination [(page)]="page" (pageChange)="handlePageChange($event)" [pageSize]="pageSize"
+                    <!-- <ngb-pagination [(page)]="page" (pageChange)="handlePageChange($event)" [pageSize]="pageSize"
                       [collectionSize]="collectionSize">
-                    </ngb-pagination>
+                    </ngb-pagination> -->
                     <select class="custom-select" style="width: auto" name="pageSize"
                       (change)="handlePageSizeChange($event)">
                       <!-- <option *ngFor="let size of pageSizes" [ngValue]="size">

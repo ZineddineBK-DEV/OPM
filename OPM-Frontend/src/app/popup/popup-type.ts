@@ -1,3 +1,32 @@
+export const WORK_ORDER_POPUP_TYPE:string='WORK_ORDER'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// **----------------------------------------
 
 //Employers POPUP TYPE
 export const EMPLOYERS_POPUP_TYPE:string='EMPLOYERS'

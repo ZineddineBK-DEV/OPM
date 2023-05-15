@@ -12,13 +12,12 @@ import { PutComponent } from '../../popup/put/put.component';
 import { WORK_ORDER_POPUP_TYPE } from '../../popup/popup-type';
 import swal from 'sweetalert';
 
-
 @Component({
-  selector: 'app-work-order-details-admin',
-  templateUrl: './work-order-details-admin.component.html',
-  styleUrls: ['./work-order-details-admin.component.scss']
+  selector: 'app-tickets-adm',
+  templateUrl: './tickets-adm.component.html',
+  styleUrls: ['./tickets-adm.component.scss']
 })
-export class WorkOrderDetailsAdminComponent implements OnInit {
+export class TicketsAdmComponent implements OnInit {
   WorekOrderList;
   collectionSize: number = 0;
   page = 1;

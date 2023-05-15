@@ -12,6 +12,6 @@ router.get('/countWorkOrderByClientId/:id', workOrderController.countWorkOrderBy
 router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClientId);
 router.get('/getWorkOrderByStatus/:id', workOrderController.getWorkOrderByStatus);
 router.put('/updateWorkOrder', workOrderController.updateWorkOrder);
-router.delete('/deleteWorkOrder', workOrderController.deleteWorkOrder);
+router.delete('/deleteWorkOrder/:id_worek_order', workOrderController.deleteWorkOrder);
 
 module.exports = router;

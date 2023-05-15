@@ -7,8 +7,119 @@
   </div>
 
   <div class="modal-body">
+
+
+    <ng-container *ngIf="this.type==='WORK_ORDER'">
+      <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
+
+
+        <!-- 
+
+                    <select class="form-select" name="id_accounting_plan" [(ngModel)]="this.payload.id_accounting_plan" ngModel
+            #id_accounting_plan="ngModel" required>
+            <option disabled value="">{{"PRODUCTS_SERVICES_COMPONENT.PRODUCTS.POPUP.ACCOUNTNUMBER"|translate}}</option>
+
+            <option *ngFor="let account of this.accountsList;" value="{{account.id}}">
+              {{account.account_number}}
+            </option>
+          </select>
+         -->
+
+        <div class="input-group">
+
+          <select class="form-select" value="-1"  name="employeeId" [(ngModel)]="this.payload.employeeId" ngModel #employeeId="ngModel" required>
+            <option disabled value="">{{"Select a technician"}}</option>
+            <option *ngFor="let tech of this.listTechnician;" value="{{tech._id}}">
+              {{tech.firstName+" "+tech.lastName}}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="employeeId.invalid && employeeId.touched" class="alert alert-danger p-2" role="alert">
+          <span>Select an Technician</span>
+        </div>
+
+        <div class="input-group">
+
+
+
+          <input type="text" class="form-control"[(ngModel)]="this.payload.title"
+           [placeholder]="'Title'" name="title" ngModel #title="ngModel" required />
+        </div>
+        <div *ngIf="title.invalid && title.touched" class="alert alert-danger p-2" role="alert">
+          <span>ENTER Title</span>
+        </div>
+            <div class="input-group">
+          <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="this.payload.description" placeholder="Description" rows="2"
+            name="description" ngModel #description="ngModel" required></textarea>
+
+        </div>
+        <div *ngIf="description.invalid && description.touched" class="alert alert-danger p-2" role="alert">
+          <span>ENTER Description</span>
+        </div>
+
+
+
+        <div class="modal-footer">
+          <input [value]="'CONFIRM'|translate" [disabled]="fedit.invalid" type="submit"
+            class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+            {{'CANCEL'|translate}}
+
+          </button>
+        </div>
+
+
+
+
+
+
+
+
+      </form>
+    </ng-container>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ------------------------------------ -->
     <!-- COMPANY -->
-    <ng-container *ngIf="this.type==='COMPANY'">
+    <!-- <ng-container *ngIf="this.type==='COMPANY'">
       <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
         <div class="input-group">
           <span class="input-group-prepend"><label class="input-group-text"><i
@@ -41,10 +152,10 @@
           </button>
         </div>
       </form>
-    </ng-container>
+    </ng-container> -->
 
     <!-- EMPLOYEE -->
-    <ng-container *ngIf="this.type==='EMPLOYEE'">
+    <!-- <ng-container *ngIf="this.type==='EMPLOYEE'">
       <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
         <div class="input-group">
           <span class="input-group-prepend"><label class="input-group-text"><i
@@ -141,10 +252,10 @@
           </button>
         </div>
       </form>
-    </ng-container>
+    </ng-container> -->
 
     <!-- ACCOUNTING PLAN -->
-    <ng-container *ngIf="this.type==='ACCOUNTING_PLAN_ROW'">
+    <!-- <ng-container *ngIf="this.type==='ACCOUNTING_PLAN_ROW'">
       <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
         <div class="input-group">
           <span class="input-group-prepend"><label class="input-group-text"><i
@@ -174,10 +285,10 @@
           </button>
         </div>
       </form>
-    </ng-container>
+    </ng-container> -->
 
     <!-- TAX -->
-    <ng-container *ngIf="this.type==='TAX'">
+    <!-- <ng-container *ngIf="this.type==='TAX'">
       <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
         <div class="input-group">
           <span class="input-group-prepend"><label class="input-group-text"><i
@@ -258,9 +369,9 @@
         </div>
       </form>
     </ng-container>
+ -->
 
-
-    <ng-container *ngIf="this.type==='CUSTOMER'">
+    <!-- <ng-container *ngIf="this.type==='CUSTOMER'">
       <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
         <div class="input-group">
           <span class="input-group-prepend"><label class="input-group-text"><i
@@ -330,8 +441,8 @@
           </button>
         </div>
       </form>
-    </ng-container>
-
+    </ng-container> -->
+<!-- 
     <ng-container *ngIf="this.type==='SUPPLIERS'">
       <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
         <div class="input-group">
@@ -375,9 +486,9 @@
           </button>
         </div>
       </form>
-    </ng-container>
+    </ng-container> -->
 
-    <ng-container *ngIf="this.type==='PRODUCTS'">
+    <!-- <ng-container *ngIf="this.type==='PRODUCTS'">
       <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
         <div class="input-group">
           <span class="input-group-prepend"><label class="input-group-text"><i
@@ -436,7 +547,7 @@
         <div *ngIf="quantity.invalid && quantity.touched" class="alert alert-danger p-2" role="alert">
           <span>{{"PRODUCTS_SERVICES_COMPONENT.PRODUCTS.POPUP.ENTER_QUANTITY"|translate}}</span>
         </div>
-        <!--  -->
+
         <div class="input-group">
           <span class="input-group-prepend"><label class="input-group-text"><i
                 class="icofont icofont-file-text"></i></label></span>
@@ -486,8 +597,8 @@
           </button>
         </div>
       </form>
-    </ng-container>
-
+    </ng-container> -->
+<!-- 
     <ng-container *ngIf="this.type==='SERVICES'">
       <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
         <div class="input-group">
@@ -587,7 +698,7 @@
           </button>
         </div>
       </form>
-    </ng-container>
+    </ng-container> -->
 
   </div>
 </ng-container>

@@ -1,6 +1,6 @@
 <ng-container>
   <div class="modal-header">
-    <h4 class="modal-title">{{title|translate}}</h4>
+    <h4 class="modal-title">{{title}}</h4>
 
     <button type="button" class="close" aria-label="Close" (click)="actifmodal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
@@ -8,7 +8,7 @@
   </div>
 
 
-  <ng-container *ngIf="this.type==='CUSTOMER'">
+  <ng-container *ngIf="this.type==='tiket_detalise'">
 
     <div class="modal-body">
       <div class="view-info">
@@ -21,131 +21,47 @@
                     <table class="table m-0">
                       <tbody>
                         <tr>
-                          <th scope="row">{{'DETAILS.FULLNAME'|translate}}</th>
+                          <th scope="row">{{'Titre :'}}</th>
                           <td>
-                            <h5>{{ this.payload.fullname }}</h5>
+                            <h5>{{ this.payload.title }}</h5>
                           </td>
                         </tr>
                         <tr>
-                          <th scope="row">{{'DETAILS.EMAIL'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.email }}</h5>
+                          <th scope="row">{{'Creating Date :'}}</th>                          <td>
+                            <h5>{{ this.payload.creationDate|date:'dd/MM/yyyy' }}</h5>
                           </td>
                         </tr>
                         <tr>
-                          <th scope="row">{{'DETAILS.PHONE'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.phone }}</h5>
+                          <th scope="row">{{'Status :'}}</th>                          <td>
+                            <h5>{{ this.payload.status }}</h5>
                           </td>
                         </tr>
                         <tr>
-                          <th scope="row">{{'DETAILS.ADDRESS'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.address }}</h5>
+                          <th scope="row">{{'Employee Name'}}</th>                          <td>
+                            <h5>{{ this.payload.employeeId.firstName+ " "+this.payload.employeeId.lastName }}</h5>
                           </td>
                         </tr>
                         <tr>
-                          <th scope="row">{{'DETAILS.PAYMENT_METHOD'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.payment_method }}</h5>
+                          <th scope="row">{{'Description'}}</th>                          <td>
+                            <h5>{{ this.payload.description}}</h5>
                           </td>
                         </tr>
-                        <tr>
-                          <th scope="row">{{'DETAILS.COMPANY'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.company_name }}</h5>
-                          </td>
-                        </tr>
+
                       </tbody>
                     </table>
                   </div>
                 </div>
 
-                <!-- end of table col-lg-6 -->
               </div>
-              <!-- end of row -->
             </div>
-            <!-- end of general info -->
           </div>
-          <!-- end of col-lg-12 -->
         </div>
-        <!-- end of row -->
       </div>
     </div>
   </ng-container>
 
+<!-- 
 
-  <ng-container *ngIf="this.type==='EMPLOYEE'">
-
-    <div class="modal-body">
-      <div class="view-info">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="general-info">
-              <div class="row">
-                <div class="col-lg-12 col-xl-12">
-                  <div class="table-responsive">
-                    <table class="table m-0">
-                      <tbody>
-                        <tr>
-                          <th scope="row">{{'DETAILS.FULLNAME'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.fullname }}</h5>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{'DETAILS.EMAIL'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.email }}</h5>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{'DETAILS.PHONE'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.phone }}</h5>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{'DETAILS.SALARY'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.salary }}</h5>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{'DETAILS.ADDRESS'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.address }}</h5>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{'DETAILS.BIRTH_DATE'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.birthdate|date:'dd/MM/yyyy' }}</h5>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{'DETAILS.HIRE_DATE'|translate}}</th>
-                          <td>
-                            <h5>{{ this.payload.hiredate|date:'dd/MM/yyyy' }}</h5>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <!-- end of table col-lg-6 -->
-              </div>
-              <!-- end of row -->
-            </div>
-            <!-- end of general info -->
-          </div>
-          <!-- end of col-lg-12 -->
-        </div>
-        <!-- end of row -->
-      </div>
-    </div>
-  </ng-container>
 
   <ng-container *ngIf="this.type==='TAX'">
     <div class="modal-body">
@@ -195,15 +111,10 @@
                   </div>
                 </div>
 
-                <!-- end of table col-lg-6 -->
               </div>
-              <!-- end of row -->
             </div>
-            <!-- end of general info -->
           </div>
-          <!-- end of col-lg-12 -->
         </div>
-        <!-- end of row -->
       </div>
     </div>
   </ng-container>
@@ -283,15 +194,10 @@
                   </div>
                 </div>
 
-                <!-- end of table col-lg-6 -->
               </div>
-              <!-- end of row -->
             </div>
-            <!-- end of general info -->
           </div>
-          <!-- end of col-lg-12 -->
         </div>
-        <!-- end of row -->
       </div>
     </div>
   </ng-container>
@@ -364,15 +270,10 @@
                   </div>
                 </div>
 
-                <!-- end of table col-lg-6 -->
               </div>
-              <!-- end of row -->
             </div>
-            <!-- end of general info -->
           </div>
-          <!-- end of col-lg-12 -->
         </div>
-        <!-- end of row -->
       </div>
     </div>
   </ng-container>
@@ -448,15 +349,10 @@
                   </div>
                 </div>
 
-                <!-- end of table col-lg-6 -->
               </div>
-              <!-- end of row -->
             </div>
-            <!-- end of general info -->
           </div>
-          <!-- end of col-lg-12 -->
         </div>
-        <!-- end of row -->
       </div>
     </div>
   </ng-container>
@@ -532,18 +428,13 @@
                   </div>
                 </div>
 
-                <!-- end of table col-lg-6 -->
               </div>
-              <!-- end of row -->
             </div>
-            <!-- end of general info -->
           </div>
-          <!-- end of col-lg-12 -->
         </div>
-        <!-- end of row -->
       </div>
     </div>
-  </ng-container>
+  </ng-container> -->
 
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="actifmodal.close('Close click')">
