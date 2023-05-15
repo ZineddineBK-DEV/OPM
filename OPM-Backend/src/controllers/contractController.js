@@ -24,7 +24,7 @@ exports.getAllContracts = async (req, res) => {
 // Get a single contract
 exports.getContractById = async (req, res) => {
     try {
-      const contract = await Contract.findById(req.params.contractId );
+      const contract = await Contract.findById(req.params.id );
       if (!contract) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }

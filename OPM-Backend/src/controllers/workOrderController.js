@@ -14,9 +14,9 @@ exports.createWorkOrder = async (req, res) => {
 
 // Add ticket to the workorder
 exports.addTicket = async (req, res) => {
-  const { title, clientId, workOrderId, employeeId } = req.body;
+  const { title, clientId, description, employeeId } = req.body;
   try {
-   const ticket = Ticket({ title, clientId, workOrderId, employeeId });
+   const ticket = Ticket({ title, description, employeeId });
    await ticket.save();
    const workOrder = await WorkOrder.findOneAndUpdate(
      { clientId: clientId },
@@ -74,7 +74,7 @@ exports.getWorkOrderById = async (req, res) => {
   // Get a workOrder by status
 exports.getWorkOrderByStatus = async (req, res) => {
   const clientId = req.params.id;
-  const status = req.body.status;
+  const status = req.params.status;
   try {
     if (!status) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
@@ -134,10 +134,12 @@ exports.getWorkOrderByClientId = async (req, res) => {
 // Update a user still working on it username
 exports.updateWorkOrder = async (req, res) => {
   try {
-    const { _id, title, clientId, status, description, employeeId } = req.body;
+    const { 
+      _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo 
+    } = req.body;
     const updatedWorkOrder = await WorkOrder.findByIdAndUpdate(
       { _id },
-      { title, clientId, status, description, employeeId },
+      { title, clientId, status, description, employeeId, partName, partNum, serialNum, logo },
       { new: true }
     );
     if (!updatedWorkOrder) {
