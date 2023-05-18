@@ -1,24 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FoldresRoutingModule } from './foldres-routing.module';
-import { FoldresComponent } from './foldres.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { WODTRoutingModule } from './wodt-routing.module';
+import { WODTComponent } from './wodt.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
+
+
 
 @NgModule({
-  declarations: [FoldresComponent],
+  declarations: [WODTComponent],
   imports: [
     CommonModule,
-    FoldresRoutingModule,
+    WODTRoutingModule,
     NgbModule,
-    NgxPaginationModule,
-    Ng2SearchPipeModule,
     FormsModule,
-    TranslateModule
+    Ng2SearchPipeModule,
+    TranslateModule,
+    NgxPaginationModule
+  
   ]
 })
-export class FoldresModule { }
+export class WODTModule { }

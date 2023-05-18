@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ComponentsRoutingModule } from './components-routing.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
   imports: [
     CommonModule,
     ComponentsRoutingModule,
+    Ng2SearchPipeModule
     // TranslateModule
     // ,TranslateModule.forRoot({
     //   loader:{

@@ -5,6 +5,9 @@ import { WorkOrderDetailsAdminRoutingModule } from './work-order-details-admin-r
 import { WorkOrderDetailsAdminComponent } from './work-order-details-admin.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +16,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     WorkOrderDetailsAdminRoutingModule,
     NgbModule,
-    TranslateModule
+    FormsModule,
+    Ng2SearchPipeModule,
+    TranslateModule,
+    NgxPaginationModule
   ]
 })
 export class WorkOrderDetailsAdminModule { }

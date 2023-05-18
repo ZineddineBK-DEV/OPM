@@ -76,6 +76,15 @@ const MENUITEMS:Menu[] = [
         routerLink:"/app/tickets"
       },
       {
+        state: 'tickets',
+        short_label: 'T',
+        name: 'Tickets',
+        type: 'link',
+        icon: 'fas fa-receipt',
+        routerLink:"/app/tickets"
+      },
+      // 
+      {
         state: 'accounting-plan',
         short_label: 'A-P',
         name: 'ACCOUNTING_PLAN',

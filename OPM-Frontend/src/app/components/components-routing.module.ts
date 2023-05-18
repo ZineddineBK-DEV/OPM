@@ -67,6 +67,13 @@ const routes: Routes = [
             (m) => m.DashAdminClintStatModule
           ),
       },
+      {
+        path: "workOrderDetails",
+        loadChildren: () =>
+          import("../components/wodt/wodt.module").then(
+            (m) => m.WODTModule
+          ),
+      },
       // {
       //   path: "ticketDetail/:id",
       //   loadChildren: () =>
@@ -99,6 +106,16 @@ const routes: Routes = [
             (m) => m.WorkOrderDetailsAdminModule
           ),
       },
+      
+      {
+        path: "workOrderDetailAddUpdate/:id/:type",
+        loadChildren: () =>
+          import("../components/wodt/wodt.module").then(
+            (m) => m.WODTModule
+          ),
+      },
+
+
 
 
 

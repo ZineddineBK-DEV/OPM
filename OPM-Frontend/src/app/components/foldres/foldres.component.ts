@@ -15,10 +15,12 @@ import Observer from '../../services/observer';
 export class FoldresComponent implements OnInit {
   clientList: [] = [];
   collectionSize: number = 0;
+  p=1;
   page = 1;
-  p: number = 1;
+  nbrItemPage = 5;
   pageSize = 5;
-  pageSizes = [5, 10,20,40];
+  pageSizes = [5, 10, 20];
+
   id_company:string;
   id_user:any;
   constructor(
@@ -81,16 +83,15 @@ export class FoldresComponent implements OnInit {
   handlePageSizeChange(event: any): void {
 
     this.pageSize = event.target.value;
-    console.log(this.pageSize+"rrrrrrrrrrrr")
     this.page = 1;
+  this.nbrItemPage =event.target.value ;
   }
-
   handlePageChange(currentPage: number) {
-    if(this.id_company){
-      this.getListFolder();
-    }
-    this.page = currentPage;
-  }
+ 
+    this.getListFolder();
+
+  this.page = currentPage;
+}
 
 
 }

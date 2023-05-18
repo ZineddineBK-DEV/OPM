@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { DELETE_USER_TAXES_END_POINT, DELETE_USER_WORK_ORDER_END_POINT, GET_LIST_FILES_BY_CLIENTS, GET_LIST_Ticket_BY_CLIENTS, GET_LIST_Work_Orders_BY_CLIENTS } from '../../services/endpoints';
+import { DELETE_USER_TAXES_END_POINT, DELETE_USER_WORK_ORDER_END_POINT, GET_LIST_FILES_BY_CLIENTS, GET_LIST_Ticket_BY_CLIENTS, GET_LIST_Work_Orders_BY_CLIENTS, GET_USER_WORK_ORDER_BY_STATUS_END_POINT } from '../../services/endpoints';
 import { ActivatedRoute } from '@angular/router';
 import Observer from '../../services/observer';
 import { DetailsComponent } from './../../popup/details/details.component';
@@ -20,14 +20,22 @@ import swal from 'sweetalert';
 })
 export class WorkOrderDetailsAdminComponent implements OnInit {
   WorekOrderList;
-  collectionSize: number = 0;
   page = 1;
-  p: number = 1;
+  collectionSize: number = 0;
   pageSize = 5;
-  pageSizes = [5, 10,20,40];
+  pageSizes = [5, 10, 20];
   id_company:string;
+  nbrItemPage = 5;
   id_user:any;
   id:any ;
+  change = false ;
+  value_change :any ;
+  p=1
+
+  detaile= "detaile";
+  update="update";
+  add="update"
+  
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -41,9 +49,35 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
   ngOnInit() {
         this.getListWorkorderList();
   }
+
+//
+
+getListWorkorderListByStatus(status:any) {
+  this.WorekOrderList = [];
+  this.backendService.get(`${GET_USER_WORK_ORDER_BY_STATUS_END_POINT}/${this.id}/${status}`).subscribe(
+    new Observer().OBSERVER_GET((response) => {
+      console.log(response.rows);
+       this.WorekOrderList = response.rows;
+    })
+  );
+}
+
+
+
+
+
+changeSelectedFile(valid) {
+  this.change = true ;
+  this.value_change= valid ;
+  if(valid != 'All'){this.getListWorkorderListByStatus(valid);}else{this.getListWorkorderList()}
+  
+}
+
+
   //OpenModal(sch:string){}
   getListWorkorderList() {
-    this.backendService.get(`${GET_LIST_Work_Orders_BY_CLIENTS}/${this.id}`).subscribe(
+  this.WorekOrderList = [];
+      this.backendService.get(`${GET_LIST_Work_Orders_BY_CLIENTS}/${this.id}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
     console.log(response.rows);
          this.WorekOrderList = response.rows;
@@ -103,21 +137,18 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
     });
   }
 
-  changeSelectedFile(valid) {
-    // this.getListFolderByValid(valid);
 
-  }
   handlePageSizeChange(event: any): void {
-
     this.pageSize = event.target.value;
-    console.log(this.pageSize+"rrrrrrrrrrrr")
     this.page = 1;
+  this.nbrItemPage =event.target.value ;
   }
 
   handlePageChange(currentPage: number) {
-    if(this.id_company){
-      // this.getListFolder();
-    }
+    if(this.change){
+      this.getListWorkorderListByStatus(this.value_change);
+    }else    {this.getListWorkorderList()}
+
     this.page = currentPage;
   }
 

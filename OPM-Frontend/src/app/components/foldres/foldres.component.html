@@ -73,7 +73,7 @@
                         <th scope="col">ACTIONS</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let client of this.clientList|slice">
+                    <tbody *ngFor="let client of this.clientList|paginate: { itemsPerPage: nbrItemPage, currentPage: p }">
                       <tr style="text-align: center">
                         <td scope="row">{{
                           client.clientId.company
@@ -96,14 +96,15 @@
                     </tbody>
                   </table>
                   <div class="d-flex justify-content-between p-2">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     <!-- <ngb-pagination [(page)]="page" (pageChange)="handlePageChange($event)" [pageSize]="pageSize"
                       [collectionSize]="collectionSize">
                     </ngb-pagination> -->
                     <select class="custom-select" style="width: auto" name="pageSize"
                       (change)="handlePageSizeChange($event)">
-                      <!-- <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      <option *ngFor="let size of pageSizes" [value]="size">
                         {{ size }}
-                      </option> -->
+                      </option>
                     </select>
                   </div>
                 </div>

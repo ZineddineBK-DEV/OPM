@@ -18,6 +18,7 @@ import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { PopupModule } from "./popup/popup.module";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [AppComponent, NotfoundComponent, LayoutComponent],
@@ -27,6 +28,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
+    NgxPaginationModule,
     FormsModule,
     PagesModule,
     ComponentsModule,

@@ -1,21 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PostComponent } from '../../popup/post/post.component';
+import { PutComponent } from '../../popup/put/put.component';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { GET_LIST_CLIENTS_All, GET_LIST_CLIENTS_BAY_Type, GET_USER_employers_BY_VALID_END_POINT, GET_USER_employers_END_POINT, PUT_USER_USER_CLIENTS_BY_VALIDE, PUT_USER_USER_employers_BY_VALIDE } from '../../services/endpoints';
-
+import { DELETE_USER_TAXES_END_POINT, GET_USER_employers_BY_VALID_END_POINT, GET_USER_employers_END_POINT, PUT_USER_USER_employers_BY_VALIDE } from '../../services/endpoints';
+import { DetailsComponent } from '../../popup/details/details.component';
+import { EMPLOYERS_POPUP_TYPE } from '../../popup/popup-type';
 
 import Observer from '../../services/observer';
-
+import swal from 'sweetalert';
 
 @Component({
-  selector: 'app-companies',
-  templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.scss']
+  selector: 'app-wodt',
+  templateUrl: './wodt.component.html',
+  styleUrls: ['./wodt.component.scss']
 })
-export class CompaniesComponent implements OnInit {
-  clientList: [] = [];
+export class WODTComponent implements OnInit {
+
+  employerslist: [] = [];
   collectionSize: number = 0;
   p=1;
   page = 1;
@@ -31,38 +35,38 @@ export class CompaniesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-        this.getListClient();
+        this.getAllEmployeesByAuthority("commercial");
   }
 
-  getListClient() {
+  getAllEmployeesByAuthority(typeEmp:string ) {
 
-    this.backendService.get(`${GET_LIST_CLIENTS_All}`).subscribe(
+    this.backendService.get(`${GET_USER_employers_END_POINT}/${typeEmp}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
     console.log(response);
 
         // this.collectionSize=response.totalItems;
-         this.clientList = response.rows;
+         this.employerslist = response.rows;
       })
     );
   }
 
-  getListClientByValid(valide:string ) {
+  getAllEmployeesByValid(valide:string ) {
 
-    this.backendService.get(`${GET_LIST_CLIENTS_BAY_Type}/${valide}`).subscribe(
+    this.backendService.get(`${GET_USER_employers_BY_VALID_END_POINT}/${valide}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
     console.log(response);
 
         // this.collectionSize=response.totalItems;
-         this.clientList = response.rows;
+         this.employerslist = response.rows;
       })
     );
   }
 
 
-  changeEtaClient(etat:boolean,email:string){
+  changeEtaEmpl(etat:boolean,email:string){
     const payload ={valid:etat,email:email}
      this.backendService
-     .put(PUT_USER_USER_CLIENTS_BY_VALIDE, payload)
+     .put(PUT_USER_USER_employers_BY_VALIDE, payload)
      .subscribe(
        new Observer(
          this.router,// just un class dans angular
@@ -75,7 +79,7 @@ export class CompaniesComponent implements OnInit {
        }
 
   changeSelectedFile(valid) {
-    this.getListClientByValid(valid);
+    this.getAllEmployeesByValid(valid);
 
   }
   handlePageSizeChange(event: any): void {
@@ -86,7 +90,7 @@ export class CompaniesComponent implements OnInit {
 
   handlePageChange(currentPage: number) {
  
-      this.getListClient();
+      // this.getListClient();
 
     this.page = currentPage;
   }

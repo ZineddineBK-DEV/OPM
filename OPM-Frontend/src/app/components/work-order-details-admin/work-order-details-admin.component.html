@@ -31,26 +31,31 @@
                 <div class="col-md-12 col-lg-3 offset-lg-10">
                   <div class="pcoded-search">
                     <div class="pcoded-search-box">
-                      <button class="btn " (click)="OpenModal('New Worek Order')">
+                      <a  [routerLink]="['/app/workOrderDetailAddUpdate', this.id,this.update]">  <button class="btn ">
                         <i class="icofont icofont-ui-add"></i>
                         NEW
-                      </button>
+                      </button></a>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="container">
                 <div class="row">
-                  <!-- <div class="col-sm-4 mb-5 mr-2">
+                  <div class="col-sm-4 mb-5 mr-2">
                     <select class="form-select" value="-1" (change)="changeSelectedFile($event.target.value)">
                       <option value="-1" disabled>
                         Select Option
                       </option>
-                      <option value="true" > Active Account </option>
-                      <option value="false"> Inactive Account</option>
+                      <!--  -->
+                      <option value="All" > All	 </option>
+                      <option value="In progress" > In progress	 </option>
+                      <option value="Done">Done</option>
+                      <option value="Expired"> Expired</option>
                     </select>
-                  </div> -->
-
+                  </div>
+                  <div class="col-sm-4 mb-5 mr-10">
+                    <input type="text" [(ngModel)]="term">
+                </div>
 
                   <div class="col-sm-1 mb-5 mr-2 ml-4" *ngIf="this.upload">
                     <button class="btn" (click)="OpenModal('fdfdf')">
@@ -83,7 +88,7 @@
 
                       </tr>
                     </thead>
-                    <tbody *ngFor="let item of this.WorekOrderList">
+                    <tbody *ngFor="let item of this.WorekOrderList | paginate: { itemsPerPage: nbrItemPage, currentPage: p }|filter:term ">
                       <tr style="text-align: center">
                         <td scope="row">{{
                           item.title
@@ -101,9 +106,10 @@
                                 }} </td> -->
                             <!--  -->
                             <td scope="row">
-                              <i (click)="OpenModalUp('Update Worek Order',item)" class="fas fa-edit"></i>
+                              <!-- <a  -->
+                                <a  [routerLink]="['/app/workOrderDetailAddUpdate', this.id,this.update]"><i  class="fas fa-edit"></i></a>
                               <i (click)="deleteWork(item._id)" class="fa fa-trash-o ml-2"></i>
-                              <i (click)="OpenDetails('Delete Worek Order',item)" class="fa fa-eye ml-2"></i>
+                              <a  [routerLink]="['/app/workOrderDetailAddUpdate', this.id,this.detaile]"><i  class="fa fa-eye ml-2"></i></a>
                             </td>
     
 
@@ -111,17 +117,22 @@
                       </tr>
                     </tbody>
                   </table>
+
                   <div class="d-flex justify-content-between p-2">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     <!-- <ngb-pagination [(page)]="page" (pageChange)="handlePageChange($event)" [pageSize]="pageSize"
                       [collectionSize]="collectionSize">
                     </ngb-pagination> -->
                     <select class="custom-select" style="width: auto" name="pageSize"
                       (change)="handlePageSizeChange($event)">
-                      <!-- <option *ngFor="let size of pageSizes" [ngValue]="size">
+                      <option *ngFor="let size of pageSizes" [value]="size">
                         {{ size }}
-                      </option> -->
+                      </option>
                     </select>
                   </div>
+                  <!-- <div class="d-flex justify-content-between p-2">
+                    
+                  </div> -->
                 </div>
               </div>
               <!-- </app-card> -->

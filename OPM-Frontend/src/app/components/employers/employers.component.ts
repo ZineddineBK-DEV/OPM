@@ -1,17 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PostComponent } from '../../popup/post/post.component';
-import { PutComponent } from '../../popup/put/put.component';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { DELETE_USER_TAXES_END_POINT, GET_USER_employers_BY_VALID_END_POINT, GET_USER_employers_END_POINT, PUT_USER_USER_employers_BY_VALIDE } from '../../services/endpoints';
-import { DetailsComponent } from '../../popup/details/details.component';
-import { EMPLOYERS_POPUP_TYPE } from '../../popup/popup-type';
+import {GET_USER_employers_BY_VALID_END_POINT, GET_USER_employers_END_POINT, PUT_USER_USER_employers_BY_VALIDE } from '../../services/endpoints';
+
 
 import Observer from '../../services/observer';
-import swal from 'sweetalert';
-import { log } from 'util';
+
 @Component({
   selector: 'app-employers',
   templateUrl: './employers.component.html',
@@ -21,10 +17,11 @@ export class EmployersComponent implements OnInit {
 
   employerslist: [] = [];
   collectionSize: number = 0;
+  p=1;
   page = 1;
-  p: number = 1;
+  nbrItemPage = 5;
   pageSize = 5;
-  pageSizes = [5, 10,20,40];
+  pageSizes = [5, 10, 20];
   id_company:string;
   constructor(
     private backendService: BackendService,
@@ -82,16 +79,15 @@ export class EmployersComponent implements OnInit {
 
   }
   handlePageSizeChange(event: any): void {
-
     this.pageSize = event.target.value;
-    console.log(this.pageSize+"rrrrrrrrrrrr")
     this.page = 1;
+  this.nbrItemPage =event.target.value ;
   }
 
   handlePageChange(currentPage: number) {
-    if(this.id_company){
-      this.getAllEmployeesByAuthority("");
-    }
+ 
+      // this.getListClient();
+
     this.page = currentPage;
   }
 
