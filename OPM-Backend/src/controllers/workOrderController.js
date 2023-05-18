@@ -5,7 +5,7 @@ const File = require('../models/fileModel');
 
 exports.createWorkOrder = async (req, res) => {
   try {
-    var workOrder = WorkOrder(req.body);
+    var workOrder =await WorkOrder(req.body).save;
     if (req.file){
     const newFile = File({
       fileName: req.file.filename,
@@ -13,9 +13,11 @@ exports.createWorkOrder = async (req, res) => {
       title: req.body.title
     });
     await newFile.save();
-    workOrder.logo=newFile;
-    }
-    await workOrder.save();
+    workOrder = await WorkOrder.findByIdAndUpdate(
+      workOrder._id,
+      {logo: newFile},
+      {new: true}
+    );}
     res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
