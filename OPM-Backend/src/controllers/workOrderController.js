@@ -95,6 +95,10 @@ exports.getWorkOrderById = async (req, res) => {
         const workOrder = await WorkOrder.findById(id).populate(
           [
             {
+              path: 'logo',
+              model: 'File',
+            },
+            {
               path: 'clientId',
               model: 'Client',
               select: 'company',
@@ -113,6 +117,10 @@ exports.getWorkOrderById = async (req, res) => {
       }else{
         const workOrder = await WorkOrder.findById(id).populate(
           [
+            {
+              path: 'logo',
+              model: 'File',
+            },
             {
               path: 'clientId',
               model: 'Client',
