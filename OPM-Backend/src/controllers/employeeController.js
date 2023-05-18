@@ -30,7 +30,6 @@ exports.getAllEmployeesByAuthority = async (req, res) => {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
     const employee = await Employee.find({ authority });
-    console.log(authority);
     res.status(200).json({err: false, message: "Successful operation !", rows: employee});
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
