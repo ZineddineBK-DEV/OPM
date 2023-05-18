@@ -5,7 +5,7 @@ const upload = require('../middlewares/fileMiddleware');
 
 // workorder routes
 router.post('/createWorkOrder', upload.single('file'), workOrderController.createWorkOrder);
-router.post('/addTicket', workOrderController.addTicket);
+router.post('/addTicket', upload.array('files'), workOrderController.addTicket);
 router.post('/removeTicket', workOrderController.removeTicket);
 router.get('/all', workOrderController.getAllWorkOrders);
 router.get('/:id', workOrderController.getWorkOrderById);

@@ -1,6 +1,7 @@
 const WorkOrder = require('../models/workOrderModel');
 const Ticket = require('../models/ticketModel');
 const File = require('../models/fileModel');
+const Folder = require('../models/folderModel');
 
 
 exports.createWorkOrder = async (req, res) => {
@@ -24,16 +25,34 @@ exports.createWorkOrder = async (req, res) => {
 
 // Add ticket to the workorder
 exports.addTicket = async (req, res) => {
-  const { title, clientId, description, employeeId } = req.body;
+  const { title, clientId, description, employeeId, workOrderId } = req.body;
   try {
-   const ticket = Ticket({ title, description, employeeId });
+
+    const files = req.files; // Get the array of uploaded files
+    const uploadedFiles = [];
+
+    for (const file of files) {
+      const newFile = File({
+        fileName: file.filename,
+        path: file.destination + '/' + file.filename,
+        title: req.body.title
+      });
+      await newFile.save();
+      uploadedFiles.push(newFile);
+    }
+    const folder = await Folder.findOneAndUpdate(
+      { clientId: clientId },
+      { $push: { listOfFiles: uploadedFiles } },
+      { new: true }
+     );
+   const ticket = Ticket({ title, description, employeeId, listOfFiles: uploadedFiles});
    await ticket.save();
    const workOrder = await WorkOrder.findOneAndUpdate(
-     { clientId: clientId },
+     { _id: workOrderId },
      { $push: { listOfTickets: ticket } },
      { new: true }
     );
-    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+    res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
@@ -104,28 +123,54 @@ exports.getWorkOrderByStatus = async (req, res) => {
 exports.getWorkOrderByClientId = async (req, res) => {
   const clientId = req.params.id;
   try {
-    const workOrder = await WorkOrder.find({ clientId }).populate(
-      [
-        {
-          path: 'clientId',
-          model: 'Client',
-          select: 'company',
-        },
-        {
-          path: 'employeeId',
-          model: 'Employee',
-          select: 'firstName lastName'
-        },
-        {
-          path: 'listOfTickets',
-          model: 'Ticket',
-          select: 'title status creationDate'
-        },
-      ]);
-    if (!workOrder) {
-      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
-    }
+    if (req.body.authority && req.body.authority == "client"){
+      const workOrder = await WorkOrder.find({ clientId }).populate(
+        [
+          {
+            path: 'clientId',
+            model: 'Client',
+            select: 'company',
+          },
+          {
+            path: 'employeeId',
+            model: 'Employee',
+            select: 'firstName lastName'
+          },
+        ]).select('-listOfTickets');
+        if (!workOrder) {
+          return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+        }
+        
     res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+    }else{
+      const workOrder = await WorkOrder.find({ clientId }).populate(
+        [
+          {
+            path: 'clientId',
+            model: 'Client',
+            select: 'company',
+          },
+          {
+            path: 'employeeId',
+            model: 'Employee',
+            select: 'firstName lastName'
+          },
+          {
+            path: 'listOfTickets',
+            model: 'Ticket',
+            select: 'title status creationDate',
+            populate:{
+              path: 'listOfFiles',
+              model: 'File'
+            }
+          },
+        ]);
+        if (!workOrder) {
+          return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+        }
+        
+    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+    }
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
