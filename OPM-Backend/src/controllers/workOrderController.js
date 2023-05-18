@@ -1,11 +1,23 @@
 const WorkOrder = require('../models/workOrderModel');
 const Ticket = require('../models/ticketModel');
+const File = require('../models/fileModel');
 
 
 exports.createWorkOrder = async (req, res) => {
   try {
-    const workOrder = WorkOrder(req.body);
+    const newFile = File({
+      fileName: req.file.filename,
+      path: req.file.destination + '/' + req.file.filename,
+      title: req.body.title
+    });
+    await newFile.save();
+    var workOrder = WorkOrder(req.body);
     await workOrder.save();
+    workOrder = await WorkOrder.findByIdAndUpdate(
+      workOrder._id,
+      {logo: newFile},
+      {new: true}
+    );
     res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
@@ -131,6 +143,26 @@ exports.getWorkOrderByClientId = async (req, res) => {
       res.status(500).json({ err: true, message: error.message });
     }
   };
+
+// upload logo
+exports.uploadLogo = async (req, res) => {
+  try { 
+    const newFile = File({
+      fileName: req.file.filename,
+      path: req.file.destination + '/' + req.file.filename,
+      title: req.body.title
+    });
+    await newFile.save();
+    const workOrder = await WorkOrder.findByIdAndUpdate(
+      req.body.workOrderId,
+      {logo: newFile},
+      {new: true}
+    );   
+    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder}); 
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
 
 // Update a user still working on it username
 exports.updateWorkOrder = async (req, res) => {

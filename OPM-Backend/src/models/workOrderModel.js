@@ -25,9 +25,7 @@ const workOrderSchema = new mongoose.Schema({
     serialNum: {
       type: String
     },
-    logo: {
-      type: String
-    },
+    logo: { type: mongoose.Schema.Types.ObjectId, ref:'File' },
     status: {
       type: String,
       enum: ['In progress', 'Done', 'Expired'],
