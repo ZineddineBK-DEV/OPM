@@ -23,12 +23,12 @@ exports.getAllTickets = async (req, res) => {
 // Get a single ticket
 exports.getTicketById = async (req, res) => {
     try {
-      const ticket = await Ticket.findById(req.params.id);
+      const ticket = await Ticket.findById(req.params.id).populate('listOfFiles');
       if (!ticket) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
       res.status(200).json({err: false, message: "Successful operation !", rows: ticket});
-    } catch (err) {
+    } catch (error) {
       res.status(500).json({ err: true, message: error.message });
     }
   };
@@ -37,12 +37,12 @@ exports.getTicketById = async (req, res) => {
 exports.getTicketByWorkOrderId = async (req, res) => {
   const workOrderId = req.params.id;
   try {
-    const ticket = await Ticket.findOne({ workOrderId });
+    const ticket = await Ticket.findOne({ workOrderId }).populate(listOfFiles);
     if (!ticket) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
     res.status(200).json({err: false, message: "Successful operation !", rows: ticket});
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
 };
@@ -75,10 +75,10 @@ exports.getTicketByWorkOrderId = async (req, res) => {
 // Update a user still working on it username
 exports.updateTicket = async (req, res) => {
   try {
-    const { _id, title, description, adminId, employeeId, status, fileId } = req.body;
+    const { _id, title, adminId, employeeId, status } = req.body;
     const updatedTicket = await Ticket.findByIdAndUpdate(
       { _id },
-      { title, description, adminId, employeeId, status, fileId },
+      { title, adminId, employeeId, status },
       { new: true }
     );
     if (!updatedTicket) {
@@ -100,7 +100,7 @@ exports.deleteTicket = async (req, res) => {
     }
 
     res.status(200).json({err: false, message: "Successful operation !", rows: ticket});
-  } catch (err) {
+  } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
 };

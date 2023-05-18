@@ -16,6 +16,18 @@ const workOrderSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    partName: {
+      type: String
+    },
+    partNum: {
+      type: String
+    },
+    serialNum: {
+      type: String
+    },
+    logo: {
+      type: String
+    },
     status: {
       type: String,
       enum: ['In progress', 'Done', 'Expired'],

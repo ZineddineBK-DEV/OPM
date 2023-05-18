@@ -1,9 +1,30 @@
- const multer = require("multer");
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
+
+// Function to create folders recursively
+const createFolder = (folderPath) => {
+  // Check if the folder already exists
+  if (fs.existsSync(folderPath)) {
+    return;
+  }
+
+  // Create the folder
+  fs.mkdirSync(folderPath, { recursive: true });
+};
+
 
  const storage = multer.diskStorage ({
     destination: (req, file, cb) => {
-        cb(null, 'uploads');
-    },
+        const uploadDir = path.join("uploads");
+        const newFolderPath = path.join(uploadDir, req.body.clientId, req.body.fileType);
+    
+        // Create the new folder
+        createFolder(newFolderPath);
+    
+        // Set the destination folder for the file
+        cb(null, newFolderPath);
+      },
     filename: (req, file, cb) => {
         cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
     }
@@ -19,4 +40,4 @@
 }
 
 const upload = multer({storage: storage, fileFilter: filefilter});
- module.exports = upload;
+module.exports = upload;

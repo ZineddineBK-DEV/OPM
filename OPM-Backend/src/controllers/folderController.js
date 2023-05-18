@@ -1,5 +1,6 @@
 const Folder = require('../models/folderModel');
 const File = require('../models/fileModel');
+const Ticket = require('../models/ticketModel');
 
 // exports.createFolder = async (req, res) => {
 //   try {
@@ -14,15 +15,31 @@ const File = require('../models/fileModel');
 // Add file to the folder
  exports.addFile = async (req, res) => {
    try {
-    console.log(req.file.originalname);
-    const file = File({ fileName: req.file.filename, path:req.file.destination+'/'+req.file.filename });
+    const file = File({ 
+      fileName: req.file.filename, 
+      path:req.file.destination+'/'+req.file.filename, 
+      title: req.body.title 
+    });
     await file.save();
     const folder = await Folder.findOneAndUpdate(
       { clientId: req.body.clientId },
       { $push: { listOfFiles: file } },
       { new: true }
      );
-     res.status(200).json({ err: false, message: "Successful operation !", rows: [folder, req.file.originalname] });
+     if (req.body.ticketId){
+      const ticket = await Ticket.findByIdAndUpdate(
+        req.body.ticketId ,
+        { $push: { listOfFiles: file } },
+        { new: true }
+       );
+       res.status(200).json({ 
+        err: false, 
+        message: "Successful operation !", 
+       rows: [folder, ticket, req.file.originalname] 
+      });
+     }else{
+      res.status(200).json({ err: false, message: "Successful operation !", rows: [folder, req.file.originalname] });
+     }
    } catch (error) {
      res.status(500).json({ err: true, message: error.message });
    }
@@ -40,7 +57,16 @@ exports.removeFile = async (req, res) => {
      { $pull: { listOfFiles: req.body.fileId } },
      { new: true }
     );
-    res.status(200).json({ err: false, message: "Successful operation !", rows: folder });
+    if (req.body.ticketId){
+      const ticket = await Ticket.findByIdAndUpdate(
+        req.body.ticketId ,
+        { $pull: { listOfFiles: req.body.fileId } },
+        { new: true }
+       );
+       res.status(200).json({ err: false, message: "Successful operation !", rows: [folder, ticket] });
+     }else{
+      res.status(200).json({ err: false, message: "Successful operation !", rows: folder });
+     }
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }

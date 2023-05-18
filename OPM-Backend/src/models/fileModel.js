@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const fileSchema = new mongoose.Schema({
+    title: {
+      type: String
+    },
     fileName: {
       type: String,
       required: true
