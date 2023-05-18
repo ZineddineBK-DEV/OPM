@@ -89,12 +89,55 @@ exports.getAllWorkOrders = async (req, res) => {
 
 // Get a single workOrder
 exports.getWorkOrderById = async (req, res) => {
+  const id = req.params.id;
     try {
-      const workOrder = await WorkOrder.findById(req.params.id);
-      if (!workOrder) {
-        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
-      }
+      if (req.params.authority && req.params.authority == "client"){
+        const workOrder = await WorkOrder.findById(id).populate(
+          [
+            {
+              path: 'clientId',
+              model: 'Client',
+              select: 'company',
+            },
+            {
+              path: 'employeeId',
+              model: 'Employee',
+              select: 'firstName lastName'
+            },
+          ]).select('-listOfTickets');
+          if (!workOrder) {
+            return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+          }
+          
       res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+      }else{
+        const workOrder = await WorkOrder.findById(id).populate(
+          [
+            {
+              path: 'clientId',
+              model: 'Client',
+              select: 'company',
+            },
+            {
+              path: 'employeeId',
+              model: 'Employee',
+              select: 'firstName lastName'
+            },
+            {
+              path: 'listOfTickets',
+              model: 'Ticket',
+              select: 'title status creationDate',
+              populate:{
+                path: 'listOfFiles',
+                model: 'File'
+              }
+            },
+          ]);
+          if (!workOrder) {
+            return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+          }
+      res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+        }
     } catch (error) {
       res.status(500).json({ err: true, message: error.message });
     }
