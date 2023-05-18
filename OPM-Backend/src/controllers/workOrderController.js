@@ -75,6 +75,7 @@ exports.getWorkOrderById = async (req, res) => {
 exports.getWorkOrderByStatus = async (req, res) => {
   const clientId = req.params.id;
   const status = req.params.status;
+
   try {
     if (!status) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });

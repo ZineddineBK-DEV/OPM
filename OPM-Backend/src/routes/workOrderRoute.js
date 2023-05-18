@@ -10,7 +10,7 @@ router.get('/all', workOrderController.getAllWorkOrders);
 router.get('/:id', workOrderController.getWorkOrderById);
 router.get('/countWorkOrderByClientId/:id', workOrderController.countWorkOrderByClientId);
 router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClientId);
-router.get('/getWorkOrderByStatus/:id', workOrderController.getWorkOrderByStatus);
+router.get('/getWorkOrderByStatus/:id/:status', workOrderController.getWorkOrderByStatus);
 router.put('/updateWorkOrder', workOrderController.updateWorkOrder);
 router.delete('/deleteWorkOrder/:id_worek_order', workOrderController.deleteWorkOrder);
 
