@@ -75,10 +75,10 @@ exports.getTicketByWorkOrderId = async (req, res) => {
 // Update a user still working on it username
 exports.updateTicket = async (req, res) => {
   try {
-    const { _id, title, adminId, employeeId, status } = req.body;
+    const { _id, title, adminId, employeeId, status, description } = req.body;
     const updatedTicket = await Ticket.findByIdAndUpdate(
       { _id },
-      { title, adminId, employeeId, status },
+      { title, adminId, employeeId, status, description },
       { new: true }
     );
     if (!updatedTicket) {

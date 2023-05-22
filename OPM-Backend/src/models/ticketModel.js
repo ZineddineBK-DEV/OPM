@@ -9,6 +9,9 @@ const ticketSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    description: {
+      type: String
+    },
     status: {
         type: String,
         enum: ['In progress', 'Done', 'Expired'],
