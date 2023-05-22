@@ -134,7 +134,7 @@ exports.getWorkOrderById = async (req, res) => {
             {
               path: 'listOfTickets',
               model: 'Ticket',
-              select: 'title status creationDate',
+              select: 'title status creationDate description',
               populate:{
                 path: 'listOfFiles',
                 model: 'File'
