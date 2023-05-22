@@ -63,9 +63,6 @@ getListWorkorderListByStatus(status:any) {
 }
 
 
-
-
-
 changeSelectedFile(valid) {
   this.change = true ;
   this.value_change= valid ;

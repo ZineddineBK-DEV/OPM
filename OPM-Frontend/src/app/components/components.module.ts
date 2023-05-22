@@ -4,13 +4,15 @@ import { ComponentsRoutingModule } from './components-routing.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
   imports: [
     CommonModule,
     ComponentsRoutingModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgbModule
     // TranslateModule
     // ,TranslateModule.forRoot({
     //   loader:{

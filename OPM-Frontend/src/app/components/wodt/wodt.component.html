@@ -6,7 +6,7 @@
           <div class="card">
             <div class="col-sm-12">
               <div class="card-header">
-                <h5 class="card-header-text">Employers list</h5>
+                <h5 class="card-header-text">{{this.titer}}</h5>
                 <div class="col-md-12 col-lg-3 offset-lg-10">
                   <div class="pcoded-search">
                     <div class="pcoded-search-box">
@@ -22,7 +22,18 @@
                 <div class="row">
                     <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
 
+                      <div class="input-group">
 
+                        <select class="form-select" value="-1" name="employeeId" ngModel #employeeId="ngModel" required>
+                          <option disabled value="">{{"Select a technician"}}</option>
+                          <option *ngFor="let tech of this.employerslist;" value="{{tech._id}}">
+                            {{tech.firstName+" "+tech.lastName}}
+                          </option>
+                        </select>
+                      </div>
+                      <div *ngIf="employeeId.invalid && employeeId.touched" class="alert alert-danger p-2" role="alert">
+                        <span>Select an Technician</span>
+                      </div>
                 
                 
                 
@@ -43,41 +54,48 @@
                         <div *ngIf="description.invalid && description.touched" class="alert alert-danger p-2" role="alert">
                           <span>ENTER Description</span>
                         </div>
+
+
+
+
+
+
+
+                    <div class="input-group">
+                          <div class="col-sm-6">
+                            
+                            <input type="text" class="form-control" [placeholder]="'Part Name'" name="partName"
+                            ngModel #partName="ngModel" required />
+                          </div>       
+                          <div class="col-sm-6">
+                            <input type="text" class="form-control" [placeholder]="'Serial Number'" name="serialNum"
+                            ngModel #serialNum="ngModel" required />                          </div>
+                   </div>
+
+                   <div class="input-group">
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" [placeholder]="'Part Number'" name="partNum"
+                      ngModel #partNum="ngModel" required />
+                    </div>       
+                    <div class="col-sm-6">
+
+
+                      <div>
+                        <!-- <i class=""></i> -->
+                        <label for="files" class="btn">LOGs :</label> <i class="fas fa-file-import"></i>
+                        <input class="form-control" (change)="changeSelectedFile02($event)"   id="files" style="visibility:hidden;  border: 1px  #050505;
+                        " type="file" />      
+                    </div>
+
+                    
+                    </div>
+             </div>
                 
-                
-                
-                        <!-- <div class="input-group">
-                
-                          <input class="form-control" [type]="startperiodinputype"
-                          [placeholder]="'TAX_COMPONENT.POPUP.STARTPERIOD'|translate"
-                          (click)="setinputtype('start_period')"
-                            onkeydown="return false" name="start_period" ngModel #start_period="ngModel" required />
-                
-                        </div> -->
-                        <!-- <div *ngIf="start_period.invalid && start_period.touched" class="alert alert-danger p-2" role="alert">
-                          <span>{{"TAX_COMPONENT.POPUP.ENTER_STARTPERIOD"|translate}}</span>
-                        </div> -->
-                
-                        <!-- <div class="input-group">
-                
-                          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.FILLINGFREQ'|translate"
-                            name="filling_frequency" ngModel #filling_frequency="ngModel" required />
-                        </div>
-                        <div *ngIf="filling_frequency.invalid && filling_frequency.touched" class="alert alert-danger p-2" role="alert">
-                          <span>{{"TAX_COMPONENT.POPUP.ENTER_FILLINGFREQ"|translate}}</span>
-                        </div> -->
-                
-                        <!-- <div class="input-group">
-                
-                          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.COLLECTION_TYPE'|translate"
-                            name="collection_type" ngModel #collection_type="ngModel" required />
-                        </div>
-                        <div *ngIf="collection_type.invalid && collection_type.touched" class="alert alert-danger p-2" role="alert">
-                          <span>{{"TAX_COMPONENT.POPUP.ENTER_COLLECTIONTYPE"|translate}}</span>
-                        </div> -->
-                
+
+
+
                         <div class="modal-footer">
-                          <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
+                          <input [value]="'CONFIRM'|translate" [disabled]="employeeId.invalid || title.invalid || description.invalid" type="submit"
                             class="btn btn-outline-primary" />
                           <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
                             {{'CANCEL'|translate}}

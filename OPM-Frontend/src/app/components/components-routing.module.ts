@@ -74,6 +74,13 @@ const routes: Routes = [
             (m) => m.WODTModule
           ),
       },
+      {
+        path: "workOrderDetailsAdmin/:id",
+        loadChildren: () =>
+          import("../components/workordersdetailsadmin/workordersdetailsadmin.module").then(
+            (m) => m.WorkordersdetailsadminModule
+          ),
+      },
       // {
       //   path: "ticketDetail/:id",
       //   loadChildren: () =>

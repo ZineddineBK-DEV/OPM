@@ -5,5 +5,6 @@
 
 export const environment = {
   apiUrl: 'http://localhost:3000',
+  // urlUplodes: 'E:/project/OPM-main/OPM-Backend/uploads',
   production: false
 };
