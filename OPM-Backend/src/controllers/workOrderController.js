@@ -49,7 +49,7 @@ exports.addTicket = async (req, res) => {
    await ticket.save();
    const workOrder = await WorkOrder.findOneAndUpdate(
      { _id: workOrderId },
-     { $push: { listOfTickets: ticket } },
+     { ticketId: ticket._id },
      { new: true }
     );
     res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
@@ -68,7 +68,7 @@ exports.removeTicket = async (req, res) => {
   }
   const workOrder = await WorkOrder.findOneAndUpdate(
     { clientId: clientId },
-    { $pull: { listOfTickets: ticketId } },
+    { ticketId: null },
     { new: true }
    );
    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
@@ -132,7 +132,7 @@ exports.getWorkOrderById = async (req, res) => {
               select: 'firstName lastName'
             },
             {
-              path: 'listOfTickets',
+              path: 'ticketId',
               model: 'Ticket',
               select: 'title status creationDate description',
               populate:{
@@ -207,7 +207,7 @@ exports.getWorkOrderByClientId = async (req, res) => {
             select: 'firstName lastName'
           },
           {
-            path: 'listOfTickets',
+            path: 'ticketId',
             model: 'Ticket',
             select: 'title status creationDate',
             populate:{

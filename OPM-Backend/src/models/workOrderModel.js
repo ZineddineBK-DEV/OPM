@@ -33,7 +33,7 @@ const workOrderSchema = new mongoose.Schema({
     },
     clientId: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'Client' },
     employeeId: { type: mongoose.Schema.Types.ObjectId, ref:'Employee' },
-    listOfTickets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ticket' }]
+    ticketId:{ type: mongoose.Schema.Types.ObjectId, ref: 'Ticket' }
   });
 
 const WorkOrder = mongoose.model("WorkOrder", workOrderSchema);
