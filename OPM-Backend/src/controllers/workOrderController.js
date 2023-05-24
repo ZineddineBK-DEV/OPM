@@ -40,11 +40,6 @@ exports.addTicket = async (req, res) => {
       await newFile.save();
       uploadedFiles.push(newFile);
     }
-    const folder = await Folder.findOneAndUpdate(
-      { clientId: clientId },
-      { $push: { listOfFiles: uploadedFiles } },
-      { new: true }
-     );
    const ticket = Ticket({ title, description, employeeId, listOfFiles: uploadedFiles});
    await ticket.save();
    const workOrder = await WorkOrder.findOneAndUpdate(
@@ -52,7 +47,7 @@ exports.addTicket = async (req, res) => {
      { ticketId: ticket._id },
      { new: true }
     );
-    res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
+    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
