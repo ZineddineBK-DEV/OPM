@@ -34,7 +34,6 @@ exports.ticketAddFile = async (req, res) => {
 // remove file to the folder
 exports.ticketRemoveFile = async (req, res) => {
   try {
-    console.log(req.body.fileId)
    const file = await File.findByIdAndDelete(req.body.fileId);
    if (!file){
     return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
