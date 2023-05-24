@@ -1,6 +1,5 @@
 const Folder = require('../models/folderModel');
 const File = require('../models/fileModel');
-const Ticket = require('../models/ticketModel');
 
 // exports.createFolder = async (req, res) => {
 //   try {
@@ -32,23 +31,10 @@ const Ticket = require('../models/ticketModel');
       { $push: { listOfFiles: uploadedFiles } },
       { new: true }
      );
-     if (req.body.ticketId){
-      const ticket = await Ticket.findByIdAndUpdate(
-        req.body.ticketId ,
-        { $push: { listOfFiles: uploadedFiles } },
-        { new: true }
-       );
-       res.status(200).json({ 
-        err: false, 
-        message: "Successful operation !", 
-       rows: [folder, ticket, files.map(file => file.originalname)] 
-      });
-     }else{
-      res.status(200).json({
+     res.status(200).json({
         err: false, 
         message: "Successful operation !", 
         rows: [folder, files.map(file => file.originalname)] });
-     }
    } catch (error) {
      res.status(500).json({ err: true, message: error.message });
    }
@@ -66,16 +52,7 @@ exports.removeFile = async (req, res) => {
      { $pull: { listOfFiles: req.body.fileId } },
      { new: true }
     );
-    if (req.body.ticketId){
-      const ticket = await Ticket.findByIdAndUpdate(
-        req.body.ticketId ,
-        { $pull: { listOfFiles: req.body.fileId } },
-        { new: true }
-       );
-       res.status(200).json({ err: false, message: "Successful operation !", rows: [folder, ticket] });
-     }else{
-      res.status(200).json({ err: false, message: "Successful operation !", rows: folder });
-     }
+    res.status(200).json({ err: false, message: "Successful operation !", rows: folder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }

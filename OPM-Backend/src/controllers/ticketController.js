@@ -1,4 +1,54 @@
 const Ticket = require('../models/ticketModel');
+const File = require('../models/fileModel');
+
+// Add file to a ticket
+exports.ticketAddFile = async (req, res) => {
+  try {
+   const files = req.files; // Get the array of uploaded files
+   const uploadedFiles = [];
+
+   for (const file of files) {
+     const newFile = File({
+       fileName: file.filename,
+       path: file.destination + '/' + file.filename,
+       title: req.body.title
+     });
+     await newFile.save();
+     uploadedFiles.push(newFile);
+   }
+     const ticket = await Ticket.findByIdAndUpdate(
+       req.body.ticketId ,
+       { $push: { listOfFiles: uploadedFiles } },
+       { new: true }
+      );
+      res.status(200).json({ 
+       err: false, 
+       message: "Successful operation !", 
+      rows: [ticket, files.map(file => file.originalname)] 
+     });
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
+// remove file to the folder
+exports.ticketRemoveFile = async (req, res) => {
+  try {
+    console.log(req.body.fileId)
+   const file = await File.findByIdAndDelete(req.body.fileId);
+   if (!file){
+    return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+   }
+      const ticket = await Ticket.findByIdAndUpdate(
+        req.body.ticketId ,
+        { $pull: { listOfFiles: req.body.fileId } },
+        { new: true }
+       );
+      res.status(200).json({ err: false, message: "Successful operation !", rows: ticket });
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
 
 exports.createTicket = async (req, res) => {
   try {

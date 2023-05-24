@@ -281,9 +281,9 @@ exports.updateWorkOrder = async (req, res) => {
 
 // Delete a workOrder
 exports.deleteWorkOrder = async (req, res) => {
+  const workOrderId = req.params.id;
   try {
-    const id_worek_order = req.params.id_worek_order;
-    const workOrder = await WorkOrder.findByIdAndDelete(id_worek_order);
+    const workOrder = await WorkOrder.findByIdAndDelete(workOrderId);
     if (!workOrder) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }

@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const ticketController = require('../controllers/ticketController');
+const upload = require('../middlewares/fileMiddleware');
 
 // ticket routes
 router.post('/createTicket', ticketController.createTicket);
+router.post('/ticketAddFile', upload.array('files'), ticketController.ticketAddFile);
+router.post('/ticketRemoveFile', ticketController.ticketRemoveFile);
 router.get('/all', ticketController.getAllTickets);
 router.get('/getTicketById/:id', ticketController.getTicketById);
 router.get('/countTicketsByClientId/:id', ticketController.countTicketsByClientId);

@@ -17,7 +17,10 @@ const createFolder = (folderPath) => {
  const storage = multer.diskStorage ({
     destination: (req, file, cb) => {
         const uploadDir = path.join("uploads");
-        const newFolderPath = path.join(uploadDir, (req.body.clientId || req.body.workOrderId), req.body.fileType);
+        const newFolderPath = path.join(
+          uploadDir, 
+          (req.body.clientId || req.body.workOrderId || req.body.ticketId), 
+          req.body.fileType);
     
         // Create the new folder
         createFolder(newFolderPath);

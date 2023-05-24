@@ -14,6 +14,6 @@ router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClie
 router.get('/getWorkOrderByStatus/:id/:status', workOrderController.getWorkOrderByStatus);
 router.put('/updateWorkOrder', workOrderController.updateWorkOrder);
 router.post('/uploadLogo', upload.single('file'), workOrderController.uploadLogo);
-router.delete('/deleteWorkOrder/:id_worek_order', workOrderController.deleteWorkOrder);
+router.delete('/deleteWorkOrder/:id', workOrderController.deleteWorkOrder);
 
 module.exports = router;
