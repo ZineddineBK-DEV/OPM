@@ -32,7 +32,7 @@ export class PostComponent implements OnInit {
   @Input("type") type: string;
   @Input("payload") payload: any;
   //
-  mayFile :any ;
+  files :any ;
   supplierList: [] = [];
   accountsList: [] = [];
   actualDate: string;
@@ -103,7 +103,7 @@ export class PostComponent implements OnInit {
   onSubmit(form: NgForm) {
     let endpoint: string = "";
     let payload = { ...form.value };
-    console.log("-----------------------this.mayFile---------------------");
+    console.log("-----------------------this.Files---------------------");
     
     switch (this.type) {
       case "WORK_ORDER":
@@ -121,7 +121,10 @@ export class PostComponent implements OnInit {
         this.paylodFormData.append("clientId",payload.clientId)
         this.paylodFormData.append("employeeId",payload.employeeId)
         this.paylodFormData.append("fileType","File")
-        this.paylodFormData.append("files",this.mayFile)
+       // this.paylodFormData.append("files",this.files)
+       for (let i = 0; i < this.files.length; i++) {
+        this.paylodFormData.append("files", this.files[i]);
+      }
     console.log(JSON.stringify(this.paylodFormData.get("files")));
 
         payload = this.paylodFormData;
@@ -148,7 +151,7 @@ export class PostComponent implements OnInit {
     if (type === "start_period") this.startperiodinputype = "date";
   }
   changeSelectedFile02(event){
-  this.mayFile = event.target.files ;
+  this.files = event.target.files ;
     // console.log( event.target.files);
     
    
