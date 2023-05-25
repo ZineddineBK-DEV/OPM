@@ -31,7 +31,7 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
   change = false ;
   value_change :any ;
   p=1
-
+  user_Type="admin"
   detaile= "detaile";
   update="update";
   add="update"
@@ -87,7 +87,6 @@ changeSelectedFile(valid) {
     const modalRef = this.modalService.open(PostComponent ,{ size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = WORK_ORDER_POPUP_TYPE;
-
     modalRef.componentInstance.payload = {"clientId":this.id};
 
   }
@@ -148,6 +147,5 @@ changeSelectedFile(valid) {
 
     this.page = currentPage;
   }
-
 
 }

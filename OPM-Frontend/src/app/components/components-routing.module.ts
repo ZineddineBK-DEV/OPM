@@ -75,7 +75,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: "workOrderDetailsAdmin/:id",
+        path: "workOrderDetailsAdmin/:id/:user_type",
         loadChildren: () =>
           import("../components/workordersdetailsadmin/workordersdetailsadmin.module").then(
             (m) => m.WorkordersdetailsadminModule

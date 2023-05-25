@@ -58,11 +58,18 @@ export class WODTComponent implements OnInit {
   onSubmit(form: NgForm) {
     let endpoint: string = "";
     let payload = { ...form.value };
+    console.log(payload)
     this.paylodFormData.append("title",payload.title);
     this.paylodFormData.append("description",payload.description);
     this.paylodFormData.append("clientId",this.id)
     this.paylodFormData.append("fileType","Logo")
     this.paylodFormData.append("file",this.mayFile)
+
+    this.paylodFormData.append("partName",payload.partName)
+    this.paylodFormData.append("serialNum",payload.serialNum)
+    this.paylodFormData.append("partNum",payload.partNum)
+    this.paylodFormData.append("employeeId",payload.employeeId)
+    // 
     this.backendService
       .post(POST_WOREK_ORDER_ADMIN_END_POINT, this.paylodFormData)
       .subscribe(

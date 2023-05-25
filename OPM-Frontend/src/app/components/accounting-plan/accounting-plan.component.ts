@@ -28,7 +28,7 @@ import { ExcelService } from "../../services/excel.service";
 export class AccountingPlanComponent implements OnInit {
   accountingPlansList: [] = [];
   sourceFiles = [];
-  id_company: string;
+  id_company=5;
   upload: string;
   id_source: string;
   collectionSize: number = 0;

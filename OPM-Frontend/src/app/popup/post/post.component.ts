@@ -8,6 +8,7 @@ import {
   GET_USER_ACCOUNTING_LIST_PLAN_END_POINT,
   GET_USER_employers_END_POINT,
   POST_SUPPLIETS_CUSTOMERS_END_POINT,
+  POST_TICKET_ADMIN_END_POINT,
   POST_USER_ACCOUNTING_PLAN_END_POINT,
   POST_USER_ACCOUNTING_PLAN_ROW_END_POINT,
   POST_USER_COMPANIES_END_POINT,
@@ -31,6 +32,7 @@ export class PostComponent implements OnInit {
   @Input("type") type: string;
   @Input("payload") payload: any;
   //
+  mayFile :any ;
   supplierList: [] = [];
   accountsList: [] = [];
   actualDate: string;
@@ -39,16 +41,18 @@ export class PostComponent implements OnInit {
   hiredateinputype: string;
   startperiodinputype: string;
   companyList: [];
-
+  paylodFormData:FormData ;
   constructor(
     public activeModal: NgbActiveModal,
     public sharedService: SharedService,
     public backendService: BackendService,
     private router: Router
   ) {
+    this.paylodFormData = new FormData();
     this.actualDate = new Date().toDateString();
     this.birthdateinputype = "text";
     this.hiredateinputype = "text";
+
   }
   ngOnInit() {
     this.getEmployesByOutherty("technician");
@@ -99,11 +103,28 @@ export class PostComponent implements OnInit {
   onSubmit(form: NgForm) {
     let endpoint: string = "";
     let payload = { ...form.value };
+    console.log("-----------------------this.mayFile---------------------");
+    
     switch (this.type) {
       case "WORK_ORDER":
         endpoint = POST_WOREK_ORDER_ADMIN_END_POINT;
         payload = { ...payload, clientId:this.payload.clientId };
         // alert(JSON.stringify(payload))
+        break;
+      case "newTICKET":
+        payload = {...payload,...this.payload};
+        endpoint = POST_TICKET_ADMIN_END_POINT;
+        const {title,description} =form.value ;
+        this.paylodFormData.append("title",title);
+        this.paylodFormData.append("description",payload.description);
+        this.paylodFormData.append("workOrderId",payload.workOrderId)
+        this.paylodFormData.append("clientId",payload.clientId)
+        this.paylodFormData.append("employeeId",payload.employeeId)
+        this.paylodFormData.append("fileType","File")
+        this.paylodFormData.append("files",this.mayFile)
+    console.log(JSON.stringify(this.paylodFormData.get("files")));
+
+        payload = this.paylodFormData;
         break;
     }
 
@@ -126,5 +147,13 @@ export class PostComponent implements OnInit {
     if (type === "hiredate") this.hiredateinputype = "date";
     if (type === "start_period") this.startperiodinputype = "date";
   }
+  changeSelectedFile02(event){
+  this.mayFile = event.target.files ;
+    // console.log( event.target.files);
+    
+   
+  }
 
 }
+
+

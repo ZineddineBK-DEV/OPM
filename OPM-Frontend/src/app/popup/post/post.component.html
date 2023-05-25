@@ -25,10 +25,6 @@
         <div *ngIf="employeeId.invalid && employeeId.touched" class="alert alert-danger p-2" role="alert">
           <span>Select an Technician</span>
         </div>
-
-
-
-
         <div class="input-group">
 
           <input type="text" class="form-control" [placeholder]="'Title'" name="title"
@@ -45,39 +41,6 @@
         <div *ngIf="description.invalid && description.touched" class="alert alert-danger p-2" role="alert">
           <span>ENTER Description</span>
         </div>
-
-
-
-        <!-- <div class="input-group">
-
-          <input class="form-control" [type]="startperiodinputype"
-          [placeholder]="'TAX_COMPONENT.POPUP.STARTPERIOD'|translate"
-          (click)="setinputtype('start_period')"
-            onkeydown="return false" name="start_period" ngModel #start_period="ngModel" required />
-
-        </div> -->
-        <!-- <div *ngIf="start_period.invalid && start_period.touched" class="alert alert-danger p-2" role="alert">
-          <span>{{"TAX_COMPONENT.POPUP.ENTER_STARTPERIOD"|translate}}</span>
-        </div> -->
-
-        <!-- <div class="input-group">
-
-          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.FILLINGFREQ'|translate"
-            name="filling_frequency" ngModel #filling_frequency="ngModel" required />
-        </div>
-        <div *ngIf="filling_frequency.invalid && filling_frequency.touched" class="alert alert-danger p-2" role="alert">
-          <span>{{"TAX_COMPONENT.POPUP.ENTER_FILLINGFREQ"|translate}}</span>
-        </div> -->
-
-        <!-- <div class="input-group">
-
-          <input type="text" class="form-control" [placeholder]="'TAX_COMPONENT.POPUP.COLLECTION_TYPE'|translate"
-            name="collection_type" ngModel #collection_type="ngModel" required />
-        </div>
-        <div *ngIf="collection_type.invalid && collection_type.touched" class="alert alert-danger p-2" role="alert">
-          <span>{{"TAX_COMPONENT.POPUP.ENTER_COLLECTIONTYPE"|translate}}</span>
-        </div> -->
-
         <div class="modal-footer">
           <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
             class="btn btn-outline-primary" />
@@ -91,7 +54,40 @@
 
       </form>
     </ng-container>
+    <ng-container *ngIf="this.type==='newTICKET'">
+      <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+        <div class="input-group">
 
+          <input type="text" class="form-control" [placeholder]="'Title'" name="title"
+            ngModel #title="ngModel" required />
+        </div>
+        <div *ngIf="title.invalid && title.touched" class="alert alert-danger p-2" role="alert">
+          <span>ENTER Title</span>
+        </div>
+            <div class="input-group">
+          <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Description" rows="2"
+            name="description" ngModel #description="ngModel" required></textarea>
+
+        </div>
+        <div *ngIf="description.invalid && description.touched" class="alert alert-danger p-2" role="alert">
+          <span>ENTER Description</span>
+        </div>
+        <div>
+          <input class="form-control form-control-lg" (change)="changeSelectedFile02($event)" id="files" type="file" multiple>
+        </div>
+        <div class="modal-footer">
+          <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
+            class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+            {{'CANCEL'|translate}}
+          </button>
+        </div>
+
+
+
+
+      </form>
+    </ng-container>
 
 
     <!--
@@ -379,7 +375,6 @@
 
 
   </div>
-
   <ng-container *ngIf="this.type==='CUSTOMER'">
     <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
       <div class="input-group">

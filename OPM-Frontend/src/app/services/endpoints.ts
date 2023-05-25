@@ -41,6 +41,10 @@ export const GET_ONE_WORK_ORDER_BY_ID_END_POINT: string = `${environment.apiUrl}
 /*
 127.0.0.1:3000/workOrder/getWorkOrderByStatus/645f74880e0ab8ae87fed835
 */
+// mnge ticket for worek order
+export const POST_TICKET_ADMIN_END_POINT: string = `${environment.apiUrl}/workOrder/addTicket`;
+export const POST_ADD_FILE_FOR_TICKET_ADMIN_END_POINT: string = `${environment.apiUrl}/ticket/ticketAddFile`;
+export const DELETE_FILE_FOR_TICKET_ADMIN_END_POINT: string = `${environment.apiUrl}/ticket/ticketRemoveFile`;
 
 
 
