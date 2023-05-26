@@ -125,7 +125,7 @@ export class PostComponent implements OnInit {
        for (let i = 0; i < this.files.length; i++) {
         this.paylodFormData.append("files", this.files[i]);
       }
-    console.log(JSON.stringify(this.paylodFormData.get("files")));
+    //console.log(JSON.stringify(this.paylodFormData.get("files")));
 
         payload = this.paylodFormData;
         break;
