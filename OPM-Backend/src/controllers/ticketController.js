@@ -11,7 +11,7 @@ exports.ticketAddFile = async (req, res) => {
      const newFile = File({
        fileName: file.filename,
        path: file.destination + '/' + file.filename,
-       title: req.body.title
+       title: file.originalname
      });
      await newFile.save();
      uploadedFiles.push(newFile);
