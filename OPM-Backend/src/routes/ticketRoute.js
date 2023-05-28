@@ -6,7 +6,7 @@ const upload = require('../middlewares/fileMiddleware');
 // ticket routes
 router.post('/createTicket', ticketController.createTicket);
 router.post('/ticketAddFile', upload.array('files'), ticketController.ticketAddFile);
-router.post('/ticketRemoveFile', ticketController.ticketRemoveFile);
+router.delete('/ticketRemoveFile/:fileId/:ticketId', ticketController.ticketRemoveFile);
 router.get('/all', ticketController.getAllTickets);
 router.get('/getTicketById/:id', ticketController.getTicketById);
 router.get('/countTicketsByClientId/:id', ticketController.countTicketsByClientId);
@@ -15,4 +15,4 @@ router.get('/getTicketByClientId/:id', ticketController.getTicketByClientId);
 router.put('/updateTicket', ticketController.updateTicket);
 router.delete('/deleteTicket', ticketController.deleteTicket);
 
-module.exports = router;
+module.exports = router;    

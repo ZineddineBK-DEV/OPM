@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import {DELETE_USER_TAXES_END_POINT, GET_ONE_WORK_ORDER_BY_ID_END_POINT } from '../../services/endpoints';
+import {DELETE_FILE_FOR_TICKET_ADMIN_END_POINT, DELETE_USER_TAXES_END_POINT, GET_ONE_WORK_ORDER_BY_ID_END_POINT, PUT_TICKET_END_POINT } from '../../services/endpoints';
 import Observer from '../../services/observer';
 import { environment } from "./../../../environments/environment";
 import { TICKET_New_PLAN_POPUP_TYPE, TICKET_PLAN_POPUP_TYPE } from "../../popup/popup-type";
@@ -27,15 +27,6 @@ export class WorkordersdetailsadminComponent implements OnInit {
   titre_worek_order ;
   type_user  = "admin";
   description = ""
-
-
-  
-
-
-
-
-
-
   titleWorkOrder = null;
   StatusWorkOrder = null;
   titleworkOrder = null;
@@ -47,20 +38,26 @@ export class WorkordersdetailsadminComponent implements OnInit {
   logoFileName = null
   tickettitle = null
   imageUrl = null
-
+  // -----------//
+  disAdmin =true
+  disTech =true
+  disClt =true
+  updatdestech=true ;
   constructor(
     private backendService: BackendService,
     private router: Router,
     private modalService: NgbModal,
     private sharedService: SharedService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    
 
   ) {
-// alert(this.windurl)
     this.id=this.route.snapshot.paramMap.get("id");
     this.type_user=this.route.snapshot.paramMap.get("user_type");
     this.url_imguplode = environment.apiUrl+"/"+this.id+"/Logo/" ;
-
+if(this.type_user == "admin"){ this.disAdmin  = false}
+if(this.type_user == "tech"){this.disTech = false}
+if(this.type_user == "clt"){this.disClt = false}
   }
   ngOnInit() {
     this.getOneWorkOrderBayId(this.type_user);
@@ -75,17 +72,15 @@ openFile(url :string){
   //  window.open(filesUrl, '_blank');
 
 }
+upadeteEtaDesTEch(){this.updatdestech= !this.updatdestech}
 async getOneWorkOrderBayId(type_op) {
 await this.backendService.get(`${GET_ONE_WORK_ORDER_BY_ID_END_POINT}/${this.route.snapshot.paramMap.get("id")}/${type_op}`).subscribe(
   new Observer().OBSERVER_GET((response) => {
     this.workOrder = response.rows;
-
-
-
-
-    
 this.titleWorkOrder = this.workOrder.title;
 this.StatusWorkOrder = this.workOrder.status;
+console.log(response.rows);
+
 this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName+" "+this.workOrder.employeeId.lastName;
 this.DescriptioneworkOrder = this.workOrder.description;
 if(this.workOrder.ticketId ){this.ticketDescription = this.workOrder.ticketId.description ;}else{this.ticketDescription=null}
@@ -93,10 +88,9 @@ this.partName = this.workOrder.partName
 this.serialNum = this.workOrder.serialNum
 if(this.workOrder.logo ){this.logoFileName =this.workOrder.logo.fileName}else { this.logoFileName = null}
 this.tickettitle = this.workOrder.partName
-
-
-
 // this.titleworkOrder = this.workOrder.;
+// console.log(this.workOrder.ticketId._id);
+
 if(response.rows.ticketId != null ){this.listFile=response.rows.ticketId.listOfFiles};
     // this.description = response.rows.description ;
 
@@ -104,13 +98,11 @@ if(response.rows.ticketId != null ){this.listFile=response.rows.ticketId.listOfF
   })
 );
 }
-OpenModal(title: string) {
-
-  const modalRef = this.modalService.open(title.split("_")[0] === "NEW" ? PostComponent : PutComponent,{ size: "lg", backdrop: "static" });
+OpenModal(title: string,id_ticket) {
+  const modalRef = this.modalService.open( PostComponent ,{ size: "lg", backdrop: "static" });
   modalRef.componentInstance.title = title;
   modalRef.componentInstance.type = TICKET_PLAN_POPUP_TYPE;
-  // modalRef.componentInstance.payload = tax!=null ? tax:{};
-
+  modalRef.componentInstance.payload = {ticketId:id_ticket}
 }
 
 
@@ -135,19 +127,20 @@ OpenDetails(title: string, payload:any) {
   modalRef.componentInstance.payload = { ...payload };
 }
 
-deleteTax(id_tax: string) {
+deleteFile(id_file: string,id_tiket:string) {
+  alert(id_file+"---"+id_tiket)
   const lang=JSON.parse(localStorage.getItem('lang')).lang;
   swal({
-    title: lang&&lang=='en'?"Are you sure?":'Êtes-vous sûr?',
-    text: lang&&lang=='en'?"You won't be able to revert this !":'Vous ne pourrez pas revenir en arrière !',
+    title: "Are you sure?",
+    text: "You won't be able to revert this !",
     icon: "warning",
     closeOnEsc: true,
     closeOnClickOutside: true,
-    buttons: lang&&lang=='en'?["Cancel", "Confirm"]:["Annuler","Confirmer"],
+    buttons: ["Cancel", "Confirm"],
   }).then((result) => {
     if (result) {
       this.backendService
-        .delete(`${DELETE_USER_TAXES_END_POINT}/${id_tax}`)
+        .delete(`${DELETE_FILE_FOR_TICKET_ADMIN_END_POINT}/${id_file}/${id_tiket}`)
         .subscribe(
           new Observer(
             this.router,
@@ -162,4 +155,19 @@ deleteTax(id_tax: string) {
   });
 }
 
+adddescrption(valuetxt,id){
+  if(valuetxt != this.workOrder.ticketId.description){
+  this.backendService
+  .put(PUT_TICKET_END_POINT, {description:valuetxt,_id:id})
+  .subscribe(
+    new Observer(
+      this.router,
+      null,
+      true,
+      true,
+      this.sharedService,
+    ).OBSERVER_EDIT()
+  );
+}
+}
 }

@@ -128,7 +128,7 @@ export class LayoutComponent implements OnInit {
   isHeaderChecked: boolean;
   companyList: [];
   userinfo: { lastname: ""; firstname: ""; photo: "" };
-
+userNAme=""
   langList=[];
   selectedLanguage;
 
@@ -145,7 +145,8 @@ export class LayoutComponent implements OnInit {
     private router: Router,
     private translate: TranslateService
   ) {
-
+    // alert(sessionStorage.getItem("email"))
+this.userNAme = sessionStorage.getItem("email")
     this.navType = "st5";
     this.themeLayout = "vertical";
     this.vNavigationView = "view1";
