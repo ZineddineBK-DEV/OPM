@@ -13,7 +13,7 @@ router.get('/countWorkOrderByClientId/:id', workOrderController.countWorkOrderBy
 router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClientId);
 router.get('/getWorkOrderByEmployeeId/:id', workOrderController.getWorkOrderByEmployeeId);
 router.get('/getWorkOrderByStatus/:id/:status', workOrderController.getWorkOrderByStatus);
-router.get('/getWorkOrderByStatus2/:id/:status', workOrderController.getWorkOrderByStatus2);
+router.get('/getWorkOrderByStatusEmployeeId/:id/:status', workOrderController.getWorkOrderByStatus2);
 router.put('/updateWorkOrder', workOrderController.updateWorkOrder);
 router.post('/uploadLogo', upload.single('file'), workOrderController.uploadLogo);
 router.delete('/deleteWorkOrder/:id', workOrderController.deleteWorkOrder);
