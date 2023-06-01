@@ -186,7 +186,7 @@ exports.getWorkOrderByEmployeeId = async (req, res) => {
   }
 };
 
-  // Get a workOrder by status
+  // Get a workOrder by status for a certain client
 exports.getWorkOrderByStatus = async (req, res) => {
   const clientId = req.params.id;
   const status = req.params.status;
@@ -204,6 +204,26 @@ exports.getWorkOrderByStatus = async (req, res) => {
     res.status(500).json({ err: true, message: error.message });
   }
 };
+
+  // Get a workOrder by status for a certain employee
+  exports.getWorkOrderByStatus2 = async (req, res) => {
+    const employeeId = req.params.id;
+    const status = req.params.status;
+  
+    try {
+      if (!status) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+      const workOrder = await WorkOrder.find({employeeId, status});
+      if (!workOrder) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+      res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+    } catch (error) {
+      res.status(500).json({ err: true, message: error.message });
+    }
+  };
+  
 
     // Get a work order by client id
 exports.getWorkOrderByClientId = async (req, res) => {
