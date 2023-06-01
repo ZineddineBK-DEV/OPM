@@ -206,7 +206,7 @@ exports.getWorkOrderByStatus = async (req, res) => {
 };
 
   // Get a workOrder by status for a certain employee
-  exports.getWorkOrderByStatus2 = async (req, res) => {
+  exports.getWorkOrderByEmployeeIdByStatus = async (req, res) => {
     const employeeId = req.params.id;
     const status = req.params.status;
   
