@@ -34,13 +34,13 @@ exports.ticketAddFile = async (req, res) => {
 // remove file to the folder
 exports.ticketRemoveFile = async (req, res) => {
   try {
-   const file = await File.findByIdAndDelete(req.body.fileId);
+   const file = await File.findByIdAndDelete(req.params.fileId);
    if (!file){
     return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
    }
       const ticket = await Ticket.findByIdAndUpdate(
-        req.body.ticketId ,
-        { $pull: { listOfFiles: req.body.fileId } },
+        req.params.ticketId ,
+        { $pull: { listOfFiles: req.params.fileId } },
         { new: true }
        );
       res.status(200).json({ err: false, message: "Successful operation !", rows: ticket });

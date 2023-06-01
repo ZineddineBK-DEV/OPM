@@ -35,6 +35,7 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
   detaile= "detaile";
   update="update";
   add="update"
+  // user_Type=sessionStorage.getItem("userauth")
   
   constructor(
     private backendService: BackendService,

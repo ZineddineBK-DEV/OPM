@@ -30,9 +30,14 @@ export class SigninComponent implements OnInit {
     this.backendService.post(SIGNIN_END_POINT, payload).subscribe(
       new Observer(this.router, "/app/dashboard", false).OBSERVER_SIGNIN(
         (response: any) => {
-          const { accessToken, refreshToken } = response;
+          console.log(response);
+          
+          const { accessToken, refreshToken ,payload} = response;
           this.sharedService.setItem("accessToken", accessToken);
           this.sharedService.setItem("refreshToken", refreshToken);
+          this.sharedService.setItem("userauth", payload.user.authority);
+          this.sharedService.setItem("email", payload.user.email);
+
           //
           // }
         }

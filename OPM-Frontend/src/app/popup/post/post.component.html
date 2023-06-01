@@ -88,8 +88,27 @@
 
       </form>
     </ng-container>
+    <ng-container *ngIf="this.type==='TICKET'">
+      <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+
+        <div>
+          <input class="form-control form-control-lg" (change)="changeSelectedFile02($event)" id="files" type="file" multiple>
+        </div>
+        <div class="modal-footer">
+          <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
+            class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+            {{'CANCEL'|translate}}
+          </button>
+        </div>
 
 
+
+
+      </form>
+    </ng-container>
+
+    <!-- TICKET -->
     <!--
     <ng-container *ngIf="this.type==='EMPLOYERS'">
       <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>

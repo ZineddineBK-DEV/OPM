@@ -7,6 +7,7 @@ import {
   GET_SUPPLIETS_SERVICES_END_POINT,
   GET_USER_ACCOUNTING_LIST_PLAN_END_POINT,
   GET_USER_employers_END_POINT,
+  POST_ADD_FILE_TICKET_ADMIN_END_POINT,
   POST_SUPPLIETS_CUSTOMERS_END_POINT,
   POST_TICKET_ADMIN_END_POINT,
   POST_USER_ACCOUNTING_PLAN_END_POINT,
@@ -32,7 +33,7 @@ export class PostComponent implements OnInit {
   @Input("type") type: string;
   @Input("payload") payload: any;
   //
-  files :any ;
+  files :any  ;
   supplierList: [] = [];
   accountsList: [] = [];
   actualDate: string;
@@ -103,7 +104,7 @@ export class PostComponent implements OnInit {
   onSubmit(form: NgForm) {
     let endpoint: string = "";
     let payload = { ...form.value };
-    console.log("-----------------------this.Files---------------------");
+  
     
     switch (this.type) {
       case "WORK_ORDER":
@@ -121,14 +122,28 @@ export class PostComponent implements OnInit {
         this.paylodFormData.append("clientId",payload.clientId)
         this.paylodFormData.append("employeeId",payload.employeeId)
         this.paylodFormData.append("fileType","File")
+        if(this.files){
        // this.paylodFormData.append("files",this.files)
        for (let i = 0; i < this.files.length; i++) {
         this.paylodFormData.append("files", this.files[i]);
-      }
-    //console.log(JSON.stringify(this.paylodFormData.get("files")));
-
+      }}
         payload = this.paylodFormData;
         break;
+      case "TICKET":
+        console.log(this.files);
+        console.log(payload);
+        payload = {...payload,...this.payload};
+        endpoint = POST_ADD_FILE_TICKET_ADMIN_END_POINT;
+        this.paylodFormData.append("ticketId",payload.ticketId)
+        this.paylodFormData.append("fileType","File")
+     
+         // this.paylodFormData.append("files",)
+         for (let i = 0; i < this.files.length; i++) {
+          this.paylodFormData.append("files", this.files[i]);
+        
+      }
+          payload = this.paylodFormData;
+          break;
     }
 
     this.backendService

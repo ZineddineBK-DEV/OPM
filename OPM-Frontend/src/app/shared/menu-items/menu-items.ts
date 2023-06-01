@@ -67,74 +67,74 @@ const MENUITEMS:Menu[] = [
         icon: 'fas fa-solid fa-folder',
         routerLink:"/app/folders"
       },
-      {
-        state: 'tickets',
-        short_label: 'T',
-        name: 'Tickets',
-        type: 'link',
-        icon: 'fas fa-receipt',
-        routerLink:"/app/tickets"
-      },
-      {
-        state: 'tickets',
-        short_label: 'T',
-        name: 'Tickets',
-        type: 'link',
-        icon: 'fas fa-receipt',
-        routerLink:"/app/tickets"
-      },
+      // {
+      //   state: 'tickets',
+      //   short_label: 'T',
+      //   name: 'Tickets',
+      //   type: 'link',
+      //   icon: 'fas fa-receipt',
+      //   routerLink:"/app/tickets"
+      // },
+      // {
+      //   state: 'tickets',
+      //   short_label: 'T',
+      //   name: 'Tickets',
+      //   type: 'link',
+      //   icon: 'fas fa-receipt',
+      //   routerLink:"/app/tickets"
+      // },
       // 
-      {
-        state: 'accounting-plan',
-        short_label: 'A-P',
-        name: 'ACCOUNTING_PLAN',
-        type: 'link',
-        icon: 'fas fa-receipt',
-        routerLink:"/app/accounting/plan"
-      },
+      // {
+      //   state: 'accounting-plan',
+      //   short_label: 'A-P',
+      //   name: 'ACCOUNTING_PLAN',
+      //   type: 'link',
+      //   icon: 'fas fa-receipt',
+      //   routerLink:"/app/accounting/plan"
+      // },
 
 
 
 
     ],
   },
-  {//expenses
-    label: 'EXPENSES_SALES',
-    main: [
-      {
-        state: 'transactions',
-        short_label: 'E-T',
-        name: 'TRANSACTIONS',
-        type: 'link',
-        icon: 'fas fa-donate',
-        routerLink:'/app/expenses-sales/transactions'
-      },
-      {
-        state: 'products-services',
-        short_label: 'P-S',
-        name: 'PRODUCTS_SERVICES',
-        type: 'link',
-        icon: 'fas fa-box',
-        routerLink:'/app/expenses-sales/products-services'
-      },
-      {
-        state: 'suppliers',
-        short_label: 'S',
-        name: 'SUPPLIERS',
-        type: 'link',
-        icon: 'fas fa-users',
-        routerLink:'/app/expenses-sales/suppliers'
-      },
-      {
-        state: 'customers',
-        short_label: 'C',
-        name: 'CUSTOMERS',
-        type: 'link',
-        icon: 'fas fa-user-tie',
-        routerLink:"/app/expenses-sales/customers"
-      },
-    ]
-  },
+  // {//expenses
+  //   label: 'EXPENSES_SALES',
+  //   main: [
+  //     {
+  //       state: 'transactions',
+  //       short_label: 'E-T',
+  //       name: 'TRANSACTIONS',
+  //       type: 'link',
+  //       icon: 'fas fa-donate',
+  //       routerLink:'/app/expenses-sales/transactions'
+  //     },
+  //     {
+  //       state: 'products-services',
+  //       short_label: 'P-S',
+  //       name: 'PRODUCTS_SERVICES',
+  //       type: 'link',
+  //       icon: 'fas fa-box',
+  //       routerLink:'/app/expenses-sales/products-services'
+  //     },
+  //     {
+  //       state: 'suppliers',
+  //       short_label: 'S',
+  //       name: 'SUPPLIERS',
+  //       type: 'link',
+  //       icon: 'fas fa-users',
+  //       routerLink:'/app/expenses-sales/suppliers'
+  //     },
+  //     {
+  //       state: 'customers',
+  //       short_label: 'C',
+  //       name: 'CUSTOMERS',
+  //       type: 'link',
+  //       icon: 'fas fa-user-tie',
+  //       routerLink:"/app/expenses-sales/customers"
+  //     },
+  //   ]
+  // },
 
 
   // {

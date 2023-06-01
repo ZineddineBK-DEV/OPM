@@ -45,6 +45,8 @@ export const GET_ONE_WORK_ORDER_BY_ID_END_POINT: string = `${environment.apiUrl}
 export const POST_TICKET_ADMIN_END_POINT: string = `${environment.apiUrl}/workOrder/addTicket`;
 export const POST_ADD_FILE_FOR_TICKET_ADMIN_END_POINT: string = `${environment.apiUrl}/ticket/ticketAddFile`;
 export const DELETE_FILE_FOR_TICKET_ADMIN_END_POINT: string = `${environment.apiUrl}/ticket/ticketRemoveFile`;
+export const POST_ADD_FILE_TICKET_ADMIN_END_POINT: string = `${environment.apiUrl}/ticket/ticketAddFile`;
+export const PUT_TICKET_END_POINT: string = `${environment.apiUrl}/ticket/updateTicket`;
 
 
 
