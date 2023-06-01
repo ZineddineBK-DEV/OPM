@@ -11,6 +11,7 @@ router.get('/all', workOrderController.getAllWorkOrders);
 router.get('/getWorkOrderById/:id/:authority', workOrderController.getWorkOrderById);
 router.get('/countWorkOrderByClientId/:id', workOrderController.countWorkOrderByClientId);
 router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClientId);
+router.get('/getWorkOrderByEmployeeId/:id', workOrderController.getWorkOrderByEmployeeId);
 router.get('/getWorkOrderByStatus/:id/:status', workOrderController.getWorkOrderByStatus);
 router.put('/updateWorkOrder', workOrderController.updateWorkOrder);
 router.post('/uploadLogo', upload.single('file'), workOrderController.uploadLogo);

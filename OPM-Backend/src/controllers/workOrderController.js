@@ -1,7 +1,7 @@
 const WorkOrder = require('../models/workOrderModel');
 const Ticket = require('../models/ticketModel');
 const File = require('../models/fileModel');
-const Folder = require('../models/folderModel');
+const checkSLA = require('../middlewares/SLAcheck');
 
 
 exports.createWorkOrder = async (req, res) => {
@@ -18,6 +18,7 @@ exports.createWorkOrder = async (req, res) => {
     }
     await workOrder.save();
     res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+    checkSLA(req.body.clientId);
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
@@ -145,6 +146,45 @@ exports.getWorkOrderById = async (req, res) => {
       res.status(500).json({ err: true, message: error.message });
     }
   };
+
+// Get a workOrders affected to a technician
+exports.getWorkOrderByEmployeeId = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const workOrder = await WorkOrder.find({ employeeId: id}).populate(
+      [
+        {
+          path: 'logo',
+          model: 'File',
+        },
+        {
+          path: 'clientId',
+          model: 'Client',
+          select: 'company',
+        },
+        {
+          path: 'employeeId',
+          model: 'Employee',
+          select: 'firstName lastName'
+        },
+        {
+          path: 'ticketId',
+          model: 'Ticket',
+          select: 'title status creationDate description',
+          populate: {
+            path: 'listOfFiles',
+            model: 'File'
+          }
+        },
+      ]);
+    if (!workOrder) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
 
   // Get a workOrder by status
 exports.getWorkOrderByStatus = async (req, res) => {
