@@ -22,17 +22,7 @@ router.get('/getWorkOrderByEmployeeId/:id', workOrderController.getWorkOrderByEm
 
 router.get('/getWorkOrderByClientIdByStatus/:id/:status', workOrderController.getWorkOrderByClientIdByStatus);
 router.get('/getWorkOrderByEmployeeIdByStatus/:id/:status', workOrderController.getWorkOrderByEmployeeIdByStatus);
-<<<<<<< HEAD
-
-
-
-
-
-
-
-=======
 router.get('/getUnhandledWorkOrders/:id?', workOrderController.getUnhandledWorkOrders);
->>>>>>> e04a95333bb90b47549cccbe81d4000f1c756194
 router.put('/updateWorkOrder', workOrderController.updateWorkOrder);
 router.post('/uploadFiles', upload.array('files'), workOrderController.uploadFiles);
 router.delete('/deleteWorkOrder/:id', workOrderController.deleteWorkOrder);
