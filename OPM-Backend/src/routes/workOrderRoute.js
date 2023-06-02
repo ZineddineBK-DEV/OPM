@@ -4,7 +4,7 @@ const workOrderController = require('../controllers/workOrderController');
 const upload = require('../middlewares/fileMiddleware');
 
 // workorder routes
-router.post('/createWorkOrder', upload.single('file'), workOrderController.createWorkOrder);
+router.post('/createWorkOrder', upload.array('files'), workOrderController.createWorkOrder);
 router.post('/addTicket', upload.array('files'), workOrderController.addTicket);
 router.post('/removeTicket', workOrderController.removeTicket);
 router.get('/all', workOrderController.getAllWorkOrders);
@@ -14,8 +14,9 @@ router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClie
 router.get('/getWorkOrderByEmployeeId/:id', workOrderController.getWorkOrderByEmployeeId);
 router.get('/getWorkOrderByClientIdByStatus/:id/:status', workOrderController.getWorkOrderByClientIdByStatus);
 router.get('/getWorkOrderByEmployeeIdByStatus/:id/:status', workOrderController.getWorkOrderByEmployeeIdByStatus);
+router.get('/getUnhandledWorkOrders/:id?', workOrderController.getUnhandledWorkOrders);
 router.put('/updateWorkOrder', workOrderController.updateWorkOrder);
-router.post('/uploadLogo', upload.single('file'), workOrderController.uploadLogo);
+router.post('/uploadFiles', upload.array('files'), workOrderController.uploadFiles);
 router.delete('/deleteWorkOrder/:id', workOrderController.deleteWorkOrder);
 
 module.exports = router;
