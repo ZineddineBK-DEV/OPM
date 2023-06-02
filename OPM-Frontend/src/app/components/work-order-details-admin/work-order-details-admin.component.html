@@ -31,7 +31,7 @@
                 <div class="col-md-12 col-lg-3 offset-lg-10">
                   <div class="pcoded-search">
                     <div class="pcoded-search-box">
-                      <a  [routerLink]="['/app/workOrderDetailAddUpdate', this.id,this.update]">  <button class="btn ">
+                      <a  [routerLink]="['/app/workOrderDetailAddUpdate', this.id,this.add]">  <button class="btn ">
                         <i class="icofont icofont-ui-add"></i>
                         NEW
                       </button></a>
@@ -109,7 +109,7 @@
                               <!-- <a  -->
                                 <a  [routerLink]="['/app/workOrderDetailAddUpdate', this.id,this.update]"><i  class="fas fa-edit"></i></a>
                               <i (click)="deleteWork(item._id)" class="fa fa-trash-o ml-2"></i>
-                              <a  [routerLink]="['/app/workOrderDetailsAdmin', item._id,this.user_Type]"><i  class="fa fa-eye ml-2"></i></a>
+                              <a  [routerLink]="['/app/workOrderDetailsAdmin', item._id]"><i  class="fa fa-eye ml-2"></i></a>
                             </td>
     
 

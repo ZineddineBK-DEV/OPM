@@ -75,7 +75,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: "workOrderDetailsAdmin/:id/:user_type",
+        path: "workOrderDetailsAdmin/:id",
         loadChildren: () =>
           import("../components/workordersdetailsadmin/workordersdetailsadmin.module").then(
             (m) => m.WorkordersdetailsadminModule
@@ -121,7 +121,13 @@ const routes: Routes = [
             (m) => m.WODTModule
           ),
       },
-
+      {
+        path: "workorderListTechClt",
+        loadChildren: () =>
+          import("../components/tech-workorder/tech-workorder.module").then(
+            (m) => m.TechWorkorderModule
+          ),
+      },
 
 
 

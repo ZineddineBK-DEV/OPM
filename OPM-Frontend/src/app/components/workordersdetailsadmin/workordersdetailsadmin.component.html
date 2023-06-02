@@ -81,7 +81,7 @@
                       <div class="form-group">
                         <label for="exampleFormControlTextarea1">Description</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1"
-                          [(ngModel)]="this.DescriptioneworkOrder" [disabled]="this.type_user=='tech' || (this.type_user == 'clt')" rows="3"></textarea>
+                          [(ngModel)]="this.DescriptioneworkOrder" [disabled]="this.type_user=='technician' || (this.type_user == 'client')" rows="3"></textarea>
                       </div>
 
                     </div>
@@ -90,10 +90,11 @@
                     <div class="row">
                       <div class="form-group">
                         <label for="exampleFormControlTextarea2"></label>
-                        <i *ngIf="this.type_user == 'tech' && updatdestech == false" (click)="adddescrption(descEmp.value,this.workOrder.ticketId._id)" class="fas fa-thin fa-file-export"></i>
-                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<i *ngIf="this.type_user == 'tech'" (click)="upadeteEtaDesTEch()" class="fas fa-edit"></i>
+                        <i *ngIf="this.type_user == 'technician' && updatdestech == false" (click)="adddescrption(descEmp.value,this.workOrder.ticketId._id)" class="fas fa-thin fa-file-export"></i>
+                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<i *ngIf="this.type_user == 'technician'" (click)="upadeteEtaDesTEch()" class="fas fa-edit"></i>
+                        
                         <textarea class="form-control" id="exampleFormControlTextarea1" ngModel #descEmp="ngModel" 
-                        [(ngModel)]="this.ticketDescription " [disabled]="this.type_user == 'admin' || this.type_user=='clt' || updatdestech " rows="4" style="width: 90%;"></textarea>
+                        [(ngModel)]="this.ticketDescription " [disabled]="updatdestech " rows="4" style="width: 90%;"></textarea>
                         <!-- <button>hsgdhs</button> -->
                       </div>
 
@@ -106,25 +107,25 @@
                       <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Part name </label>
                         <div class="col-sm-5">
-                          <input type="text" class="form-control"  [disabled]="this.type_user=='tech' || this.type_user=='clt' " [ngModel]="this.partName" id="inputPassword">
+                          <input type="text" class="form-control"  [disabled]="this.type_user=='technician' || this.type_user=='client' " [ngModel]="this.partName" id="inputPassword">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Serial number </label>
                         <div class="col-sm-5">
-                          <input type="text" class="form-control" [disabled]="this.type_user=='tech' || this.type_user=='clt' " [ngModel]="this.serialNum " id="inputPassword">
+                          <input type="text" class="form-control" [disabled]="this.type_user=='technician' || this.type_user=='client' " [ngModel]="this.serialNum " id="inputPassword">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Part number </label>
                         <div class="col-sm-5">
-                          <input type="text" class="form-control" [disabled]="this.type_user=='tech' || this.type_user=='clt' " [ngModel]="this.partName" id="inputPassword">
+                          <input type="text" class="form-control" [disabled]="this.type_user=='technician' || this.type_user=='client' " [ngModel]="this.partName" id="inputPassword">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">LOGs</label>
                         <div class="col-sm-5">
-                          <input type="text" *ngIf="this.workOrder" class="form-control" [disabled]="this.type_user=='tech' || this.type_user=='clt' " [ngModel]="this.logoFileName || '' " id="inputPassword">
+                          <input type="text" *ngIf="this.workOrder" class="form-control" [disabled]="this.type_user=='technician' || this.type_user=='client' " [ngModel]="this.logoFileName || '' " id="inputPassword">
                         </div>
                       </div>
                     </div>
@@ -133,11 +134,11 @@
 
 
 
-                <div class="row" *ngIf="this.type_user == 'admin' ||this.type_user == 'tech'">
+                <div class="row" *ngIf="this.type_user != 'client' ||this.type_user == 'technician'">
                   <div class="col-md-8">
                     <div class="row">
 
-                      <ng-container *ngIf="this.listFile != null && this.type_user == 'tech' || this.type_user == 'admin'" >
+                      <ng-container *ngIf="this.listFile != null && this.type_user == 'technician' || this.type_user != 'client'" >
                       <ul class="list-group" *ngIf="this.listFile" >
                         <li *ngIf="this.workOrder" class="list-group-item active">{{workOrder.ticketId.title}} <span style="float:right" > <i  (click)="OpenModal('Add File Ticket',this.workOrder.ticketId._id)" class="fas fa-plus-square"></i></span></li>
 
@@ -147,8 +148,8 @@
                       </ng-container>
                       </ul>
                     </ng-container>
-                      <div  *ngIf="(!this.listFile || !workOrder.ticketId) && (this.type_user == 'admin' || this.type_user == 'tech' )">
-                      <button  *ngIf="(!this.listFile || !workOrder.ticketId) && (this.type_user == 'admin' || this.type_user == 'tech' )"  class="btn " (click)="oppenAdd('NEW TICKET')">
+                      <div  *ngIf="(!this.listFile || !workOrder.ticketId) && (this.type_user != 'client' || this.type_user == 'technician' )">
+                      <button  *ngIf="(!this.listFile || !workOrder.ticketId) && (this.type_user != 'client' || this.type_user == 'technician' )"  class="btn " (click)="oppenAdd('NEW TICKET')">
                         <i   class="icofont icofont-ui-add"></i>
                         ADD TICKET
                       </button>

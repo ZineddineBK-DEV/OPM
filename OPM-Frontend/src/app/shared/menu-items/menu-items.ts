@@ -67,6 +67,14 @@ const MENUITEMS:Menu[] = [
         icon: 'fas fa-solid fa-folder',
         routerLink:"/app/folders"
       },
+      {
+        state: 'word',
+        short_label: 'T',
+        name: 'Worek Order',
+        type: 'link',
+        icon: 'fas fa-solid fa-folder',
+        routerLink:"/app/workorderListTechClt"
+      },
       // {
       //   state: 'tickets',
       //   short_label: 'T',

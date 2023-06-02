@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { BackendService } from "./backend.service";
 import { GET_USER_SELECTED_COMPANY_END_POINT } from "./endpoints";
 import Observer from "./observer";
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: "root",
@@ -16,11 +17,17 @@ export class SharedService {
       router.navigate([currentRoute]);
     });
   }
-
-
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
+  }
   passwordControl() {
     //regex and password length
   }
+
 
 
 

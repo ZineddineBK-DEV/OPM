@@ -23,16 +23,18 @@ export class WODTComponent implements OnInit {
   employerslist: [] = [];
   collectionSize: number = 0;
   p=1;
+  model :any ={}
   page = 1;
   mayFile :any ;
   nbrItemPage = 5;
   pageSize = 5;
   pageSizes = [5, 10, 20];
-  id_company:string;
   titer ;
   id ;
   goRouting= "/app/workOrderDetail"
   fileInputPlaceHolder = "fileInputPlaceHolder"
+  userRole
+  ok=true ;
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -44,32 +46,31 @@ export class WODTComponent implements OnInit {
     
   ) {
     this.paylodFormData = new FormData();
+    console.log();
+    
+    // this.id= this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken"))._id ;
+
   }
 
   ngOnInit() {
-
-
         this.getAllEmployeesByAuthority("technician");
         this.id=this.route.snapshot.paramMap.get("id");
-        // alert(this.id)
-
   }
 
   onSubmit(form: NgForm) {
     let endpoint: string = "";
     let payload = { ...form.value };
-    console.log(payload)
-    this.paylodFormData.append("title",payload.title);
-    this.paylodFormData.append("description",payload.description);
-    this.paylodFormData.append("clientId",this.id)
-    this.paylodFormData.append("fileType","Logo")
-    this.paylodFormData.append("file",this.mayFile)
 
-    this.paylodFormData.append("partName",payload.partName)
-    this.paylodFormData.append("serialNum",payload.serialNum)
-    this.paylodFormData.append("partNum",payload.partNum)
-    this.paylodFormData.append("employeeId",payload.employeeId)
-    // 
+    if(payload.title){this.paylodFormData.append("title",this.model.title)}
+    if(this.model.description){this.paylodFormData.append("description",this.model.description)}
+    this.paylodFormData.append("clientId",this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken"))._id)
+    this.paylodFormData.append("fileType","Logo")
+    if(this.mayFile){this.paylodFormData.append("file",this.mayFile)}
+    if(this.model.partName){this.paylodFormData.append("partName",this.model.partName)}
+    if(this.model.serialNum){this.paylodFormData.append("serialNum",this.model.serialNum)}
+    if(this.model.partNum){this.paylodFormData.append("partNum",this.model.partNum)}
+    if(this.model.employeeId){this.paylodFormData.append("employeeId",this.model.employeeId)}
+    console.log(this.id)
     this.backendService
       .post(POST_WOREK_ORDER_ADMIN_END_POINT, this.paylodFormData)
       .subscribe(

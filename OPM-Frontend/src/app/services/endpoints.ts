@@ -31,9 +31,7 @@ export const GET_USER_USER_COUNT_worekorder_BY_VALIDE: string = `${environment.a
 // ********* worek order ******/
 
 export const POST_WOREK_ORDER_ADMIN_END_POINT: string = `${environment.apiUrl}/workOrder/createWorkOrder`;
-
 export const PUT_WOREK_ORDER_END_POINT: string = `${environment.apiUrl}/workOrder/updateWorkOrder`;
-
 export const DELETE_USER_WORK_ORDER_END_POINT: string = `${environment.apiUrl}/workOrder/deleteWorkOrder`;
 export const GET_USER_WORK_ORDER_BY_STATUS_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderByStatus`;
 export const GET_ONE_WORK_ORDER_BY_ID_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderById`;
@@ -48,7 +46,14 @@ export const DELETE_FILE_FOR_TICKET_ADMIN_END_POINT: string = `${environment.api
 export const POST_ADD_FILE_TICKET_ADMIN_END_POINT: string = `${environment.apiUrl}/ticket/ticketAddFile`;
 export const PUT_TICKET_END_POINT: string = `${environment.apiUrl}/ticket/updateTicket`;
 
+// worek order part techn
+export const GET_WOREK_ORDER_FOR_Te_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderByEmployeeId`;
+export const GET_WOREK_ORDER_FOR_TECH_BY_STATUS_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderByEmployeeIdByStatus`;
+// 127.0.0.1:3000/workOrder/getWorkOrderByClientId
+// 127.0.0.1:3000/workOrder/getWorkOrderByClientIdByStatus
 
+export const GET_WOREK_ORDER_FOR_CLTe_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderByClientId`;
+export const GET_WOREK_ORDER_FOR_CLT_BY_STATUS_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderByClientIdByStatus`;
 
 
 

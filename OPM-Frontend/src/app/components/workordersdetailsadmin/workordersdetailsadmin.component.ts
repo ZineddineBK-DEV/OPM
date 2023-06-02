@@ -25,7 +25,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
   path_logo ;
   windurl =window.location.protocol + "//" + window.location.hostname+"/:3000/";
   titre_worek_order ;
-  type_user  = "admin";
+  type_user  ;
   description = ""
   titleWorkOrder = null;
   StatusWorkOrder = null;
@@ -53,11 +53,11 @@ export class WorkordersdetailsadminComponent implements OnInit {
 
   ) {
     this.id=this.route.snapshot.paramMap.get("id");
-    this.type_user=this.route.snapshot.paramMap.get("user_type");
+    this.type_user= this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority ; 
     this.url_imguplode = environment.apiUrl+"/"+this.id+"/Logo/" ;
-if(this.type_user == "admin"){ this.disAdmin  = false}
-if(this.type_user == "tech"){this.disTech = false}
-if(this.type_user == "clt"){this.disClt = false}
+if(!this.type_user){ this.disAdmin  = false}
+if(this.type_user == "technician"){this.disTech = false}
+if(this.type_user == "client"){this.disClt = false}
   }
   ngOnInit() {
     this.getOneWorkOrderBayId(this.type_user);
@@ -128,7 +128,6 @@ OpenDetails(title: string, payload:any) {
 }
 
 deleteFile(id_file: string,id_tiket:string) {
-  alert(id_file+"---"+id_tiket)
   const lang=JSON.parse(localStorage.getItem('lang')).lang;
   swal({
     title: "Are you sure?",

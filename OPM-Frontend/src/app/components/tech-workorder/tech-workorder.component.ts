@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { DELETE_USER_TAXES_END_POINT, DELETE_USER_WORK_ORDER_END_POINT, GET_LIST_FILES_BY_CLIENTS, GET_LIST_Ticket_BY_CLIENTS, GET_LIST_Work_Orders_BY_CLIENTS, GET_USER_WORK_ORDER_BY_STATUS_END_POINT } from '../../services/endpoints';
+import {  DELETE_USER_WORK_ORDER_END_POINT, GET_WOREK_ORDER_FOR_CLT_BY_STATUS_END_POINT, GET_WOREK_ORDER_FOR_CLTe_END_POINT, GET_WOREK_ORDER_FOR_TECH_BY_STATUS_END_POINT, GET_WOREK_ORDER_FOR_Te_END_POINT } from '../../services/endpoints';
 import { ActivatedRoute } from '@angular/router';
 import Observer from '../../services/observer';
 import { DetailsComponent } from './../../popup/details/details.component';
@@ -14,29 +14,22 @@ import swal from 'sweetalert';
 
 
 @Component({
-  selector: 'app-work-order-details-admin',
-  templateUrl: './work-order-details-admin.component.html',
-  styleUrls: ['./work-order-details-admin.component.scss']
+  selector: 'app-tech-workorder',
+  templateUrl: './tech-workorder.component.html',
+  styleUrls: ['./tech-workorder.component.scss']
 })
-export class WorkOrderDetailsAdminComponent implements OnInit {
+export class TechWorkorderComponent implements OnInit {
   WorekOrderList;
   page = 1;
   collectionSize: number = 0;
   pageSize = 5;
   pageSizes = [5, 10, 20];
-  id_company:string;
   nbrItemPage = 5;
-  id_user:any;
-  id:any ;
   change = false ;
   value_change :any ;
   p=1
-  user_Type="admin"
-  detaile= "detaile";
-  update="update";
-  add="add"
-  // user_Type=sessionStorage.getItem("userauth")
-  
+  userRole:any ;
+  tech_id
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -44,61 +37,66 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
     private sharedService: SharedService,
     private route: ActivatedRoute
   ) {
-    this.id=this.route.snapshot.paramMap.get("id");
+   this.tech_id= this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken"))._id ;
+  this.userRole= this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority ;
+  // alert(this.userRole)
   }
-
   ngOnInit() {
         this.getListWorkorderList();
   }
-
 getListWorkorderListByStatus(status:any) {
+  let endpoint
+  if(this.userRole == 'client'){
+    endpoint =  GET_WOREK_ORDER_FOR_TECH_BY_STATUS_END_POINT
+  }
+  if(this.userRole == 'technician'){
+    endpoint =  GET_WOREK_ORDER_FOR_CLT_BY_STATUS_END_POINT
+  }
   this.WorekOrderList = [];
-  this.backendService.get(`${GET_USER_WORK_ORDER_BY_STATUS_END_POINT}/${this.id}/${status}`).subscribe(
+  this.backendService.get(`${endpoint}/${this.tech_id}/${status}`).subscribe(
     new Observer().OBSERVER_GET((response) => {
       console.log(response.rows);
        this.WorekOrderList = response.rows;
     })
   );
 }
-
-
 changeSelectedFile(valid) {
   this.change = true ;
   this.value_change= valid ;
   if(valid != 'All'){this.getListWorkorderListByStatus(valid);}else{this.getListWorkorderList()}
   
 }
-
-
-  //OpenModal(sch:string){}
   getListWorkorderList() {
+    let endpoint
+    if(this.userRole == 'client'){
+  endpoint =  GET_WOREK_ORDER_FOR_CLTe_END_POINT
+    }
+    if(this.userRole == 'technician'){
+      endpoint =  GET_WOREK_ORDER_FOR_Te_END_POINT
+    }
   this.WorekOrderList = [];
-      this.backendService.get(`${GET_LIST_Work_Orders_BY_CLIENTS}/${this.id}`).subscribe(
+      this.backendService.get(`${endpoint}/${this.tech_id}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
     console.log(response.rows);
          this.WorekOrderList = response.rows;
       })
     );
   }
-
   OpenModal(title: string) {
    
     const modalRef = this.modalService.open(PostComponent ,{ size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = WORK_ORDER_POPUP_TYPE;
-    modalRef.componentInstance.payload = {"clientId":this.id};
+    modalRef.componentInstance.payload = {"clientId":""};
 
   }
-
   OpenModalUp(title: string,item?) {
    
     const modalRef = this.modalService.open(PutComponent ,{ size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = WORK_ORDER_POPUP_TYPE;
-    modalRef.componentInstance.payload = {...item,"clientId":this.id};
+    modalRef.componentInstance.payload = {...item,"clientId":""};
   }
-
-
   OpenDetails(title: string, payload:any){
 
     const modalRef = this.modalService.open(DetailsComponent);
@@ -131,20 +129,16 @@ changeSelectedFile(valid) {
       }
     });
   }
-
-
   handlePageSizeChange(event: any): void {
     this.pageSize = event.target.value;
     this.page = 1;
   this.nbrItemPage =event.target.value ;
   }
-
   handlePageChange(currentPage: number) {
     if(this.change){
-      this.getListWorkorderListByStatus(this.value_change);
+      this.getListWorkorderListByStatus(this.value_change);//getWorkOrderByClientIdByStatus
     }else    {this.getListWorkorderList()}
 
     this.page = currentPage;
   }
-
 }

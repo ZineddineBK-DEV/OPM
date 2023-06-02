@@ -53,7 +53,6 @@ exports.addTicket = async (req, res) => {
     res.status(500).json({ err: true, message: error.message });
   }
 };
-
 // remove ticket to the workorder
 exports.removeTicket = async (req, res) => {
   const { ticketId, clientId } = req.body;
@@ -72,7 +71,23 @@ exports.removeTicket = async (req, res) => {
    res.status(500).json({ err: true, message: error.message });
  }
 };
+exports.getWorkOrderByStatus = async (req, res) => {
+  const clientId = req.params.id;
+  const status = req.params.status;
 
+  try {
+    if (!status) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    const workOrder = await WorkOrder.find({clientId, status});
+    if (!workOrder) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+}
 // Get all workOrders
 exports.getAllWorkOrders = async (req, res) => {
   try {

@@ -146,7 +146,7 @@ userNAme=""
     private translate: TranslateService
   ) {
     // alert(sessionStorage.getItem("email"))
-this.userNAme = sessionStorage.getItem("email")
+this.userNAme = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).email
     this.navType = "st5";
     this.themeLayout = "vertical";
     this.vNavigationView = "view1";

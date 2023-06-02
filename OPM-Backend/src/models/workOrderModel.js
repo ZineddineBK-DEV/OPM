@@ -28,7 +28,7 @@ const workOrderSchema = new mongoose.Schema({
     logo: { type: mongoose.Schema.Types.ObjectId, ref:'File' },
     status: {
       type: String,
-      enum: ['In progress', 'Done', 'Expired'],
+      enum: ['In progress', 'Done','Valid' , 'Expired'],
       default: 'In progress'
     },
     clientId: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'Client' },

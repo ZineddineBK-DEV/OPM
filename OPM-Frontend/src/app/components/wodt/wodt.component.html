@@ -21,9 +21,10 @@
               <div class="container">
                 <div class="row">
                     <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
-
+                <ng-container *ngIf="this.userRole == 'admin'"> 
                       <div class="input-group">
-
+                        <input type="text" class="form-control" placeholder="Title" name="titre" ngModel [(ngModel)]="this.model.titre" #titre="ngModel" required />
+<!--             <input type="text" class="form-control" placeholder="Title" name="titre" ngModel [(ngModel)]="this.model.titre" #titre="ngModel" required />-->
                         <select class="form-select" value="-1" name="employeeId" ngModel #employeeId="ngModel" required>
                           <option disabled value="">{{"Select a technician"}}</option>
                           <option *ngFor="let tech of this.employerslist;" value="{{tech._id}}">
@@ -31,24 +32,25 @@
                           </option>
                         </select>
                       </div>
-                      <div *ngIf="employeeId.invalid && employeeId.touched" class="alert alert-danger p-2" role="alert">
+                      <div  *ngIf="this.userRole == 'admin' && employeeId.invalid && employeeId.touched" class="alert alert-danger p-2" role="alert">
                         <span>Select an Technician</span>
                       </div>
-                
+                </ng-container>
                 
                 
                 
                         <div class="input-group">
-                
-                          <input type="text" class="form-control" [placeholder]="'Title'" name="title"
-                            ngModel #title="ngModel" required />
+                <!--             <input type="text" class="form-control" placeholder="Title" name="titre" ngModel [(ngModel)]="this.model.titre" #titre="ngModel" required />-->
+
+                          <input type="text" class="form-control" [placeholder]="'Title'" name="title" ngModel [(ngModel)]="this.model.title" #title="ngModel"   required />
                         </div>
                         <div *ngIf="title.invalid && title.touched" class="alert alert-danger p-2" role="alert">
                           <span>ENTER Title</span>
                         </div>
+                            <!--             <input type="text" class="form-control" placeholder="Title" name="titre" ngModel [(ngModel)]="this.model.titre" #titre="ngModel" required />-->
+
                             <div class="input-group">
-                          <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Description" rows="2"
-                            name="description" ngModel #description="ngModel" required></textarea>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Description" name="description" ngModel [(ngModel)]="this.model.description" #description="ngModel" rows="2" name="description"   required></textarea>
                 
                         </div>
                         <div *ngIf="description.invalid && description.touched" class="alert alert-danger p-2" role="alert">
@@ -56,28 +58,27 @@
                         </div>
                     <div class="input-group">
                           <div class="col-sm-6">
-                            
-                            <input type="text" class="form-control" [placeholder]="'Part Name'" name="partName"
-                            ngModel #partName="ngModel" required />
+                            <!--             <input type="text" class="form-control" placeholder="Title" name="titre" ngModel [(ngModel)]="this.model.titre" #titre="ngModel" required />-->
+
+                            <input type="text" class="form-control" [placeholder]="'Part Name'" name="partName" ngModel [(ngModel)]="this.model.partName" #partName="ngModel" required />
                           </div>       
                           <div class="col-sm-6">
-                            <input type="text" class="form-control" [placeholder]="'Serial Number'" name="serialNum"
-                            ngModel #serialNum="ngModel" required />                          </div>
+                            <input type="text" class="form-control" [placeholder]="'Serial Number'" name="serialNum" ngModel [(ngModel)]="this.model.serialNum" #serialNum="ngModel" required />                          </div>
                    </div>
 
                    <div class="input-group">
                     <div class="col-sm-6">
-                      <input type="text" class="form-control" [placeholder]="'Part Number'" name="partNum"
-                      ngModel #partNum="ngModel" required />
+                      <!--             <input type="text" class="form-control" placeholder="Title" name="titre" ngModel [(ngModel)]="this.model.titre" #titre="ngModel" required />-->
+
+                      <input type="text" class="form-control" [placeholder]="'Part Number'" name="partNum" ngModel [(ngModel)]="this.model.partNum" #partNum="ngModel" required />
                     </div>       
                     <div class="col-sm-6">
 
 
                       <div>
                         <!-- <i class=""></i> -->
-                        <label for="files" class="btn">LOGs :</label> <i class="fas fa-file-import"></i>
-                        <input class="form-control" (change)="changeSelectedFile02($event)"   id="files" style="visibility:hidden;  border: 1px  #050505;
-                        " type="file" />      
+                        <label for="files" class="btn">Files :</label> <i class="fas fa-file-import"></i>
+                        <input class="form-control" (change)="changeSelectedFile02($event)"   id="files" style="visibility:hidden;  border: 1px  #050505;" type="file" />      
                     </div>
 
                     
@@ -88,8 +89,7 @@
 
 
                         <div class="modal-footer">
-                          <input [value]="'CONFIRM'|translate" [disabled]="employeeId.invalid || title.invalid || description.invalid" type="submit"
-                            class="btn btn-outline-primary" />
+                          <input [value]="'CONFIRM'|translate" [disabled]="title.invalid || description.invalid" type="submit" class="btn btn-outline-primary" />
                           <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
                             {{'CANCEL'|translate}}
                           </button>
