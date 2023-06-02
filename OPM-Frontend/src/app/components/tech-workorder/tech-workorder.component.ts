@@ -44,13 +44,15 @@ export class TechWorkorderComponent implements OnInit {
   ngOnInit() {
         this.getListWorkorderList();
   }
-getListWorkorderListByStatus(status:any) {
+getListWorkorderListByStatus(status:any,url?) {
   let endpoint
   if(this.userRole == 'client'){
-    endpoint =  GET_WOREK_ORDER_FOR_TECH_BY_STATUS_END_POINT
-  }
-  if(this.userRole == 'technician'){
     endpoint =  GET_WOREK_ORDER_FOR_CLT_BY_STATUS_END_POINT
+  }
+  //
+// 
+  if(this.userRole == 'technician'){
+    endpoint =  GET_WOREK_ORDER_FOR_TECH_BY_STATUS_END_POINT
   }
   this.WorekOrderList = [];
   this.backendService.get(`${endpoint}/${this.tech_id}/${status}`).subscribe(
@@ -63,7 +65,19 @@ getListWorkorderListByStatus(status:any) {
 changeSelectedFile(valid) {
   this.change = true ;
   this.value_change= valid ;
-  if(valid != 'All'){this.getListWorkorderListByStatus(valid);}else{this.getListWorkorderList()}
+  if(valid != 'All'){this.getListWorkorderListByStatus(valid);}else{}
+
+//   All
+// 
+// 
+// 
+if(valid == 'All'){this.getListWorkorderList()}else{
+  console.log(valid);
+  
+  // this.getListWorkorderListByStatus(valid);
+}
+
+  console.log(valid);
   
 }
   getListWorkorderList() {

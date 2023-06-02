@@ -65,7 +65,7 @@
                       <div class="form-group">
                         <u><i>
                             <h4>{{this.EmpoloyesFirstNameLastName|| ''}}</h4>
-                          
+
                           </i></u>
 
                       </div>
@@ -81,23 +81,26 @@
                       <div class="form-group">
                         <label for="exampleFormControlTextarea1">Description</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1"
-                          [(ngModel)]="this.DescriptioneworkOrder" [disabled]="this.type_user=='technician' || (this.type_user == 'client')" rows="3"></textarea>
+                          [(ngModel)]="this.DescriptioneworkOrder"
+                          [disabled]="this.type_user=='technician' || (this.type_user == 'client')" rows="3"></textarea>
                       </div>
-
                     </div>
                   </div>
                   <div class="col-md-4" *ngIf="this.workOrder">
                     <div class="row">
                       <div class="form-group">
                         <label for="exampleFormControlTextarea2"></label>
-                        <i *ngIf="this.type_user == 'technician' && updatdestech == false" (click)="adddescrption(descEmp.value,this.workOrder.ticketId._id)" class="fas fa-thin fa-file-export"></i>
-                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<i *ngIf="this.type_user == 'technician'" (click)="upadeteEtaDesTEch()" class="fas fa-edit"></i>
-                        
-                        <textarea class="form-control" id="exampleFormControlTextarea1" ngModel #descEmp="ngModel" 
-                        [(ngModel)]="this.ticketDescription " [disabled]="updatdestech " rows="4" style="width: 90%;"></textarea>
-                        <!-- <button>hsgdhs</button> -->
-                      </div>
+                        <i *ngIf="this.type_user == 'technician' && this.workOrder.ticketId && this.updatdestech == false"
+                          (click)="adddescrption(descEmp.value,this.workOrder.ticketId._id)"
+                          class="fas fa-thin fa-file-export"></i>
+                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<i
+                          *ngIf="this.type_user == 'technician' && this.workOrder.ticketId "
+                          (click)="upadeteEtaDesTEch()" class="fas fa-edit"></i>
 
+                        <textarea class="form-control" id="exampleFormControlTextarea1" ngModel #descEmp="ngModel"
+                          [(ngModel)]="this.ticketDescription " [disabled]="updatdestech " rows="4"
+                          style="width: 90%;"></textarea>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -107,69 +110,79 @@
                       <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Part name </label>
                         <div class="col-sm-5">
-                          <input type="text" class="form-control"  [disabled]="this.type_user=='technician' || this.type_user=='client' " [ngModel]="this.partName" id="inputPassword">
+                          <input type="text" class="form-control"
+                            [disabled]="this.type_user=='technician' || this.type_user=='client' "
+                            [ngModel]="this.partName" id="inputPassword">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Serial number </label>
                         <div class="col-sm-5">
-                          <input type="text" class="form-control" [disabled]="this.type_user=='technician' || this.type_user=='client' " [ngModel]="this.serialNum " id="inputPassword">
+                          <input type="text" class="form-control"
+                            [disabled]="this.type_user=='technician' || this.type_user=='client' "
+                            [ngModel]="this.serialNum " id="inputPassword">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Part number </label>
                         <div class="col-sm-5">
-                          <input type="text" class="form-control" [disabled]="this.type_user=='technician' || this.type_user=='client' " [ngModel]="this.partName" id="inputPassword">
+                          <input type="text" class="form-control"
+                            [disabled]="this.type_user=='technician' || this.type_user=='client' "
+                            [ngModel]="this.partName" id="inputPassword">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">LOGs</label>
                         <div class="col-sm-5">
-                          <input type="text" *ngIf="this.workOrder" class="form-control" [disabled]="this.type_user=='technician' || this.type_user=='client' " [ngModel]="this.logoFileName || '' " id="inputPassword">
+                          <input type="text" *ngIf="this.workOrder" class="form-control"
+                            [disabled]="this.type_user=='technician' || this.type_user=='client' "
+                            [ngModel]="this.logoFileName || '' " id="inputPassword">
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
-
-
                 <div class="row" *ngIf="this.type_user != 'client' ||this.type_user == 'technician'">
                   <div class="col-md-8">
                     <div class="row">
+                      <ng-container
+                        *ngIf="this.listFile != null && this.type_user == 'technician' || this.type_user != 'client'">
+                        <ul class="list-group" *ngIf="this.listFile">
+                          <li *ngIf="this.workOrder" class="list-group-item active">{{workOrder.ticketId.title}} <span
+                              style="float:right"> <i (click)="OpenModal('Add File Ticket',this.workOrder.ticketId._id)"
+                                class="fas fa-plus-square"></i></span></li>
 
-                      <ng-container *ngIf="this.listFile != null && this.type_user == 'technician' || this.type_user != 'client'" >
-                      <ul class="list-group" *ngIf="this.listFile" >
-                        <li *ngIf="this.workOrder" class="list-group-item active">{{workOrder.ticketId.title}} <span style="float:right" > <i  (click)="OpenModal('Add File Ticket',this.workOrder.ticketId._id)" class="fas fa-plus-square"></i></span></li>
-
-                         <ng-container  *ngFor="let item of this.listFile">
-                          <!-- <i (click)="OpenDetails('Details Ticket',item)" class="fa fa-eye ml-2"></i> -->
-                        <li  class="list-group-item" (click)="openFile(item.path)" ><a href="{{this.windurl + item.path }}" target="_blank">{{item.title}}</a> <span style="float:right" >  <i (click)="deleteFile(item._id,this.workOrder.ticketId._id)" class="fa fa-trash-o ml-2"></i> </span></li>  
+                          <ng-container *ngFor="let item of this.listFile">
+                            <!-- <i (click)="OpenDetails('Details Ticket',item)" class="fa fa-eye ml-2"></i> -->
+                            <li class="list-group-item" (click)="openFile(item.path)"><a
+                                href="{{this.windurl + item.path }}" target="_blank">{{item.title}}</a> <span
+                                style="float:right"> <i (click)="deleteFile(item._id,this.workOrder.ticketId._id)"
+                                  class="fa fa-trash-o ml-2"></i> </span></li>
+                          </ng-container>
+                        </ul>
                       </ng-container>
-                      </ul>
-                    </ng-container>
-                      <div  *ngIf="(!this.listFile || !workOrder.ticketId) && (this.type_user != 'client' || this.type_user == 'technician' )">
-                      <button  *ngIf="(!this.listFile || !workOrder.ticketId) && (this.type_user != 'client' || this.type_user == 'technician' )"  class="btn " (click)="oppenAdd('NEW TICKET')">
-                        <i   class="icofont icofont-ui-add"></i>
-                        ADD TICKET
-                      </button>
+                      <div
+                        *ngIf="(!this.listFile || !workOrder.ticketId) && (this.type_user != 'client' || this.type_user == 'technician' )">
+                        <button
+                          *ngIf="(!this.listFile || !workOrder.ticketId) && (this.type_user != 'client' || this.type_user == 'technician' )"
+                          class="btn " (click)="oppenAdd('NEW TICKET')">
+                          <i class="icofont icofont-ui-add"></i>
+                          ADD TICKET
+                        </button>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-3" style="margin-left: 3%;">
-                    <div class="row" >
-                      <img src="https://www.freepnglogos.com/uploads/signature-png/nguy-ecnh-nguyen-van-binh-signature-png-5.png" 
-                        width="90" 
-                            height="200" />
-<!-- E:/project/OPM-main/OPM-Frontend/src/assets/images/pattern7.jpg -->
-
+                    <div class="row">
+                      <img
+                        src="https://www.freepnglogos.com/uploads/signature-png/nguy-ecnh-nguyen-van-binh-signature-png-5.png"
+                        width="90" height="200" />
+                      <!-- E:/project/OPM-main/OPM-Frontend/src/assets/images/pattern7.jpg -->
                     </div>
                   </div>
                 </div>
-
-
               </div>
-<br><br><br>
+              <br><br><br>
               <!-- </app-card> -->
             </div>
           </div>

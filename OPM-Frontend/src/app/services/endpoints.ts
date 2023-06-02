@@ -55,7 +55,7 @@ export const GET_WOREK_ORDER_FOR_TECH_BY_STATUS_END_POINT: string = `${environme
 export const GET_WOREK_ORDER_FOR_CLTe_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderByClientId`;
 export const GET_WOREK_ORDER_FOR_CLT_BY_STATUS_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderByClientIdByStatus`;
 
-
+//getWorkOrderByClientIdByStatus
 
 
 
