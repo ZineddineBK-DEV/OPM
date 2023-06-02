@@ -31,17 +31,16 @@ export class EmployersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-        this.getAllEmployeesByAuthority("commercial");
+        this.getAllEmployeesByAuthority("technician");
   }
 
   getAllEmployeesByAuthority(typeEmp:string ) {
 
     this.backendService.get(`${GET_USER_employers_END_POINT}/${typeEmp}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
-    console.log(response);
-
-        // this.collectionSize=response.totalItems;
          this.employerslist = response.rows;
+         console.log(this.employerslist);
+         
       })
     );
   }
