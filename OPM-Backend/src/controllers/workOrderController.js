@@ -7,14 +7,20 @@ const checkSLA = require('../middlewares/SLAcheck');
 exports.createWorkOrder = async (req, res) => {
   try {
     var workOrder = WorkOrder(req.body);
-    if (req.file){
-    const newFile = File({
-      fileName: req.file.filename,
-      path: req.file.destination + '/' + req.file.filename,
-      title: req.body.title
-    });
-    await newFile.save();
-    workOrder.logo=newFile;
+    if (req.files){
+      const files = req.files; // Get the array of uploaded files
+      const uploadedFiles = [];
+  
+      for (const file of files) {
+        const newFile = File({
+          fileName: file.filename,
+          path: file.destination + '/' + file.filename,
+          title: file.orignalname
+        });
+        await newFile.save();
+        uploadedFiles.push(newFile);
+      }
+    workOrder.listOfFiles=uploadedFiles;
     }
     await workOrder.save();
     res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
@@ -106,7 +112,7 @@ exports.getWorkOrderById = async (req, res) => {
         const workOrder = await WorkOrder.findById(id).populate(
           [
             {
-              path: 'logo',
+              path: 'listOfFiles',
               model: 'File',
             },
             {
@@ -129,7 +135,7 @@ exports.getWorkOrderById = async (req, res) => {
         const workOrder = await WorkOrder.findById(id).populate(
           [
             {
-              path: 'logo',
+              path: 'listOfFiles',
               model: 'File',
             },
             {
@@ -169,7 +175,7 @@ exports.getWorkOrderByEmployeeId = async (req, res) => {
     const workOrder = await WorkOrder.find({ employeeId: id}).populate(
       [
         {
-          path: 'logo',
+          path: 'listOfFiles',
           model: 'File',
         },
         {
@@ -247,6 +253,10 @@ exports.getWorkOrderByClientId = async (req, res) => {
       const workOrder = await WorkOrder.find({ clientId }).populate(
         [
           {
+            path: 'listOfFiles',
+            model: 'File'
+          },
+          {
             path: 'clientId',
             model: 'Client',
             select: 'company',
@@ -265,6 +275,10 @@ exports.getWorkOrderByClientId = async (req, res) => {
     }else{
       const workOrder = await WorkOrder.find({ clientId }).populate(
         [
+          {
+            path: 'listOfFiles',
+            model: 'File'
+          },
           {
             path: 'clientId',
             model: 'Client',
@@ -307,18 +321,110 @@ exports.getWorkOrderByClientId = async (req, res) => {
     }
   };
 
-// upload logo
-exports.uploadLogo = async (req, res) => {
+// returns un handled workOrders
+exports.getUnhandledWorkOrders = async (req, res) => {
+  const clientId = req.params.id;
+  try {
+    if (clientId) {
+      const workOrder = await WorkOrder.find({
+        clientId: clientId,
+        $or: [
+          { employeeId: null }, // Check if employeeId is null
+          { employeeId: { $exists: false } } // Check if employeeId does not exist
+        ]
+      }).populate(
+        [
+          {
+            path: 'listOfFiles',
+            model: 'File',
+          },
+          {
+            path: 'clientId',
+            model: 'Client',
+            select: 'company',
+          },
+          {
+            path: 'employeeId',
+            model: 'Employee',
+            select: 'firstName lastName'
+          },
+          {
+            path: 'ticketId',
+            model: 'Ticket',
+            select: 'title status creationDate description',
+            populate: {
+              path: 'listOfFiles',
+              model: 'File'
+            }
+          },
+        ]);
+      if (!workOrder) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+
+      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+    } else {
+      const workOrder = await WorkOrder.find({
+        $or: [
+          { employeeId: null }, // Check if employeeId is null
+          { employeeId: { $exists: false } } // Check if employeeId does not exist
+        ]
+      }).populate(
+        [
+          {
+            path: 'listOfFiles',
+            model: 'File',
+          },
+          {
+            path: 'clientId',
+            model: 'Client',
+            select: 'company',
+          },
+          {
+            path: 'employeeId',
+            model: 'Employee',
+            select: 'firstName lastName'
+          },
+          {
+            path: 'ticketId',
+            model: 'Ticket',
+            select: 'title status creationDate description',
+            populate: {
+              path: 'listOfFiles',
+              model: 'File'
+            }
+          },
+        ]);
+      if (!workOrder) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+
+      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+    }
+
+  } catch (error) {
+
+  }
+};
+
+// upload files
+exports.uploadFiles = async (req, res) => {
   try { 
-    const newFile = File({
-      fileName: req.file.filename,
-      path: req.file.destination + '/' + req.file.filename,
-      title: req.body.title
-    });
-    await newFile.save();
+    const files = req.files; // Get the array of uploaded files
+    const uploadedFiles = [];
+
+    for (const file of files) {
+      const newFile = File({
+        fileName: file.filename,
+        path: file.destination + '/' + file.filename,
+        title: req.body.title
+      });
+      await newFile.save();
+      uploadedFiles.push(newFile);
+    }
     const workOrder = await WorkOrder.findByIdAndUpdate(
       req.body.workOrderId,
-      {logo: newFile},
+      { $push: { listOfFiles: uploadedFiles } },
       {new: true}
     );   
     res.status(200).json({err: false, message: "Successful operation !", rows: workOrder}); 

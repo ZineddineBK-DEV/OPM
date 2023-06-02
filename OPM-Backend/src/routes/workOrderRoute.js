@@ -4,7 +4,7 @@ const workOrderController = require('../controllers/workOrderController');
 const upload = require('../middlewares/fileMiddleware');
 
 // workorder routes
-router.post('/createWorkOrder', upload.single('file'), workOrderController.createWorkOrder);
+router.post('/createWorkOrder', upload.array('files'), workOrderController.createWorkOrder);
 router.post('/addTicket', upload.array('files'), workOrderController.addTicket);
 router.post('/removeTicket', workOrderController.removeTicket);
 router.get('/all', workOrderController.getAllWorkOrders);
@@ -22,6 +22,7 @@ router.get('/getWorkOrderByEmployeeId/:id', workOrderController.getWorkOrderByEm
 
 router.get('/getWorkOrderByClientIdByStatus/:id/:status', workOrderController.getWorkOrderByClientIdByStatus);
 router.get('/getWorkOrderByEmployeeIdByStatus/:id/:status', workOrderController.getWorkOrderByEmployeeIdByStatus);
+<<<<<<< HEAD
 
 
 
@@ -29,8 +30,11 @@ router.get('/getWorkOrderByEmployeeIdByStatus/:id/:status', workOrderController.
 
 
 
+=======
+router.get('/getUnhandledWorkOrders/:id?', workOrderController.getUnhandledWorkOrders);
+>>>>>>> e04a95333bb90b47549cccbe81d4000f1c756194
 router.put('/updateWorkOrder', workOrderController.updateWorkOrder);
-router.post('/uploadLogo', upload.single('file'), workOrderController.uploadLogo);
+router.post('/uploadFiles', upload.array('files'), workOrderController.uploadFiles);
 router.delete('/deleteWorkOrder/:id', workOrderController.deleteWorkOrder);
 
 module.exports = router;

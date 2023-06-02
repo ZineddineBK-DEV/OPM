@@ -25,15 +25,19 @@ const workOrderSchema = new mongoose.Schema({
     serialNum: {
       type: String
     },
-    logo: { type: mongoose.Schema.Types.ObjectId, ref:'File' },
     status: {
       type: String,
       enum: ['In progress', 'Done','Valid' , 'Expired'],
       default: 'In progress'
     },
+    signedBy: {
+      type: String
+    },
     clientId: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'Client' },
     employeeId: { type: mongoose.Schema.Types.ObjectId, ref:'Employee' },
-    ticketId:{ type: mongoose.Schema.Types.ObjectId, ref: 'Ticket' }
+    listOfFiles: [{ type: mongoose.Schema.Types.ObjectId, ref:'File' }],
+    ticketId:{ type: mongoose.Schema.Types.ObjectId, ref: 'Ticket' },
+    followUpList: [{ type: mongoose.Schema.Types.ObjectId, ref:'FollowUp', default:null }],
   });
 
 const WorkOrder = mongoose.model("WorkOrder", workOrderSchema);
