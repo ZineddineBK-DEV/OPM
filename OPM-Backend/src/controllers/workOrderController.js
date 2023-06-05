@@ -9,16 +9,16 @@ const Folder = require('../models/folderModel');
 
 
 exports.createWorkOrder = async (req, res) => {
-  const{ clientId } = req.body;
+  const { clientId } = req.body;
   try {
     const client = await Client.findById(clientId);
     const contract = await Contract.findById(client.contractId);
     const folder = await Folder.findOne({ contractId: contract._id });
     var workOrder = WorkOrder(req.body);
-    if (req.files){
+    if (req.files) {
       const files = req.files; // Get the array of uploaded files
       const uploadedFiles = [];
-  
+
       for (const file of files) {
         const newFile = File({
           fileName: file.filename,
@@ -28,14 +28,14 @@ exports.createWorkOrder = async (req, res) => {
         await newFile.save();
         uploadedFiles.push(newFile);
       }
-    workOrder.listOfFiles=uploadedFiles;
+      workOrder.listOfFiles = uploadedFiles;
     }
-    const futureTime = new Date(Date.now()+ contract.sla * 60 * 60 * 1000);
+    const futureTime = new Date(Date.now() + contract.sla * 60 * 60 * 1000);
     console.log(futureTime)
     // const task = cron.schedule('42 13 2 6 *', () => checkSLA(workOrder._id), { scheduled: true });
-    console.log('Cron job scheduled.');    
+    console.log('Cron job scheduled.');
     await workOrder.save();
-    res.status(200).json({err: false, message: "Successful operation !", rows: [workOrder, folder]});
+    res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
@@ -58,12 +58,12 @@ exports.addTicket = async (req, res) => {
       await newFile.save();
       uploadedFiles.push(newFile);
     }
-   const ticket = Ticket({ title, description, employeeId, listOfFiles: uploadedFiles});
-   await ticket.save();
-   const workOrder = await WorkOrder.findOneAndUpdate(
-     { _id: workOrderId },
-     { ticketId: ticket._id },
-     { new: true }
+    const ticket = Ticket({ title, description, employeeId, listOfFiles: uploadedFiles });
+    await ticket.save();
+    const workOrder = await WorkOrder.findOneAndUpdate(
+      { _id: workOrderId },
+      { ticketId: ticket._id },
+      { new: true }
     );
     res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (error) {
@@ -74,20 +74,20 @@ exports.addTicket = async (req, res) => {
 // remove ticket to the workorder
 exports.removeTicket = async (req, res) => {
   const { ticketId, clientId } = req.body;
- try {
-  const ticket = await Ticket.findByIdAndDelete(ticketId);
-  if (!ticket){
-   return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+  try {
+    const ticket = await Ticket.findByIdAndDelete(ticketId);
+    if (!ticket) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    const workOrder = await WorkOrder.findOneAndUpdate(
+      { clientId: clientId },
+      { ticketId: null },
+      { new: true }
+    );
+    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
   }
-  const workOrder = await WorkOrder.findOneAndUpdate(
-    { clientId: clientId },
-    { ticketId: null },
-    { new: true }
-   );
-   res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
- } catch (error) {
-   res.status(500).json({ err: true, message: error.message });
- }
 };
 //
 exports.getWorkOrderByStatus = async (req, res) => {
@@ -98,11 +98,11 @@ exports.getWorkOrderByStatus = async (req, res) => {
     if (!status) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
-    const workOrder = await WorkOrder.find({clientId, status});
+    const workOrder = await WorkOrder.find({ clientId, status });
     if (!workOrder) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
-    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
@@ -112,7 +112,7 @@ exports.getWorkOrderByStatus = async (req, res) => {
 exports.getAllWorkOrders = async (req, res) => {
   try {
     const workOrder = await WorkOrder.find();
-    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
@@ -121,72 +121,72 @@ exports.getAllWorkOrders = async (req, res) => {
 // Get a single workOrder
 exports.getWorkOrderById = async (req, res) => {
   const id = req.params.id;
-    try {
-      if (req.params.authority && req.params.authority == "client"){
-        const workOrder = await WorkOrder.findById(id).populate(
-          [
-            {
+  try {
+    if (req.params.authority && req.params.authority == "client") {
+      const workOrder = await WorkOrder.findById(id).populate(
+        [
+          {
+            path: 'listOfFiles',
+            model: 'File',
+          },
+          {
+            path: 'clientId',
+            model: 'Client',
+            select: 'company',
+          },
+          {
+            path: 'employeeId',
+            model: 'Employee',
+            select: 'firstName lastName'
+          },
+        ]).select('-listOfTickets');
+      if (!workOrder) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+
+      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+    } else {
+      const workOrder = await WorkOrder.findById(id).populate(
+        [
+          {
+            path: 'listOfFiles',
+            model: 'File',
+          },
+          {
+            path: 'clientId',
+            model: 'Client',
+            select: 'company',
+          },
+          {
+            path: 'employeeId',
+            model: 'Employee',
+            select: 'firstName lastName'
+          },
+          {
+            path: 'ticketId',
+            model: 'Ticket',
+            select: 'title status creationDate description',
+            populate: {
               path: 'listOfFiles',
-              model: 'File',
-            },
-            {
-              path: 'clientId',
-              model: 'Client',
-              select: 'company',
-            },
-            {
-              path: 'employeeId',
-              model: 'Employee',
-              select: 'firstName lastName'
-            },
-          ]).select('-listOfTickets');
-          if (!workOrder) {
-            return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
-          }
-          
-      res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
-      }else{
-        const workOrder = await WorkOrder.findById(id).populate(
-          [
-            {
-              path: 'listOfFiles',
-              model: 'File',
-            },
-            {
-              path: 'clientId',
-              model: 'Client',
-              select: 'company',
-            },
-            {
-              path: 'employeeId',
-              model: 'Employee',
-              select: 'firstName lastName'
-            },
-            {
-              path: 'ticketId',
-              model: 'Ticket',
-              select: 'title status creationDate description',
-              populate:{
-                path: 'listOfFiles',
-                model: 'File'
-              }
-            },
-          ]);
-          if (!workOrder) {
-            return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
-          }
-      res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
-        }
-    } catch (error) {
-      res.status(500).json({ err: true, message: error.message });
+              model: 'File'
+            }
+          },
+        ]);
+      if (!workOrder) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
     }
-  };
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
 
 // Get a workOrders affected to a technician
 exports.getWorkOrderByEmployeeId = async (req, res) => {
   const id = req.params.id;
   try {
-    const workOrder = await WorkOrder.find({ employeeId: id}).populate(
+    const workOrder = await WorkOrder.find({ employeeId: id }).populate(
       [
         {
           path: 'listOfFiles',
@@ -221,7 +221,7 @@ exports.getWorkOrderByEmployeeId = async (req, res) => {
   }
 };
 
-  // Get a workOrder by status for a certain client
+// Get a workOrder by status for a certain client
 exports.getWorkOrderByClientIdByStatus = async (req, res) => {
   const clientId = req.params.id;
   const status = req.params.status;
@@ -229,42 +229,42 @@ exports.getWorkOrderByClientIdByStatus = async (req, res) => {
     if (!status) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
-    const workOrder = await WorkOrder.find({clientId, status});
+    const workOrder = await WorkOrder.find({ clientId, status });
     if (!workOrder) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
-    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
 };
 
-  // Get a workOrder by status for a certain employee
-  exports.getWorkOrderByEmployeeIdByStatus = async (req, res) => {
-    const employeeId = req.params.id;
-    const status = req.params.status;
-  
-    try {
-      if (!status) {
-        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
-      }
-      const workOrder = await WorkOrder.find({employeeId, status});
-      if (!workOrder) {
-        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
-      }
-      res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
-    } catch (error) {
-      res.status(500).json({ err: true, message: error.message });
-    }
-  };
-  
+// Get a workOrder by status for a certain employee
+exports.getWorkOrderByEmployeeIdByStatus = async (req, res) => {
+  const employeeId = req.params.id;
+  const status = req.params.status;
 
-    // Get a work order by client id
+  try {
+    if (!status) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    const workOrder = await WorkOrder.find({ employeeId, status });
+    if (!workOrder) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
+
+// Get a work order by client id
 exports.getWorkOrderByClientId = async (req, res) => {
   const clientId = req.params.id;
   try {
-    if (req.body.authority && req.body.authority == "client"){
-      const folder = await Folder.FindOne({clientId: clientId});
+    if (req.body.authority && req.body.authority == "client") {
+      const folder = await Folder.FindOne({ clientId: clientId });
       const workOrder = await WorkOrder.findById({ clientId }).populate(
         [
           {
@@ -282,13 +282,13 @@ exports.getWorkOrderByClientId = async (req, res) => {
             select: 'firstName lastName'
           },
         ]).select('-listOfTickets');
-        if (!workOrder) {
-          return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
-        }
-        
-    res.status(200).json({err: false, message: "Successful operation !", rows: [workOrder, folder]});
-    }else{
-      const folder = await Folder.FindOne({clientId: clientId});
+      if (!workOrder) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+
+      res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
+    } else {
+      const folder = await Folder.FindOne({ clientId: clientId });
       const workOrder = await WorkOrder.find({ clientId }).populate(
         [
           {
@@ -309,33 +309,33 @@ exports.getWorkOrderByClientId = async (req, res) => {
             path: 'ticketId',
             model: 'Ticket',
             select: 'title status creationDate',
-            populate:{
+            populate: {
               path: 'listOfFiles',
               model: 'File'
             }
           },
         ]);
-        if (!workOrder) {
-          return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
-        }
-        
-    res.status(200).json({err: false, message: "Successful operation !", rows: [workOrder, folder]});
+      if (!workOrder) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+
+      res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
     }
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
 };
 
-  exports.countWorkOrderByClientId = async (req, res) => {
-    const clientId = req.params.id;
-    try {
-      const count = await WorkOrder.countDocuments({ clientId });
-      res.status(200).json({err: false, message: "Successful operation !", rows: {count, clientId} });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ err: true, message: error.message });
-    }
-  };
+exports.countWorkOrderByClientId = async (req, res) => {
+  const clientId = req.params.id;
+  try {
+    const count = await WorkOrder.countDocuments({ clientId });
+    res.status(200).json({ err: false, message: "Successful operation !", rows: { count, clientId } });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
 
 // returns un handled workOrders
 exports.getUnhandledWorkOrders = async (req, res) => {
@@ -425,7 +425,7 @@ exports.getUnhandledWorkOrders = async (req, res) => {
 
 // upload files
 exports.uploadFiles = async (req, res) => {
-  try { 
+  try {
     const files = req.files; // Get the array of uploaded files
     const uploadedFiles = [];
 
@@ -441,9 +441,9 @@ exports.uploadFiles = async (req, res) => {
     const workOrder = await WorkOrder.findByIdAndUpdate(
       req.body.workOrderId,
       { $push: { listOfFiles: uploadedFiles } },
-      {new: true}
-    );   
-    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder}); 
+      { new: true }
+    );
+    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
@@ -452,8 +452,8 @@ exports.uploadFiles = async (req, res) => {
 // Update a user still working on it username
 exports.updateWorkOrder = async (req, res) => {
   try {
-    const { 
-      _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo 
+    const {
+      _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo
     } = req.body;
     const updatedWorkOrder = await WorkOrder.findByIdAndUpdate(
       { _id },
@@ -463,7 +463,7 @@ exports.updateWorkOrder = async (req, res) => {
     if (!updatedWorkOrder) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
-    res.status(200).json({err: false, message: "Successful operation !", rows: updatedWorkOrder });
+    res.status(200).json({ err: false, message: "Successful operation !", rows: updatedWorkOrder });
   } catch (err) {
     console.error(error);
     res.status(500).json({ err: true, message: error.message });
@@ -479,7 +479,7 @@ exports.deleteWorkOrder = async (req, res) => {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
 
-    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (err) {
     res.status(500).json({ err: true, message: error.message });
   }
