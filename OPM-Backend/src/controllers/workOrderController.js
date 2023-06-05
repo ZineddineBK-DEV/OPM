@@ -35,7 +35,7 @@ exports.createWorkOrder = async (req, res) => {
     // const task = cron.schedule('42 13 2 6 *', () => checkSLA(workOrder._id), { scheduled: true });
     console.log('Cron job scheduled.');
     await workOrder.save();
-    res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
+    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
@@ -143,10 +143,11 @@ exports.getWorkOrderById = async (req, res) => {
       if (!workOrder) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
-      const folder = await Folder.findOne({ clientId: workOrder.clientId });
-      res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
+      let folder = await Folder.findOne({ clientId: workOrder.clientId });
+      let obj = {workOrder, folderId: folder._id}
+      res.status(200).json({ err: false, message: "Successful operation !", rows: obj });
     } else {
-      const workOrder = await WorkOrder.findById(id).populate(
+      let workOrder = await WorkOrder.findById(id).populate(
         [
           {
             path: 'listOfFiles',
@@ -175,8 +176,9 @@ exports.getWorkOrderById = async (req, res) => {
       if (!workOrder) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
-      const folder = await Folder.findOne({ clientId: workOrder.clientId });
-      res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
+      let folder = await Folder.findOne({ clientId: workOrder.clientId });
+      let obj = {workOrder, folderId: folder._id}
+      res.status(200).json({ err: false, message: "Successful operation !", rows: obj });
     }
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
