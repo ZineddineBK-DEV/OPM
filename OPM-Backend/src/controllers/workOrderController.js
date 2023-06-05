@@ -143,7 +143,7 @@ exports.getWorkOrderById = async (req, res) => {
       if (!workOrder) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
-      const folder = await Folder.FindOne({ clientId: workOrder.clientId });
+      const folder = await Folder.findOne({ clientId: workOrder.clientId });
       res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
     } else {
       const workOrder = await WorkOrder.findById(id).populate(
@@ -175,7 +175,7 @@ exports.getWorkOrderById = async (req, res) => {
       if (!workOrder) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
-      const folder = await Folder.FindOne({ clientId: workOrder.clientId });
+      const folder = await Folder.findOne({ clientId: workOrder.clientId });
       res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
     }
   } catch (error) {
