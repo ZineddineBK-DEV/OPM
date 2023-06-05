@@ -114,7 +114,7 @@ exports.getWorkOrderById = async (req, res) => {
             {
               path: 'listOfFiles',
               model: 'File',
-            },
+            }, 
             {
               path: 'clientId',
               model: 'Client',
@@ -436,9 +436,7 @@ exports.uploadFiles = async (req, res) => {
 // Update a user still working on it username
 exports.updateWorkOrder = async (req, res) => {
   try {
-    const { 
-      _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo 
-    } = req.body;
+    const { _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo} = req.body;
     const updatedWorkOrder = await WorkOrder.findByIdAndUpdate(
       { _id },
       { title, clientId, status, description, employeeId, partName, partNum, serialNum, logo },

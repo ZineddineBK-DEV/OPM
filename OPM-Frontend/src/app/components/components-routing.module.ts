@@ -115,12 +115,26 @@ const routes: Routes = [
       },
       
       {
-        path: "workOrderDetailAddUpdate/:id/:type",
+        path: "addWorekorder/:id",
         loadChildren: () =>
           import("../components/wodt/wodt.module").then(
             (m) => m.WODTModule
           ),
       },
+
+      {
+        path: "updateWorekOrder/:id",
+        loadChildren: () =>
+          import("../components/wodt/wodt.module").then(
+            (m) => m.WODTModule
+          ),
+      },
+
+
+
+
+
+
       {
         path: "workorderListTechClt",
         loadChildren: () =>

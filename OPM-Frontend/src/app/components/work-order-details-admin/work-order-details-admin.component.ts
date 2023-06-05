@@ -24,19 +24,11 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
   collectionSize: number = 0;
   pageSize = 5;
   pageSizes = [5, 10, 20];
-  id_company:string;
   nbrItemPage = 5;
-  id_user:any;
   id:any ;
   change = false ;
   value_change :any ;
   p=1
-  user_Type="admin"
-  detaile= "detaile";
-  update="update";
-  add="add"
-  // user_Type=sessionStorage.getItem("userauth")
-  
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -45,6 +37,7 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.id=this.route.snapshot.paramMap.get("id");
+    // alert(this.id)
   }
 
   ngOnInit() {

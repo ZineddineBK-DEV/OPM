@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { DELETE_USER_TAXES_END_POINT, DELETE_USER_WORK_ORDER_END_POINT, GET_LIST_FILES_BY_CLIENTS, GET_LIST_Ticket_BY_CLIENTS, GET_LIST_Work_Orders_BY_CLIENTS } from '../../services/endpoints';
+import { DELETE_USER_TAXES_END_POINT, DELETE_USER_WORK_ORDER_END_POINT, GET_LIST_Work_Orders_BY_CLIENTS } from '../../services/endpoints';
 import { ActivatedRoute } from '@angular/router';
 import Observer from '../../services/observer';
 import { DetailsComponent } from './../../popup/details/details.component';
@@ -23,10 +23,10 @@ export class TicketsAdmComponent implements OnInit {
   page = 1;
   p: number = 1;
   pageSize = 5;
-  pageSizes = [5, 10,20,40];
-  id_company:string;
-  id_user:any;
-  id:any ;
+  pageSizes = [5, 10, 20, 40];
+  id_company: string;
+  id_user: any;
+  id: any;
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -34,43 +34,34 @@ export class TicketsAdmComponent implements OnInit {
     private sharedService: SharedService,
     private route: ActivatedRoute
   ) {
-    this.id=this.route.snapshot.paramMap.get("id");
+    this.id = this.route.snapshot.paramMap.get("id");
   }
-
   ngOnInit() {
-        this.getListWorkorderList();
+    this.getListWorkorderList();
   }
-  //OpenModal(sch:string){}
   getListWorkorderList() {
     this.backendService.get(`${GET_LIST_Work_Orders_BY_CLIENTS}/${this.id}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
-    console.log(response.rows);
-         this.WorekOrderList = response.rows;
+        console.log(response.rows);
+        this.WorekOrderList = response.rows;
       })
     );
   }
-
   OpenModal(title: string) {
-   
-    const modalRef = this.modalService.open(PostComponent ,{ size: "lg", backdrop: "static" });
+    const modalRef = this.modalService.open(PostComponent, { size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = WORK_ORDER_POPUP_TYPE;
-
-    modalRef.componentInstance.payload = {"clientId":this.id};
+    modalRef.componentInstance.payload = { "clientId": this.id };
 
   }
 
-  OpenModalUp(title: string,item?) {
-   
-    const modalRef = this.modalService.open(PutComponent ,{ size: "lg", backdrop: "static" });
+  OpenModalUp(title: string, item?) {
+    const modalRef = this.modalService.open(PutComponent, { size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = WORK_ORDER_POPUP_TYPE;
-    modalRef.componentInstance.payload = {...item,"clientId":this.id};
+    modalRef.componentInstance.payload = { ...item, "clientId": this.id };
   }
-
-
-  OpenDetails(title: string, payload:any){
-
+  OpenDetails(title: string, payload: any) {
     const modalRef = this.modalService.open(DetailsComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = "tiket_detalise";
@@ -83,7 +74,7 @@ export class TicketsAdmComponent implements OnInit {
       icon: "warning",
       closeOnEsc: true,
       closeOnClickOutside: true,
-      buttons:["Cancel", "Confirm"],
+      buttons: ["Cancel", "Confirm"],
     }).then((result) => {
       if (result) {
         this.backendService
@@ -104,21 +95,15 @@ export class TicketsAdmComponent implements OnInit {
 
   changeSelectedFile(valid) {
     // this.getListFolderByValid(valid);
-
   }
   handlePageSizeChange(event: any): void {
-
     this.pageSize = event.target.value;
-    console.log(this.pageSize+"rrrrrrrrrrrr")
     this.page = 1;
   }
-
   handlePageChange(currentPage: number) {
-    if(this.id_company){
+    if (this.id_company) {
       // this.getListFolder();
     }
     this.page = currentPage;
   }
-
-
 }

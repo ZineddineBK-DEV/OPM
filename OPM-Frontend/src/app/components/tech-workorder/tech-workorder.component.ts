@@ -30,6 +30,7 @@ export class TechWorkorderComponent implements OnInit {
   p=1
   userRole:any ;
   tech_id
+  id;
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -37,8 +38,10 @@ export class TechWorkorderComponent implements OnInit {
     private sharedService: SharedService,
     private route: ActivatedRoute
   ) {
+
    this.tech_id= this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken"))._id ;
   this.userRole= this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority ;
+
   // alert(this.userRole)
   }
   ngOnInit() {

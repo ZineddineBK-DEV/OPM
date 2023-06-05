@@ -36,7 +36,7 @@ export const DELETE_USER_WORK_ORDER_END_POINT: string = `${environment.apiUrl}/w
 export const GET_USER_WORK_ORDER_BY_STATUS_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderByStatus`;
 export const GET_ONE_WORK_ORDER_BY_ID_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderById`;
 
-/*
+/* 127.0.0.1:3000/workOrder/getWorkOrderById/6479e379daddb82cbdf1bff3/client
 127.0.0.1:3000/workOrder/getWorkOrderByStatus/645f74880e0ab8ae87fed835
 */
 // mnge ticket for worek order

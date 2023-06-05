@@ -39,8 +39,6 @@ export class FoldresComponent implements OnInit {
     this.backendService.get(`${GET_LIST_FOLDERS_All}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
     console.log(response);
-
-        // this.collectionSize=response.totalItems;
          this.clientList = response.rows;
       })
     );
