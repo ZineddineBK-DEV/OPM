@@ -1,14 +1,9 @@
 const WorkOrder = require('../models/workOrderModel');
-const Contract = require('../models/contractModel');
-const Client = require('../models/clientModel');
 
-const checkSLA = async (clientId) => {
+const checkSLA = async (id) => {
   try {
-    // Get work order 
-    const client = await Client.findById(clientId);
-    const contract = await Contract.findById(client.contractId);
-    await delay(contract.sla);
-    const workOrder = await WorkOrder.findOne({ clientId: clientId });
+    // Get work order
+    const workOrder = await WorkOrder.findById(id);
     if (workOrder.status == "In progress")
     {
       workOrder.status = "Expired";
@@ -20,8 +15,4 @@ const checkSLA = async (clientId) => {
   }
 };
 
-function delay(hours) {
-  const milliseconds = hours * 60 * 60 * 1000; // Convert hours to milliseconds
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
 module.exports = checkSLA;

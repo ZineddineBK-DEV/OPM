@@ -2,10 +2,18 @@ const WorkOrder = require('../models/workOrderModel');
 const Ticket = require('../models/ticketModel');
 const File = require('../models/fileModel');
 const checkSLA = require('../middlewares/SLAcheck');
+const cron = require('node-cron');
+const Contract = require('../models/contractModel');
+const Client = require('../models/clientModel');
+const Folder = require('../models/folderModel');
 
 
 exports.createWorkOrder = async (req, res) => {
+  const{ clientId } = req.body;
   try {
+    const client = await Client.findById(clientId);
+    const contract = await Contract.findById(client.contractId);
+    const folder = await Folder.findOne({ contractId: contract._id });
     var workOrder = WorkOrder(req.body);
     if (req.files){
       const files = req.files; // Get the array of uploaded files
@@ -22,9 +30,12 @@ exports.createWorkOrder = async (req, res) => {
       }
     workOrder.listOfFiles=uploadedFiles;
     }
+    const futureTime = new Date(Date.now()+ contract.sla * 60 * 60 * 1000);
+    console.log(futureTime)
+    // const task = cron.schedule('42 13 2 6 *', () => checkSLA(workOrder._id), { scheduled: true });
+    console.log('Cron job scheduled.');    
     await workOrder.save();
-    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
-    checkSLA(req.body.clientId);
+    res.status(200).json({err: false, message: "Successful operation !", rows: [workOrder, folder]});
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
@@ -59,6 +70,7 @@ exports.addTicket = async (req, res) => {
     res.status(500).json({ err: true, message: error.message });
   }
 };
+
 // remove ticket to the workorder
 exports.removeTicket = async (req, res) => {
   const { ticketId, clientId } = req.body;
@@ -77,6 +89,7 @@ exports.removeTicket = async (req, res) => {
    res.status(500).json({ err: true, message: error.message });
  }
 };
+//
 exports.getWorkOrderByStatus = async (req, res) => {
   const clientId = req.params.id;
   const status = req.params.status;
@@ -93,7 +106,8 @@ exports.getWorkOrderByStatus = async (req, res) => {
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }
-}
+};
+
 // Get all workOrders
 exports.getAllWorkOrders = async (req, res) => {
   try {
@@ -114,7 +128,7 @@ exports.getWorkOrderById = async (req, res) => {
             {
               path: 'listOfFiles',
               model: 'File',
-            }, 
+            },
             {
               path: 'clientId',
               model: 'Client',
@@ -250,7 +264,8 @@ exports.getWorkOrderByClientId = async (req, res) => {
   const clientId = req.params.id;
   try {
     if (req.body.authority && req.body.authority == "client"){
-      const workOrder = await WorkOrder.find({ clientId }).populate(
+      const folder = await Folder.FindOne({clientId: clientId});
+      const workOrder = await WorkOrder.findById({ clientId }).populate(
         [
           {
             path: 'listOfFiles',
@@ -271,8 +286,9 @@ exports.getWorkOrderByClientId = async (req, res) => {
           return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
         }
         
-    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+    res.status(200).json({err: false, message: "Successful operation !", rows: [workOrder, folder]});
     }else{
+      const folder = await Folder.FindOne({clientId: clientId});
       const workOrder = await WorkOrder.find({ clientId }).populate(
         [
           {
@@ -303,7 +319,7 @@ exports.getWorkOrderByClientId = async (req, res) => {
           return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
         }
         
-    res.status(200).json({err: false, message: "Successful operation !", rows: workOrder});
+    res.status(200).json({err: false, message: "Successful operation !", rows: [workOrder, folder]});
     }
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
@@ -436,7 +452,9 @@ exports.uploadFiles = async (req, res) => {
 // Update a user still working on it username
 exports.updateWorkOrder = async (req, res) => {
   try {
-    const { _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo} = req.body;
+    const { 
+      _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo 
+    } = req.body;
     const updatedWorkOrder = await WorkOrder.findByIdAndUpdate(
       { _id },
       { title, clientId, status, description, employeeId, partName, partNum, serialNum, logo },
@@ -465,4 +483,4 @@ exports.deleteWorkOrder = async (req, res) => {
   } catch (err) {
     res.status(500).json({ err: true, message: error.message });
   }
-};
+}

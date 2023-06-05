@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Contract = require('./contractModel');
 
 const folderSchema = new mongoose.Schema({
     creationDate:{
@@ -9,7 +10,7 @@ const folderSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    contractId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    contractId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Contract' },
     clientId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Client' },
     listOfFiles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'File' }]
   });
