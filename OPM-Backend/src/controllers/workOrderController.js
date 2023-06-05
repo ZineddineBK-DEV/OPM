@@ -122,6 +122,7 @@ exports.getAllWorkOrders = async (req, res) => {
 exports.getWorkOrderById = async (req, res) => {
   const id = req.params.id;
   try {
+    const folder = await Folder.FindOne({ clientId: clientId });
     if (req.params.authority && req.params.authority == "client") {
       const workOrder = await WorkOrder.findById(id).populate(
         [
@@ -144,7 +145,7 @@ exports.getWorkOrderById = async (req, res) => {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
 
-      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+      res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
     } else {
       const workOrder = await WorkOrder.findById(id).populate(
         [
@@ -175,7 +176,7 @@ exports.getWorkOrderById = async (req, res) => {
       if (!workOrder) {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
-      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+      res.status(200).json({ err: false, message: "Successful operation !", rows: [workOrder, folder] });
     }
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
