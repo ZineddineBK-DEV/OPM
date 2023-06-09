@@ -399,6 +399,21 @@ exports.countWorkOrderByClientId = async (req, res) => {
   }
 };
 
+exports.countUnhandledWorkOrderByClientId = async (req, res) => {
+  const clientId = req.params.id;
+  try {
+    const count = await WorkOrder.countDocuments({ clientId: clientId,
+      $or: [
+        { employeeId: null }, // Check if employeeId is null
+        { employeeId: { $exists: false } } // Check if employeeId does not exist
+      ] });
+    res.status(200).json({ err: false, message: "Successful operation !", rows: { count, clientId } });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
 // returns un handled workOrders
 exports.getUnhandledWorkOrders = async (req, res) => {
   const clientId = req.params.id;
