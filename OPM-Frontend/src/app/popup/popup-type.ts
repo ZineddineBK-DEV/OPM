@@ -1,4 +1,5 @@
 export const WORK_ORDER_POPUP_TYPE:string='WORK_ORDER'
+export const ADD_TECH_WORK_ORDER_POPUP_TYPE:string='add_Tech'
 
 
 

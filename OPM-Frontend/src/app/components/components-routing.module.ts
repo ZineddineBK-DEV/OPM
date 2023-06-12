@@ -68,6 +68,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: "ClientDashboardWok",
+        loadChildren: () =>
+          import("../components/dash-client-job/dash-client-job.module").then(
+            (m) => m.DashClientJobModule
+          ),
+      },
+      {
         path: "workOrderDetails",
         loadChildren: () =>
           import("../components/wodt/wodt.module").then(
@@ -111,6 +118,14 @@ const routes: Routes = [
         loadChildren: () =>
           import("../components/work-order-details-admin/work-order-details-admin.module").then(
             (m) => m.WorkOrderDetailsAdminModule
+          ),
+      },
+      
+      {
+        path: "UnhandledWorkOrdersDetailAdmin/:id",
+        loadChildren: () =>
+          import("../components/unhandled-work-orders-detail-admin/unhandled-work-orders-detail-admin.module").then(
+            (m) => m.UnhandledWorkOrdersDetailAdminModule
           ),
       },
       

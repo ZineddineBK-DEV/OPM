@@ -21,7 +21,7 @@ export const PUT_USER_USER_CLIENTS_BY_VALIDE: string = `${environment.apiUrl}/cl
 export const GET_LIST_FOLDERS_All: string = `${environment.apiUrl}/folder/all`;
 export const GET_LIST_Ticket_BY_CLIENTS: string = `${environment.apiUrl}/ticket/getTicketByClientId`;
 export const GET_LIST_FILES_BY_CLIENTS: string = `${environment.apiUrl}/folder/getFilesByclientId`;
-export const GET_LIST_Work_Orders_BY_CLIENTS: string = `${environment.apiUrl}/workOrder/getWorkOrderByClientId`;
+export const GET_LIST_Work_Orders_BY_CLIENTS: string = `${environment.apiUrl}/workOrder/getUnhandledWorkOrders`;
 
 // ***********static for admi for users ************ */
 export const GET_USER_COUNT_tickrt_END_POINT: string = `${environment.apiUrl}/ticket/countTIcketsByClientId`;
@@ -35,8 +35,10 @@ export const PUT_WOREK_ORDER_END_POINT: string = `${environment.apiUrl}/workOrde
 export const DELETE_USER_WORK_ORDER_END_POINT: string = `${environment.apiUrl}/workOrder/deleteWorkOrder`;
 export const GET_USER_WORK_ORDER_BY_STATUS_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderByStatus`;
 export const GET_ONE_WORK_ORDER_BY_ID_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderById`;
+export const GET_ALL_UNHANDLE_WORK_ORDERS_BY_ID_END_POINT: string = `${environment.apiUrl}/workOrder/getUnhandledWorkOrders`;
+export const GET_COUNTL_UNHANDLE_WORK_ORDERS_BY_ID_END_POINT: string = `${environment.apiUrl}/workOrder/countUnhandledWorkOrderByClientId`;
 
-/* 127.0.0.1:3000/workOrder/getWorkOrderById/6479e379daddb82cbdf1bff3/client
+/*  http://127.0.0.1:3000/workOrder/countUnhandledWorkOrderByClientId/646b6c05d0fe94ab5386adc7
 127.0.0.1:3000/workOrder/getWorkOrderByStatus/645f74880e0ab8ae87fed835
 */
 // mnge ticket for worek order

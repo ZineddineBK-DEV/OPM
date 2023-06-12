@@ -3,30 +3,23 @@ import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import {
+  GET_ALL_UNHANDLE_WORK_ORDERS_BY_ID_END_POINT,
   GET_SUPPLIETS_SERVICES_END_POINT,
   GET_USER_ACCOUNTING_LIST_PLAN_END_POINT,
   GET_USER_employers_END_POINT,
-  PUT_PRODUCTS_CUSTOMERS_END_POINT,
-  PUT_SERVICES_END_POINT,
-  PUT_SUPPLIETS_CUSTOMERS_END_POINT,
-  PUT_USER_ACCOUNTING_PLAN_ROW_END_POINT,
-  PUT_USER_COMPANIES_END_POINT,
-  PUT_USER_CUSTOMERS_END_POINT,
-  PUT_USER_EMPLOYEES_END_POINT,
-  PUT_USER_TAXES_END_POINT,
   PUT_WOREK_ORDER_END_POINT,
 } from "../../services/endpoints";
 import { BackendService } from "../../services/backend.service";
 import { SharedService } from "../../services/shared.service";
 import Observer from "../../services/observer";
-import { log } from "util";
+
 
 @Component({
-  selector: "app-put",
-  templateUrl: "./put.component.html",
-  styleUrls: ["./put.component.scss"],
+  selector: 'app-valdatin-close-work-order',
+  templateUrl: './valdatin-close-work-order.component.html',
+  styleUrls: ['./valdatin-close-work-order.component.scss']
 })
-export class PutComponent implements OnInit {
+export class ValdatinCloseWorkOrderComponent implements OnInit {
   @Input("title") title: string;
   @Input("type") type: string;
   @Input("payload") payload: any;
@@ -49,8 +42,6 @@ export class PutComponent implements OnInit {
     this.hiredateinputype = "text";
   }
   ngOnInit() {
-    // alert(JSON.stringify(this.payload))
-
     this.getEmployesByOutherty("technician");
   
     // if (this.type == "SERVICES" || this.type == "PRODUCTS") {
@@ -87,7 +78,7 @@ export class PutComponent implements OnInit {
   getAccounts() {
     this.backendService
       .get(
-        `${GET_USER_ACCOUNTING_LIST_PLAN_END_POINT}/${this.sharedService.getItem(
+        `${GET_ALL_UNHANDLE_WORK_ORDERS_BY_ID_END_POINT}/${this.sharedService.getItem(
           "companyNo"
         )}`
       )
@@ -106,10 +97,44 @@ export class PutComponent implements OnInit {
         endpoint = PUT_WOREK_ORDER_END_POINT;
         payload = { ...payload, clientId:this.payload.clientId,_id:this.payload._id };
         break;
+      // case "EMPLOYEE":
+      //   endpoint = PUT_USER_EMPLOYEES_END_POINT;
+      //   payload = {
+      //     ...payload,
+      //     id_employee: this.payload.id_employee,
+      //     id_company: this.payload.id_company,
+      //   };
 
-
+      //   break;
+      // case "ACCOUNTING_PLAN_ROW":
+      //   endpoint = `${PUT_USER_ACCOUNTING_PLAN_ROW_END_POINT}/${this.payload.id}`;
+      //   break;
+      // case "TAX":
+      //   endpoint = PUT_USER_TAXES_END_POINT;
+      //   payload = {
+      //     ...payload,
+      //     id: this.payload.id,
+      //     id_company: this.payload.id_company,
+      //   };
+      //   break;
+      // case "CUSTOMER":
+      //   endpoint = PUT_USER_CUSTOMERS_END_POINT;
+      //   payload = { ...payload, id: this.payload.id };
+      //   break;
+      // case "SUPPLIERS":
+      //   endpoint = PUT_SUPPLIETS_CUSTOMERS_END_POINT;
+      //   payload = { ...payload, id: this.payload.id };
+      //   break;
+      // case "PRODUCTS":
+      //   endpoint = PUT_PRODUCTS_CUSTOMERS_END_POINT;
+      //   payload = { ...payload, id_product: this.payload.id_product };
+      //   break;
+      // case "SERVICES":
+      //   endpoint = PUT_SERVICES_END_POINT;
+      //   payload = { ...payload, id_service: this.payload.id_service };
+      //   break;
     }
-// alert(JSON.stringify(payload))
+
     this.backendService
       .put(endpoint, payload)
       .subscribe(

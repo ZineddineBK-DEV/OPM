@@ -11,20 +11,6 @@
 
     <ng-container *ngIf="this.type==='WORK_ORDER'">
       <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
-
-
-        <!-- 
-
-                    <select class="form-select" name="id_accounting_plan" [(ngModel)]="this.payload.id_accounting_plan" ngModel
-            #id_accounting_plan="ngModel" required>
-            <option disabled value="">{{"PRODUCTS_SERVICES_COMPONENT.PRODUCTS.POPUP.ACCOUNTNUMBER"|translate}}</option>
-
-            <option *ngFor="let account of this.accountsList;" value="{{account.id}}">
-              {{account.account_number}}
-            </option>
-          </select>
-         -->
-
         <div class="input-group">
 
           <select class="form-select" value="-1"  name="employeeId" [(ngModel)]="this.payload.employeeId" ngModel #employeeId="ngModel" required>
@@ -37,11 +23,7 @@
         <div *ngIf="employeeId.invalid && employeeId.touched" class="alert alert-danger p-2" role="alert">
           <span>Select an Technician</span>
         </div>
-
         <div class="input-group">
-
-
-
           <input type="text" class="form-control"[(ngModel)]="this.payload.title"
            [placeholder]="'Title'" name="title" ngModel #title="ngModel" required />
         </div>
@@ -51,20 +33,15 @@
             <div class="input-group">
           <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="this.payload.description" placeholder="Description" rows="2"
             name="description" ngModel #description="ngModel" required></textarea>
-
         </div>
         <div *ngIf="description.invalid && description.touched" class="alert alert-danger p-2" role="alert">
           <span>ENTER Description</span>
         </div>
-
-
-
         <div class="modal-footer">
           <input [value]="'CONFIRM'|translate" [disabled]="fedit.invalid" type="submit"
             class="btn btn-outline-primary" />
           <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
             {{'CANCEL'|translate}}
-
           </button>
         </div>
 
@@ -77,7 +54,6 @@
 
       </form>
     </ng-container>
-
 
 
 

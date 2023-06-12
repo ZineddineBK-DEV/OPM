@@ -85,6 +85,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
         this.workOrder = response.rows;
         this.titleWorkOrder = this.workOrder.title;
         this.StatusWorkOrder = this.workOrder.status;
+        console.log("--------------------------------------------------..");
         console.log(response.rows);
 
         this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName + " " + this.workOrder.employeeId.lastName;
@@ -114,7 +115,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
     const modalRef = this.modalService.open(PostComponent, { size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = TICKET_New_PLAN_POPUP_TYPE;
-    modalRef.componentInstance.payload = { workOrderId: this.workOrder._id, clientId: this.id, employeeId: this.workOrder.employeeId._id } //;
+    modalRef.componentInstance.payload = { workOrderId: this.workOrder._id, clientId: this.workOrder.clientId._id, employeeId: this.workOrder.employeeId._id } //;
   }
   OpenDetails(title: string, payload: any) {
     const modalRef = this.modalService.open(DetailsComponent);

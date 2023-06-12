@@ -18,6 +18,7 @@ import {
   POST_USER_SERVICES_END_POINT,
   POST_USER_TAXES_END_POINT,
   POST_WOREK_ORDER_ADMIN_END_POINT,
+  PUT_WOREK_ORDER_END_POINT,
 } from "../../services/endpoints";
 import Observer from "../../services/observer";
 import { BackendService } from "../../services/backend.service";
@@ -117,7 +118,7 @@ export class PostComponent implements OnInit {
         endpoint = POST_TICKET_ADMIN_END_POINT;
         const {title,description} =form.value ;
         this.paylodFormData.append("title",title);
-        this.paylodFormData.append("description",payload.description);
+        this.paylodFormData.append("description",description);
         this.paylodFormData.append("workOrderId",payload.workOrderId)
         this.paylodFormData.append("clientId",payload.clientId)
         this.paylodFormData.append("employeeId",payload.employeeId)
@@ -127,23 +128,32 @@ export class PostComponent implements OnInit {
        for (let i = 0; i < this.files.length; i++) {
         this.paylodFormData.append("files", this.files[i]);
       }}
+      
         payload = this.paylodFormData;
         break;
       case "TICKET":
-        console.log(this.files);
-        console.log(payload);
-        payload = {...payload,...this.payload};
+
+
+
         endpoint = POST_ADD_FILE_TICKET_ADMIN_END_POINT;
         this.paylodFormData.append("ticketId",payload.ticketId)
         this.paylodFormData.append("fileType","File")
-     
-         // this.paylodFormData.append("files",)
          for (let i = 0; i < this.files.length; i++) {
           this.paylodFormData.append("files", this.files[i]);
-        
       }
           payload = this.paylodFormData;
+          console.log("daadadaddadadad");
+          
+          console.log(this.paylodFormData.get("ticketId"));
+          console.log(this.paylodFormData.get("fileType"));
           break;
+      case "add_Tech":
+        alert("from post")
+        endpoint = PUT_WOREK_ORDER_END_POINT;
+        payload = {
+          ...payload,
+          _id: this.payload._id,
+          };
     }
 
     this.backendService
@@ -175,3 +185,9 @@ export class PostComponent implements OnInit {
 }
 
 
+/*  
+
+
+
+
+*/

@@ -29,6 +29,7 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
   change = false ;
   value_change :any ;
   p=1
+  authority
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -37,11 +38,14 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.id=this.route.snapshot.paramMap.get("id");
+    this.authority = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority;
+
     // alert(this.id)
   }
 
   ngOnInit() {
         this.getListWorkorderList();
+        
   }
 
 getListWorkorderListByStatus(status:any) {
@@ -61,39 +65,29 @@ changeSelectedFile(valid) {
   if(valid != 'All'){this.getListWorkorderListByStatus(valid);}else{this.getListWorkorderList()}
   
 }
-
-
-  //OpenModal(sch:string){}
   getListWorkorderList() {
   this.WorekOrderList = [];
       this.backendService.get(`${GET_LIST_Work_Orders_BY_CLIENTS}/${this.id}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
-    console.log(response.rows);
+        console.log(response);
+        
          this.WorekOrderList = response.rows;
       })
     );
   }
-
   OpenModal(title: string) {
-   
     const modalRef = this.modalService.open(PostComponent ,{ size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = WORK_ORDER_POPUP_TYPE;
     modalRef.componentInstance.payload = {"clientId":this.id};
-
   }
-
   OpenModalUp(title: string,item?) {
-   
     const modalRef = this.modalService.open(PutComponent ,{ size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = WORK_ORDER_POPUP_TYPE;
     modalRef.componentInstance.payload = {...item,"clientId":this.id};
   }
-
-
   OpenDetails(title: string, payload:any){
-
     const modalRef = this.modalService.open(DetailsComponent);
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = "tiket_detalise";
@@ -124,8 +118,6 @@ changeSelectedFile(valid) {
       }
     });
   }
-
-
   handlePageSizeChange(event: any): void {
     this.pageSize = event.target.value;
     this.page = 1;

@@ -5,6 +5,7 @@ import { PostComponent } from './post/post.component';
 import { PutComponent } from './put/put.component';
 import { DetailsComponent } from './details/details.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ValdatinCloseWorkOrderComponent } from './valdatin-close-work-order/valdatin-close-work-order.component';
 
 
 
@@ -12,7 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
   declarations: [
     PostComponent,
     PutComponent,
-    DetailsComponent
+    DetailsComponent,
+    ValdatinCloseWorkOrderComponent
   ],
   imports: [
     CommonModule,

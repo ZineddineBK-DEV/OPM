@@ -73,7 +73,7 @@ const MENUITEMS:Menu[] = [
         name: 'Worek Order',
         type: 'link',
         icon: 'fas fa-solid fa-folder',
-        routerLink:"/app/workorderListTechClt"
+        routerLink:"/app/ClientDashboardWok"
       },
       // {
       //   state: 'tickets',

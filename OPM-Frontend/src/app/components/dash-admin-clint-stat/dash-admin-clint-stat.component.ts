@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { BackendService } from "../../services/backend.service";
 import { SharedService } from "../../services/shared.service";
 import Observer from "../../services/observer";
-import { GET_LIST_FOLDERS_All, GET_USER_COUNT_files_BY_VALID_END_POINT, GET_USER_COUNT_tickrt_END_POINT, GET_USER_USER_COUNT_worekorder_BY_VALIDE} from "../../services/endpoints";
+import { GET_COUNTL_UNHANDLE_WORK_ORDERS_BY_ID_END_POINT, GET_LIST_FOLDERS_All, GET_USER_COUNT_files_BY_VALID_END_POINT, GET_USER_COUNT_tickrt_END_POINT, GET_USER_USER_COUNT_worekorder_BY_VALIDE} from "../../services/endpoints";
 import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-dash-admin-clint-stat',
@@ -17,7 +17,7 @@ export class DashAdminClintStatComponent implements OnInit {
   workorder: number;
 namCLient:any;
 folderName:any;
-
+UnhandledWorkorder: number;
   constructor(
     private backendService: BackendService,
     private sharedService: SharedService,
@@ -29,6 +29,7 @@ folderName:any;
     this.workorder = 0 ;
     this.ticket = 0 ;
     this.files = 0 ;
+    this.UnhandledWorkorder = 0 ;
 
 this.id=this.route.snapshot.paramMap.get("id");
 this.folderName=this.route.snapshot.paramMap.get("folderName");
@@ -38,6 +39,7 @@ this.namCLient=this.route.snapshot.paramMap.get("clientName");
     this.getTicket(this.id);
     this.getFiles(this.id);
     this.getWorkorder(this.id);
+    this.getWorkorderUnhandled(this.id)
   }
 
   getTicket(id:string) {
@@ -66,6 +68,7 @@ this.namCLient=this.route.snapshot.paramMap.get("clientName");
   }
 
   getWorkorder(id:string) {
+    this.workorder = 0 ;
 
     this.backendService.get(`${GET_USER_USER_COUNT_worekorder_BY_VALIDE}/${id}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
@@ -75,5 +78,16 @@ this.namCLient=this.route.snapshot.paramMap.get("clientName");
       })
     );
   }
+
+  getWorkorderUnhandled(id:string) {
+
+    this.backendService.get(`${GET_COUNTL_UNHANDLE_WORK_ORDERS_BY_ID_END_POINT}/${id}`).subscribe(
+      new Observer().OBSERVER_GET((response) => {
+
+         this.UnhandledWorkorder = response.rows.count;
+      })
+    );
+  }
+  // 
 
 }
