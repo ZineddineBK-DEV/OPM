@@ -9,7 +9,6 @@ const checkSLA = async (id) => {
       workOrder.status = "Expired";
       await workOrder.save();
     }
-    console.log('SLA check completed successfully.', workOrder);
   } catch (error) {
     console.error('Error occurred while checking SLA:', error);
   }

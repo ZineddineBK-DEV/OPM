@@ -6,7 +6,8 @@ const cron = require('node-cron');
 const Contract = require('../models/contractModel');
 const Client = require('../models/clientModel');
 const Folder = require('../models/folderModel');
-
+const moment = require('moment');
+require('moment-timezone');
 
 exports.createWorkOrder = async (req, res) => {
   const { clientId } = req.body;
@@ -30,10 +31,9 @@ exports.createWorkOrder = async (req, res) => {
       }
       workOrder.listOfFiles = uploadedFiles;
     }
-    const futureTime = new Date(Date.now() + contract.sla * 60 * 60 * 1000);
-    console.log(futureTime)
-    // const task = cron.schedule('42 13 2 6 *', () => checkSLA(workOrder._id), { scheduled: true });
-    console.log('Cron job scheduled.');
+    const futureTime = moment().add(contract.sla, 'hours');
+    const cronPattern = moment(futureTime).format('m H D M d');
+    const task = cron.schedule(cronPattern, () => checkSLA(workOrder._id), { scheduled: true });
     await workOrder.save();
     res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (error) {

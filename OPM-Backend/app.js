@@ -7,6 +7,8 @@ const { strict } = require("assert");
 require("dotenv").config();
 const auth = require("./src/controllers/authController");
 const app = express();
+const moment = require('moment');
+require('moment-timezone');
 // ============ imporing routes ================
 
 const authRoute = require("./src/routes/authRoute");
@@ -25,6 +27,8 @@ const followUpRoute = require("./src/routes/followUpRoute");
 
 
 //========== configuration ============
+moment.tz.setDefault('Africa/Tunis');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(userData);
