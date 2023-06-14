@@ -30,6 +30,7 @@ export class UnhandledWorkOrdersDetailAdminComponent implements OnInit {
   change = false ;
   value_change :any ;
   p=1
+  authority
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -38,7 +39,10 @@ export class UnhandledWorkOrdersDetailAdminComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.id=this.route.snapshot.paramMap.get("id");
-    // alert(this.id)
+    //  
+    this.authority = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority;
+    // alert(this.authority)
+
   }
 
   ngOnInit() {

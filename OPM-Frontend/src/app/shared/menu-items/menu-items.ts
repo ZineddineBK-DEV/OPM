@@ -70,10 +70,18 @@ const MENUITEMS:Menu[] = [
       {
         state: 'word',
         short_label: 'T',
-        name: 'Worek Order',
+        name: 'Worek Order CLT',
         type: 'link',
         icon: 'fas fa-solid fa-folder',
         routerLink:"/app/ClientDashboardWok"
+      },
+      {
+        state: 'word2',
+        short_label: 'T',
+        name: 'Worek Order Tech',
+        type: 'link',
+        icon: 'fas fa-solid fa-folder',
+        routerLink:"/app/workorderListTechClt"
       },
       // {
       //   state: 'tickets',

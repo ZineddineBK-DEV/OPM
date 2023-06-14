@@ -132,11 +132,8 @@ export class PostComponent implements OnInit {
         payload = this.paylodFormData;
         break;
       case "TICKET":
-
-
-
         endpoint = POST_ADD_FILE_TICKET_ADMIN_END_POINT;
-        this.paylodFormData.append("ticketId",payload.ticketId)
+        this.paylodFormData.append("ticketId",this.payload.ticketId)
         this.paylodFormData.append("fileType","File")
          for (let i = 0; i < this.files.length; i++) {
           this.paylodFormData.append("files", this.files[i]);
@@ -148,7 +145,7 @@ export class PostComponent implements OnInit {
           console.log(this.paylodFormData.get("fileType"));
           break;
       case "add_Tech":
-        alert("from post")
+       
         endpoint = PUT_WOREK_ORDER_END_POINT;
         payload = {
           ...payload,

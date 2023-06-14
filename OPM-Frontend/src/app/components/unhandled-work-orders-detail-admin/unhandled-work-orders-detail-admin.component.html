@@ -95,9 +95,9 @@
                               <!--  -->
                               <td scope="row">
                                 <!-- <a  -->
-                                  <i (click)="OpenDetails('titre',item._id)" class="fas fa-edit"></i>
+                                  <i *ngIf="this.authority== 'admin'" (click)="OpenDetails('titre',item._id)" class="fas fa-edit"></i>
                                 <!-- <i  class="fa fa-trash-o ml-2"></i> -->
-                                <!-- <a  [routerLink]="['/app/workOrderDetailsAdmin', item._id]"><i  class="fa fa-eye ml-2"></i></a> -->
+                                <a *ngIf="this.authority== 'client'" [routerLink]="['/app/workOrderDetailsAdmin', item._id]"><i  class="fa fa-eye ml-2"></i></a>
                               </td>
       
   

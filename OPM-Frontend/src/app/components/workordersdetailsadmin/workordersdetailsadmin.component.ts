@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { DELETE_FILE_FOR_TICKET_ADMIN_END_POINT, GET_ONE_WORK_ORDER_BY_ID_END_POINT, PUT_TICKET_END_POINT } from '../../services/endpoints';
+import { DELETE_FILE_FOR_TICKET_ADMIN_END_POINT, GET_ONE_WORK_ORDER_BY_ID_END_POINT, PUT_TICKET_END_POINT, PUT_WOREK_ORDER_END_POINT } from '../../services/endpoints';
 import Observer from '../../services/observer';
 import { environment } from "./../../../environments/environment";
 import { TICKET_New_PLAN_POPUP_TYPE, TICKET_PLAN_POPUP_TYPE } from "../../popup/popup-type";
@@ -87,8 +87,10 @@ export class WorkordersdetailsadminComponent implements OnInit {
         this.StatusWorkOrder = this.workOrder.status;
         console.log("--------------------------------------------------..");
         console.log(response.rows);
+        console.log("--------------------------------------------------..");
 
-        this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName + " " + this.workOrder.employeeId.lastName;
+
+        if (this.workOrder.employeeId) {this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName + " " + this.workOrder.employeeId.lastName;}
         this.DescriptioneworkOrder = this.workOrder.description;
         if (this.workOrder.ticketId) { this.ticketDescription = this.workOrder.ticketId.description; } else { this.ticketDescription = null }
         this.partName = this.workOrder.partName
@@ -106,6 +108,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
     );
   }
   OpenModal(title: string, id_ticket) {
+    // alert(id_ticket)
     const modalRef = this.modalService.open(PostComponent, { size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = TICKET_PLAN_POPUP_TYPE;
@@ -149,6 +152,32 @@ export class WorkordersdetailsadminComponent implements OnInit {
       }
     });
   }
-
+  updateStaus(id){
+    // Valid
+    // alert(id)
+    swal({
+      title: "Are you sure?",
+      text: "You want to validate this",
+      icon: "warning",
+      closeOnEsc: true,
+      closeOnClickOutside: true,
+      buttons: ["Cancel", "Confirm"],
+    }).then((result) => {
+      if (result) {
+        this.backendService
+        .post(PUT_WOREK_ORDER_END_POINT, {_id:id,status:'Valid'})
+        .subscribe(
+          new Observer(
+            this.router,
+            null,
+            true,
+            true,
+            this.sharedService,
+          ).OBSERVER_POST()
+        );
+      }
+    });
+    
+  }
 
 }

@@ -85,7 +85,7 @@ export class WODTComponent implements OnInit {
         .subscribe(
           new Observer(
             this.router,// just un class dans angular
-            this.authority == 'client' ?`app/workOrderDetail/${this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken"))._id}`: null,//target : lin eli machilou
+            this.authority == 'client' ?`app/UnhandledWorkOrdersDetailAdmin/${this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken"))._id}`: null,//target : lin eli machilou
             this.authority == 'client'? false : true,//target : lin eli machilou
             true,//swwet alert
             this.sharedService,//obligtour si ona reload
