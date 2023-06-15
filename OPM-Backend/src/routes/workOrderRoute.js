@@ -16,10 +16,11 @@ router.get('/countUnhandledWorkOrderByClientId/:id', workOrderController.countUn
 router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClientId);
 router.get('/getWorkOrderByEmployeeId/:id', workOrderController.getWorkOrderByEmployeeId);
 
+router.post('/addFollowUp', workOrderController.addFollowUp);
+router.get('/removeFollowUp/:workOrderId/:followUpId', workOrderController.removeFollowUp);
 
 
-
-// for stat bay clt w tech
+// for stat by clt w tech
 
 router.get('/getWorkOrderByClientIdByStatus/:id/:status', workOrderController.getWorkOrderByClientIdByStatus);
 router.get('/getWorkOrderByEmployeeIdByStatus/:id/:status', workOrderController.getWorkOrderByEmployeeIdByStatus);
