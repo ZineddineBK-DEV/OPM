@@ -32,10 +32,11 @@
         <div class="card-block">
           <i class="icofont icofont-memorial st-icon bg-c-yellow"></i>
           <div class="text-left">
-            <h3 class="d-inline-block">{{this.ticket}}</h3>
+            <h3 class="d-inline-block">{{
+             this.myWorekorderunhndled}}</h3>
           </div>
           <div class="text-right">
-            <a [routerLink]="['/app/UnhandledWorkOrdersDetailAdmin',this.id]" class="d-inline-block">More Detalise</a>
+            <a [routerLink]="['/app/UnhandledWorkOrdersDetailAdmin',this.id]" class="d-inline-block">More details</a>
           </div>
         </div>
       </div>
@@ -52,10 +53,10 @@
         <div class="card-block">
           <i class="icofont icofont-ticket st-icon bg-c-blue"></i>
           <div class="text-left">
-            <h3 class="d-inline-block">{{this.workorder}}</h3>
+            <h3 class="d-inline-block">{{this.myWorekorder}}</h3>
           </div>
           <div class="text-right">
-            <a [routerLink]="['/app/workorderListTechClt']" class="d-inline-block">More Detalise</a>
+            <a [routerLink]="['/app/workorderListTechClt']" class="d-inline-block">More details</a>
           </div>
         </div>
       </div>

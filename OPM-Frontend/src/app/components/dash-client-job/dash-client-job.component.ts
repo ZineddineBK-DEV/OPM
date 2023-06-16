@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 export class DashClientJobComponent implements OnInit {
   id:string ;
   authority
+  myWorekorder
+  myWorekorderunhndled
   constructor(
     private backendService: BackendService,
     private sharedService: SharedService,
@@ -19,6 +21,8 @@ export class DashClientJobComponent implements OnInit {
   ) {
     this.id = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken"))._id;
     this.authority = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority;
+    this.myWorekorder =0
+    this.myWorekorderunhndled =0
 
 // alert(this.id)
   }

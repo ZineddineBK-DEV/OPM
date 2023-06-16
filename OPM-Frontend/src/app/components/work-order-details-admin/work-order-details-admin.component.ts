@@ -69,7 +69,10 @@ changeSelectedFile(valid) {
   this.WorekOrderList = [];
       this.backendService.get(`${GET_LIST_Work_Orders_BY_CLIENTS}/${this.id}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
+        console.log("response");
         console.log(response);
+        console.log(GET_LIST_Work_Orders_BY_CLIENTS);
+        console.log("response");
         
          this.WorekOrderList = response.rows;
       })

@@ -70,7 +70,7 @@ const MENUITEMS:Menu[] = [
       {
         state: 'word',
         short_label: 'T',
-        name: 'Worek Order CLT',
+        name: 'Work Order CLT',
         type: 'link',
         icon: 'fas fa-solid fa-folder',
         routerLink:"/app/ClientDashboardWok"
@@ -78,7 +78,7 @@ const MENUITEMS:Menu[] = [
       {
         state: 'word2',
         short_label: 'T',
-        name: 'Worek Order Tech',
+        name: 'Work Order Tech',
         type: 'link',
         icon: 'fas fa-solid fa-folder',
         routerLink:"/app/workorderListTechClt"

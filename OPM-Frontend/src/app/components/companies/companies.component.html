@@ -3,10 +3,10 @@
     <div class="row align-items-end">
       <div class="col-lg-8">
         <div class="page-header-title">
-          <span><i class="fas fas fa-users" style="background-color: #000080"></i></span>
+          <span><i class="fas fas fa-hospital-o" style="background-color: #000080"></i></span>
           <div class="d-inline">
             <span class="d-block text-primary">
-              <h4>Employers</h4>
+              <h4>Companies</h4>
             </span>
             <!-- <span class="text-dark">Tax Page</span> -->
           </div>
@@ -25,7 +25,7 @@
           <div class="card">
             <div class="col-sm-12">
               <div class="card-header">
-                <h5 class="card-header-text">Employers list</h5>
+                <h5 class="card-header-text">Companies list</h5>
                 <div class="col-md-12 col-lg-3 offset-lg-10">
                   <div class="pcoded-search">
                     <div class="pcoded-search-box">
@@ -64,12 +64,14 @@
                     <thead>
                       <tr style="text-align: center">
                         <th scope="col">
-                          First Name
+                           Name
                         </th>
                         <th scope="col">
-                          Email
+                           Email
                         </th>
-
+                        <th scope="col">
+                          Account Status
+                        </th>
                         <th scope="col">ACTIONS</th>
                       </tr>
                     </thead>
@@ -82,11 +84,16 @@
                           <td scope="row"> {{
                             client.email
                             }} </td>
-
+                            <td scope="row"> 
+                              <span  class="badge badge-pill badge-success" style="border-radius: 5px;" *ngIf=" client.valid== true ">Active</span>
+                              <span class="badge badge-pill badge-danger" style="border-radius: 5px;"  *ngIf=" client.valid== false ">Inactive</span>
+                              
+                              
+ </td>
 
                           <td scope="row">
-                            <i  *ngIf=" client.valid== false "(click)="changeEtaClient(true,client.email)" class="fa  fa-times"  ></i>
-                            <i *ngIf=" client.valid==  true"(click)="changeEtaClient(false,client.email)" class="fa fa-check" aria-hidden="true" ></i>
+                            <i style="color: #ff0000;" *ngIf=" client.valid== false "(click)="changeEtaClient(true,client.email)" class="fa  fa-times"  ></i>
+                            <i style="color: #00ff1e;" *ngIf=" client.valid==  true"(click)="changeEtaClient(false,client.email)" class="fa fa-check" aria-hidden="true" ></i>
                             <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
                           </td>
                       </tr>

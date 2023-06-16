@@ -21,7 +21,7 @@ export const PUT_USER_USER_CLIENTS_BY_VALIDE: string = `${environment.apiUrl}/cl
 export const GET_LIST_FOLDERS_All: string = `${environment.apiUrl}/folder/all`;
 export const GET_LIST_Ticket_BY_CLIENTS: string = `${environment.apiUrl}/ticket/getTicketByClientId`;
 export const GET_LIST_FILES_BY_CLIENTS: string = `${environment.apiUrl}/folder/getFilesByclientId`;
-export const GET_LIST_Work_Orders_BY_CLIENTS: string = `${environment.apiUrl}/workOrder/getUnhandledWorkOrders`;
+export const GET_LIST_Work_Orders_BY_CLIENTS: string = `${environment.apiUrl}/workOrder/getWorkOrderByClientId`;
 
 // ***********static for admi for users ************ */
 export const GET_USER_COUNT_tickrt_END_POINT: string = `${environment.apiUrl}/ticket/countTIcketsByClientId`;

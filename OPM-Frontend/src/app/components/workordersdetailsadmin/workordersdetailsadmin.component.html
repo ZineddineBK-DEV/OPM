@@ -151,9 +151,9 @@
                         *ngIf="(!this.listFile || !workOrder.ticketId) && (this.type_user != 'client' || this.type_user == 'technician' ) &&  this.workOrder.status == 'In progress'">
                         <button
                           *ngIf="(!this.listFile || !workOrder.ticketId) && (this.type_user != 'client' || this.type_user == 'technician' )"
-                          class="btn " (click)="oppenAdd('NEW TICKET')">
+                          class=" btn-outline-primary"   (click)="oppenAdd('NEW TICKET')">
                           <i class="icofont icofont-ui-add"></i>
-                          ADD TICKET
+                          ADD TICKET 
                         </button>
                       </div>
                     </div>
