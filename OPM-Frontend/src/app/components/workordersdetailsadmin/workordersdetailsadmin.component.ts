@@ -152,7 +152,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
       }
     });
   }
-  updateStaus(id){
+  updateStaus(id,status){
     // Valid
     // alert(id)
     swal({
@@ -165,7 +165,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
     }).then((result) => {
       if (result) {
         this.backendService
-        .post(PUT_WOREK_ORDER_END_POINT, {_id:id,status:'Valid'})
+        .post(PUT_WOREK_ORDER_END_POINT, {_id:id,status:status})
         .subscribe(
           new Observer(
             this.router,
