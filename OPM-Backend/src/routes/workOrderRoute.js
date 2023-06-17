@@ -25,6 +25,7 @@ router.get('/removeFollowUp/:workOrderId/:followUpId', workOrderController.remov
 router.get('/getWorkOrderByClientIdByStatus/:id/:status', workOrderController.getWorkOrderByClientIdByStatus);
 router.get('/getWorkOrderByEmployeeIdByStatus/:id/:status', workOrderController.getWorkOrderByEmployeeIdByStatus);
 router.get('/getUnhandledWorkOrders/:id?', workOrderController.getUnhandledWorkOrders);
+router.get('/getNonExpiredWorkOrders/:id?', workOrderController.getNonExpiredWorkOrders);
 
 router.post('/updateWorkOrder', workOrderController.updateWorkOrder);
 

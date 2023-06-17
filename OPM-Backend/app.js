@@ -20,7 +20,7 @@ const folderRoute = require("./src/routes/folderRoute");
 const workOrderRoute = require("./src/routes/workOrderRoute");
 const ticketRoute = require("./src/routes/ticketRoute");
 const followUpRoute = require("./src/routes/followUpRoute");
-
+const countRoute = require("./src/routes/countRoute");
 
 
 
@@ -86,5 +86,6 @@ app.use("/folder", auth.verify, folderRoute);
 app.use("/workOrder", auth.verify, workOrderRoute);
 app.use("/ticket", auth.verify, ticketRoute);
 app.use("/followUp", auth.verify, followUpRoute);
+app.use("/count", auth.verify, countRoute);
 // ======== exporting app ========
 module.exports = app;
