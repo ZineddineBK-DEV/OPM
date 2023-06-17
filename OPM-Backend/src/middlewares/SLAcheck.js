@@ -10,7 +10,7 @@ const checkSLA = async (id) => {
       
       workOrder.status = "Expired";
       workOrder.isFollowUp = true;
-      workOrder.title += " - 1"
+      workOrder.title += " - 1";
       const followUp = FollowUp({title: workOrder.title, workOrderId: workOrder._id, });
       workOrder.followUpList.push(followUp);
       await followUp.save();

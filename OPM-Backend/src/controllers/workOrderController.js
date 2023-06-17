@@ -32,9 +32,9 @@ exports.createWorkOrder = async (req, res) => {
       }
       workOrder.listOfFiles = uploadedFiles;
     }
-    const futureTime = moment().add(contract.sla, 'hours');
-    const cronPattern = moment(futureTime).format('m H D M d');
-    const task = cron.schedule(cronPattern, () => checkSLA(workOrder._id), { scheduled: true });
+    const futureTime = moment().add(contract.sla, 'hours'); // add sla to current time
+    const cronPattern = moment(futureTime).format('m H D M d'); //format the futureTime to something understandable by node.cron
+    const task = cron.schedule(cronPattern, () => checkSLA(workOrder._id), { scheduled: true });// schedule a task in futureTime tetsajel fl emplois du temps mta3 el mechina(futureTime formuller, function(), confirmation bch tetsajel)
     await workOrder.save();
     res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (error) {
