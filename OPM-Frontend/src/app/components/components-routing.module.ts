@@ -22,13 +22,7 @@ const routes: Routes = [
         loadChildren: () =>
           import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
       },
-      {
-        path: "accounting/plan",
-        loadChildren: () =>
-          import("../components/accounting-plan/accounting-plan.module").then(
-            (m) => m.AccountingPlanModule
-          ),
-      },
+      
       {
         path: "employers",
         loadChildren: () =>

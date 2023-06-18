@@ -25,6 +25,9 @@ export class WorkordersdetailsadminComponent implements OnInit {
   windurl = window.location.protocol + "//" + window.location.hostname + "/:3000/";
   titre_worek_order;
   type_user;
+  user_Client = false ;
+  user_tech = false ;
+  user_admin = false
   description = ""
   titleWorkOrder = null;
   StatusWorkOrder = null;
@@ -54,6 +57,10 @@ export class WorkordersdetailsadminComponent implements OnInit {
     if (!this.type_user) { this.disAdmin = false }
     if (this.type_user == "technician") { this.disTech = false }
     if (this.type_user == "client") { this.disClt = false }
+
+    if (this.type_user == "technician") { this.user_tech = true }
+    if (this.type_user == "client") { this.user_Client = true }
+    if (this.type_user == "admin") { this.user_admin = true }
   }
   ngOnInit() {
     this.getOneWorkOrderBayId(this.type_user);
@@ -85,9 +92,10 @@ export class WorkordersdetailsadminComponent implements OnInit {
         this.workOrder = response.rows;
         this.titleWorkOrder = this.workOrder.title;
         this.StatusWorkOrder = this.workOrder.status;
-        console.log("--------------------------------------------------..");
-        console.log(response.rows);
-        console.log("--------------------------------------------------..");
+
+        // console.log("--------------------------------------------------..");
+        // console.log(response.rows);
+        // console.log("--------------------------------------------------..");
 
 
         if (this.workOrder.employeeId) {this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName + " " + this.workOrder.employeeId.lastName;}
