@@ -11,6 +11,7 @@ import {ModalAnimationComponent} from './modal-animation/modal-animation.compone
 import {ModalBasicComponent} from './modal-basic/modal-basic.component';
 import {DataFilterPipe} from './element/data-filter.pipe';
 import {MenuItems} from './menu-items/menu-items';
+
 import {ParentRemoveDirective} from './element/parent-remove.directive';
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 import {ClickOutsideModule} from 'ng-click-outside';
@@ -59,6 +60,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   providers: [
     MenuItems,
+
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

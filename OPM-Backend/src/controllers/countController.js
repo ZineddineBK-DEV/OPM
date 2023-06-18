@@ -54,6 +54,7 @@ exports.countContracts = async (req, res) => {
     }
 };
 
+
 exports.countEmployees = async (req, res) => {
     try {
         const count = await Employee.countDocuments();
@@ -63,7 +64,56 @@ exports.countEmployees = async (req, res) => {
         res.status(500).json({ err: true, message: error.message });
     }
 };
+exports.countWorkOrders = async (req, res) => {
+    try {
+        const count = await WorkOrder.countDocuments();
+        res.status(200).json({ err: false, message: "Successful operation !", rows: { count } });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
+// 
+exports.countWorkOrdersBayClintIdStatus = async (req, res) => {
+    const { clientId, status } = req.params;
+    try {
 
+        const count = await WorkOrder.countDocuments({ clientId: clientId, status: status });
+        res.status(200).json({ err: false, message: "Successful operation !", rows: { count, clientId } });
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
+
+exports.countAllTiket = async (req, res) => {
+
+    try {
+        const count = await Ticket.countDocuments();
+         res.status(200).json({ err: false, message: "Successful operation !", rows: {count } });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
+
+exports.countUnhandledWorkOrder = async (req, res) => {
+    try {
+            const count = await WorkOrder.countDocuments({
+                $or: [
+                    { employeeId: null }, // Check if employeeId is null
+                    { employeeId: { $exists: false } } // Check if employeeId does not exist
+                ]
+            });
+            res.status(200).json({ err: false, message: "Successful operation !", rows: { count } });
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
 
 exports.countWorkOrderByEmployeeId = async (req, res) => {
     const { employeeId, status } = req.params;
@@ -81,6 +131,16 @@ exports.countWorkOrderByEmployeeId = async (req, res) => {
     }
 };
 
+exports.countWorkOrderByStatus = async (req, res) => {
+    const { status } = req.params;
+    try {
+            const count = await WorkOrder.countDocuments({ status: status });
+            res.status(200).json({ err: false, message: "Successful operation !", rows: { count } });
+            } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
 exports.countTicketsByEmployeeId = async (req, res) => {
     const { employeeId } = req.params;
     try {
@@ -91,6 +151,23 @@ exports.countTicketsByEmployeeId = async (req, res) => {
             const count = await Ticket.countDocuments();
             res.status(200).json({ err: false, message: "Successful operation !", rows: { count, employeeId } });
         }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
+
+exports.countUnhandledWorkOrderBayClient = async (req, res) => {
+    const { ClientId } = req.params;
+    try {
+            const count = await WorkOrder.countDocuments({clientId:ClientId,
+                $or: [
+                    { employeeId: null }, // Check if employeeId is null
+                    { employeeId: { $exists: false } } // Check if employeeId does not exist
+                ]
+            });
+            res.status(200).json({ err: false, message: "Successful operation !", rows: { count } });
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ err: true, message: error.message });

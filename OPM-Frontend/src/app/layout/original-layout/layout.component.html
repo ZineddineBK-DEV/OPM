@@ -111,7 +111,7 @@
             </div>
 
             <perfect-scrollbar [style.max-width]="'100%'" [style.max-height]="'calc(100vh - 230px)'" [config]="config">
-              <div *ngFor="let asideItems of menuItems.getAll()" class="d-color">
+              <div *ngFor="let asideItems of menuItems.getAll(this.userRole)" class="d-color">
                 <div class="pcoded-navigatio-lavel" [attr.menu-title-theme]="menuTitleTheme">{{asideItems.label|translate}}</div>
                 <ul class="pcoded-item pcoded-left-item" [attr.item-border]="itemBorder"
                   [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder"

@@ -20,6 +20,8 @@ import { Router } from "@angular/router";
 import { SharedService } from "../../services/shared.service";
 import { TranslateService } from "@ngx-translate/core";
 
+
+
 @Component({
   selector: "app-layout",
   templateUrl: "./layout.component.html",
@@ -136,16 +138,20 @@ userNAme=""
   search_friends: ElementRef;
 
   public config: any;
-
+public userRole :any;
   constructor(
     public menuItems: MenuItems,
+
     // private modalService: NgbModal,
     private backendService: BackendService,
     private sharedService: SharedService,
     private router: Router,
     private translate: TranslateService
+    
+
   ) {
-    // alert(sessionStorage.getItem("email"))
+    this.userRole = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority ;
+    // alert(this.userRole)
 this.userNAme = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).email
     this.navType = "st5";
     this.themeLayout = "vertical";

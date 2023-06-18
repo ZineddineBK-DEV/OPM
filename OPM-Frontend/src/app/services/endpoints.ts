@@ -1,4 +1,26 @@
 import { environment } from "../../environments/environment";
+//dhasbored 
+// export const GET_DASHBORD_WORKORDER_STATUS_BY_VALID_END_POINT: string = `${environment.apiUrl}/employee/getAllEmployeesByValid`;
+// export const GET_USERDASHBORD_EMPLOYES_BY_VALID_END_POINT: string = `${environment.apiUrl}/employee/getAllEmployeesByValid`;
+export const GET_DASHBORD_CONTRACT_END_POINT: string = `${environment.apiUrl}/count/countContracts`;
+export const GET_USER_BY_AUTHORTY_END_POINT: string = `${environment.apiUrl}/count/countUsersByAuthority`;
+export const GET_USER_ALL_EMPLOYEES_END_POINT: string = `${environment.apiUrl}/count/countEmployees`;
+export const GET_USER_AllWorekOrders_END_POINT: string = `${environment.apiUrl}/count/countWorkOrders`;
+export const GET_USER_WOREKORDERS_BY_STATUS_END_POINT: string = `${environment.apiUrl}/count/countWorkOrderByStatus`;
+export const GET_USER_COUNT_Ticket_END_POINT: string = `${environment.apiUrl}/count/countAllTiket`;
+export const GET_USERUNHANDLING_WORK_ORDERS_END_POINT: string = `${environment.apiUrl}/count/countUnhandledWorkOrder`;
+export const GET_WORK_ORDERS_bayStatus_Client_END_POINT: string = `${environment.apiUrl}/count/countWorkOrdersBayClintIdStatus`;
+export const GET_Unhandled_WORK_ORDERS__Client_END_POINT: string = `${environment.apiUrl}/count/countUnhandledWorkOrderBayClient`;
+export const GET_Technisien_WORK_ORDERS_bay_id_END_POINT: string = `${environment.apiUrl}/count/countWorkOrderByEmployeeId`;
+
+
+// count/countWorkOrderByEmployeeId
+
+
+
+
+
+
 
 //AUTH ENDPOINTS
 export const SIGNIN_END_POINT: string = `${environment.apiUrl}/login`;
