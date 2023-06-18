@@ -150,9 +150,9 @@ public userRole :any;
     
 
   ) {
-    this.userRole = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority ;
+    if(sessionStorage.length !=0){this.userRole = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority }
     // alert(this.userRole)
-this.userNAme = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).email
+    if(sessionStorage.length!=0){this.userNAme = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).email}
     this.navType = "st5";
     this.themeLayout = "vertical";
     this.vNavigationView = "view1";

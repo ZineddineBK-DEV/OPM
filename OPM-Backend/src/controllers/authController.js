@@ -57,15 +57,15 @@ exports.login = async (req, res) => {
     if (!user){
     user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+      return res.status(404).json({ message: 'Invalid email or password' });
     }}
     if (user.valid == false) {
-      return res.status(401).json({ message: 'account in progress' });
+      return res.status(404).json({ message: 'account in progress' });
     }
     
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+      return res.status(404).json({ message: 'Invalid email or password' });
     }
     var contract;
     if (user.authority == "client"){
