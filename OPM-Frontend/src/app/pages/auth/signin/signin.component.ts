@@ -32,8 +32,12 @@ export class SigninComponent implements OnInit {
         (response: any) => {
           
           const { accessToken, refreshToken ,payload} = response;
+          console.log(payload);
+          
           this.sharedService.setItem("accessToken", accessToken);
           this.sharedService.setItem("refreshToken", refreshToken);
+          this.sharedService.setItem("folders", payload.folder);
+          this.sharedService.setItem("contract", payload.contract.terms);
 
 
         }

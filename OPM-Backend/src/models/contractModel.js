@@ -7,7 +7,8 @@ const contractSchema = new mongoose.Schema({
       },
     type: {
       type: String,
-      required: true
+    enum: ['INFO-GERANCE', 'SUPPORT AND MAINTENANCE'],
+    required: true
     },
     startDate:{
       type: Date,

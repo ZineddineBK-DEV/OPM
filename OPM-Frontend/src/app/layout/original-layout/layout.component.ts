@@ -139,6 +139,8 @@ userNAme=""
 
   public config: any;
 public userRole :any;
+public folders :any ;
+public Contract :any ;
   constructor(
     public menuItems: MenuItems,
 
@@ -150,6 +152,10 @@ public userRole :any;
     
 
   ) {
+
+    this.folders = sessionStorage.getItem("folders") || null;
+    this.Contract = sessionStorage.getItem("contract") || null;
+
     if(sessionStorage.length !=0){this.userRole = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority }
     // alert(this.userRole)
     if(sessionStorage.length!=0){this.userNAme = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).email}

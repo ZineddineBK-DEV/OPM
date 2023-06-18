@@ -66,18 +66,18 @@
 
 
                   <div class="input-group">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                       <input type="text" class="form-control" [placeholder]="'Part Number'" name="partNum" ngModel
                         [(ngModel)]="this.model.partNum" #partNum="ngModel" required />
                     </div>
 
-                    <div class="col-sm-6" >
+                    <!-- <div class="col-sm-6" >
                       <div>
                         <label for="files" class="btn">Files :</label> <i class="fas fa-file-import"></i>
                         <input class="form-control" [disabled]="this.typeOpertion == 'updateWorekOrder' " (change)="changeSelectedFile02($event)" id="files"
                           style="visibility:hidden;  border: 1px  #050505;" type="file" />
                       </div>
-                    </div>
+                    </div> -->
                   </div>
 
                   <div class="modal-footer">

@@ -89,7 +89,7 @@ this.nbr_tikets = 0 ;
     this.CountUnhandlingWorkOrderFroClient(this.user_id)
 
   }if(this.role_users == 'technician'){
-    alert('from tec')
+
 this.CountWorkOrderBayTechnisienIDAndStatus(this.user_id,"In progress")
 this.CountWorkOrderBayTechnisienIDAndStatus(this.user_id,"Done")
 this.CountWorkOrderBayTechnisienIDAndStatus(this.user_id,"Valid")

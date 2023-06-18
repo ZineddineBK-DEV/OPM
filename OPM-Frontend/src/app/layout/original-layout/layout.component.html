@@ -87,8 +87,12 @@
               <div class="main-menu-header">
                 <!-- <img class="img-40 img-radius" [src]="userinfo&&userinfo.photo" alt="User-Profile-Image" /> -->
                 <div class="user-details">
-                  <span id="more-details" (click)="toggleOpenedSidebar()">{{userinfo&&(userinfo.firstname+"
-                    "+userinfo.lastname)}}
+                  <span id="more-details" (click)="toggleOpenedSidebar()">
+                    <i *ngIf="this.userRole == 'client'" class="fas fa-solid fa-folder" style="font-size: 20px;">&nbsp; &nbsp; &nbsp; {{ this.folders }}</i><br><br>
+                    <i *ngIf="this.userRole == 'client'" class="fas fa-solid fa-regular fa-file-contract" style="font-size: 20px;">&nbsp; &nbsp; &nbsp;{{this.Contract}}</i>
+                    
+                    
+                    
                     <i *ngIf="this.companyList&&this.companyList.length>0" class="ti-angle-down"></i></span>
                 </div>
               </div>

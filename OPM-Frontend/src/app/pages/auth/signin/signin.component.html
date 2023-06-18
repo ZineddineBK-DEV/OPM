@@ -25,21 +25,24 @@
           <form name="form" (ngSubmit)="login(flogin)" #flogin="ngForm" novalidate>
             <!-- Email input -->
             <div class="form-outline mb-4">
-              <input type="email" name="email" ngModel #email="ngModel" required placeholder="Email Address"
+              <input type="email" name="email" ngModel #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required placeholder="Email Address"
                 class="form-control" />
             </div>
-            <div *ngIf="email.invalid && email.touched" class="alert alert-danger p-2" role="alert">
-              Enter Email Address
+            <div *ngIf="email.touched">
+              <p class="alert alert-danger p-2" role="alert" *ngIf="email.errors?.required">Email is a required field!</p>
+              <p class="alert alert-danger p-2" role="alert" *ngIf="email.errors?.pattern">This is not a valid Email!!!</p>
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
-              <input type="password" name="password" ngModel #password="ngModel" required placeholder="Password"
+              <input type="password" name="password" ngModel #password="ngModel" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  required placeholder="Password"
                 class="form-control" />
             </div>
-            <div *ngIf="password.invalid && password.touched" class="alert alert-danger p-2" role="alert">
-              Enter Password
-            </div>
+            <div *ngIf="password.invalid   && password.touched" class="alert alert-danger">
+              <div *ngIf="password.errors.required"> Password is required. </div>
+              <div *ngIf="password.errors.pattern"> Must contain at least one number and one uppercase and lowercase letter,
+                  and at least 8 or more characters.</div>
+          </div>
             <!-- Forgot Password link  -->
             <div class="form-outline mb-4" >
               Forgot Password ? <a [routerLink]="'/reset/password'" id="resetlink"> <i style="font-size: medium;" >Click here to reset your password </i></a>

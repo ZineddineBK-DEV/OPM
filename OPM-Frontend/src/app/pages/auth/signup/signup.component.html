@@ -36,11 +36,12 @@
             <div class="row">
               <div class="col-md-12 mb-4">
                 <div class="form-outline mb-4">
-                  <input type="email" name="email" ngModel #email="ngModel" placeholder="Email address"
+                  <input type="email" name="email" ngModel #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email address"
                     class="form-control" required />
-                  <div *ngIf="email.invalid && email.touched" class="alert alert-danger p-2" role="alert">
-                    Enter Email Address
-                  </div>
+                    <div *ngIf="email.touched">
+                      <p class="alert alert-danger p-2" role="alert" *ngIf="email.errors?.required">Email is a required field!</p>
+                      <p class="alert alert-danger p-2" role="alert" *ngIf="email.errors?.pattern">This is not a valid Email!!!</p>
+                    </div>
                 </div>
               </div>
             </div>
@@ -48,10 +49,12 @@
             <div class="row">
               <div class="col-md-6 mb-4">
                 <div class="form-outline mb-4">
-                  <input type="password" ngModel #pass="ngModel" name="password" placeholder="Password"
+                  <input type="password" ngModel #pass="ngModel" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="password" placeholder="Password"
                     class="form-control" required />
-                  <div *ngIf="pass.invalid && pass.touched" class="alert alert-danger p-2" role="alert">
-                    Enter Password
+                    <div *ngIf="pass.invalid   && pass.touched" class="alert alert-danger">
+                      <div *ngIf="pass.errors.required"> Password is required. </div>
+                      <div *ngIf="pass.errors.pattern"> Must contain at least one number and one uppercase and lowercase letter,
+                          and at least 8 or more characters.</div>
                   </div>
                 </div>
               </div>
@@ -97,10 +100,10 @@
             <div class="row">
               <div class="col-md-6 mb-4">
                 <div class="form-outline mb-4">
-                  <input type="text" name="type" ngModel #type="ngModel" placeholder="Type"
+                  <input type="text" name="sla" ngModel #sla="ngModel" placeholder="SLA"
                     class="form-control" required />
-                  <div *ngIf="type.invalid && type.touched" class="alert alert-danger p-2" role="alert">
-                    Enter type
+                  <div *ngIf="sla.invalid && sla.touched" class="alert alert-danger p-2" role="alert">
+                    Enter sla
                   </div>
                 </div>
               </div>
@@ -118,27 +121,29 @@
                 </div>
               </div>
             </div>
+            
+            <div>
+            <div class="input-group">
 
-              <!--  -->
-
-              <!-- contract contract -->
-            <div class="row">
-              <div class="col-md-12 mb-4">
-                <div class="input-group date" id="datepicker">
-                  <select class="form-select" aria-label="Default select example" name="sla" ngModel #sla="ngModel" placeholder="sls">
-                    <option selected>Contract Type</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                  </select>
-                </div>
-              </div>
+              <select class="form-select" value="-1" name="type" ngModel #type="ngModel" required>
+                <option disabled value="">{{"Contract  Type "}}</option>
+                <option value="INFO-GERANCE">INFO-GERANCE</option>
+                <option value="SUPPORT AND MAINTENANCE">SUPPORT & MAINTENANCE</option>
+              </select>
             </div>
+            <div *ngIf="type.invalid && type.touched" class="alert alert-danger p-2" role="alert">
+              <span>Select Type</span>
+            </div>
+              <!--  -->
+</div>
+              <!-- contract contract -->
+
 
 
             <!-- -->
 
 
-            <button type="submit" [disabled]="fadd.invalid" class="btn btn-primary btn-block mb-4" id="btnconfirm">
+            <button type="submit" [disabled]="fadd.invalid && type.invalid" class="btn btn-primary btn-block mb-4" id="btnconfirm">
               <span style="color:white;font-weight:bold">Confirm</span>
             </button>
 
@@ -170,21 +175,24 @@
             <div class="row">
               <div class="col-md-12 mb-4">
                 <div class="form-outline mb-4">
-                  <input type="email" name="email" ngModel #email="ngModel" placeholder="Email address"
+                  <input type="email" name="email" ngModel #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email address"
                     class="form-control" required />
-                  <div *ngIf="email.invalid && email.touched" class="alert alert-danger p-2" role="alert">
-                    Enter Email Address
-                  </div>
+                    <div *ngIf="email.touched">
+                      <p class="alert alert-danger p-2" role="alert" *ngIf="email.errors?.required">Email is a required field!</p>
+                      <p class="alert alert-danger p-2" role="alert" *ngIf="email.errors?.pattern">This is not a valid Email!!!</p>
+                    </div>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 mb-4">
                 <div class="form-outline mb-4">
-                  <input type="password" ngModel #pass="ngModel" name="password" placeholder="Password"
+                  <input type="password" ngModel #pass="ngModel" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="password" placeholder="Password"
                     class="form-control" required />
-                  <div *ngIf="pass.invalid && pass.touched" class="alert alert-danger p-2" role="alert">
-                    Enter Password
+                    <div *ngIf="pass.invalid   && pass.touched" class="alert alert-danger">
+                      <div *ngIf="pass.errors.required"> Password is required. </div>
+                      <div *ngIf="pass.errors.pattern"> Must contain at least one number and one uppercase and lowercase letter,
+                          and at least 8 or more characters.</div>
                   </div>
                 </div>
               </div>
