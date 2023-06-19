@@ -49,12 +49,12 @@ exports.addTicket = async (req, res) => {
 
     const files = req.files; // Get the array of uploaded files
     const uploadedFiles = [];
-
+console.log(files);
     for (const file of files) {
       const newFile = File({
         fileName: file.filename,
         path: file.destination + '/' + file.filename,
-        title: file.orignalname
+        title: file.originalname
       });
       await newFile.save();
       uploadedFiles.push(newFile);

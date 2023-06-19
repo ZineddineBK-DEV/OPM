@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { DELETE_FILE_FOR_TICKET_ADMIN_END_POINT, GET_ONE_WORK_ORDER_BY_ID_END_POINT, PUT_TICKET_END_POINT, PUT_WOREK_ORDER_END_POINT } from '../../services/endpoints';
+import { DELETE_FILE_FOR_TICKET_ADMIN_END_POINT, GET_ONE_WORK_ORDER_BY_ID_END_POINT, POST_FOLLOWUP, PUT_TICKET_END_POINT, PUT_WOREK_ORDER_END_POINT } from '../../services/endpoints';
 import Observer from '../../services/observer';
 import { environment } from "./../../../environments/environment";
 import { TICKET_New_PLAN_POPUP_TYPE, TICKET_PLAN_POPUP_TYPE } from "../../popup/popup-type";
@@ -17,7 +17,13 @@ import swal from 'sweetalert';
   styleUrls: ['./workordersdetailsadmin.component.scss']
 })
 export class WorkordersdetailsadminComponent implements OnInit {
+  page = 1;
+  collectionSize: number = 0;
+  pageSize = 5;
+  pageSizes = [5, 10, 20];
+  nbrItemPage = 5;
   workOrder: any;
+  flouups: any;
   listFile: any = null;
   id: any;
   url_imguplode;
@@ -92,10 +98,10 @@ export class WorkordersdetailsadminComponent implements OnInit {
         this.workOrder = response.rows;
         this.titleWorkOrder = this.workOrder.title;
         this.StatusWorkOrder = this.workOrder.status;
-
-        // console.log("--------------------------------------------------..");
-        // console.log(response.rows);
-        // console.log("--------------------------------------------------..");
+  if(this.workOrder.isFollowUp){ this.flouups = this.workOrder.followUpList}
+          // console.log("--------------------------------------------------..");
+          // console.log();
+          // console.log("--------------------------------------------------..");
 
 
         if (this.workOrder.employeeId) {this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName + " " + this.workOrder.employeeId.lastName;}
@@ -187,5 +193,47 @@ export class WorkordersdetailsadminComponent implements OnInit {
     });
     
   }
+  relonse(id,title){
+    let lastElement = this.flouups[this.flouups.length - 1].title;
+    let last = lastElement.charAt(lastElement.length - 1);
+last = (Number(last)+1)
+let newTitre = title+" - "+last
+    swal({
+      title: "Are you sure?",
+      text: "You want to validate this",
+      icon: "warning",
+      closeOnEsc: true,
+      closeOnClickOutside: true,
+      buttons: ["Cancel", "Confirm"],
+    }).then((result) => {
+      if (result) {
+       
 
+        this.backendService
+        .post(POST_FOLLOWUP, {workOrderId:id,title:newTitre})
+        .subscribe(
+          new Observer(
+            this.router,
+            null,
+            true,
+            true,
+            this.sharedService,
+          ).OBSERVER_POST()
+        );
+      }
+    });
+    
+  }
+
+  handlePageSizeChange(event: any): void {
+    this.pageSize = event.target.value;
+    this.page = 1;
+  this.nbrItemPage =event.target.value ;
+  }
+
+  handlePageChange(currentPage: number) {
+ 
+      this.getOneWorkOrderBayId(this.type_user);
+    
+  }
 }
