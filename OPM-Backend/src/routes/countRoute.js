@@ -17,8 +17,8 @@ router.get('/countAllTiket', countController.countAllTiket);
 router.get('/countWorkOrders', countController.countWorkOrders);
 router.get('/countWorkOrderByStatus/:status', countController.countWorkOrderByStatus);
 router.get('/countUnhandledWorkOrderBayClient/:ClientId', countController.countUnhandledWorkOrderBayClient);
-
-
+router.get('/countAllWorekOrderBayClient/:id', countController.countAllWorekOrderBayClient);
+// 
 
 
 

@@ -13,8 +13,9 @@ export const GET_WORK_ORDERS_bayStatus_Client_END_POINT: string = `${environment
 export const GET_Unhandled_WORK_ORDERS__Client_END_POINT: string = `${environment.apiUrl}/count/countUnhandledWorkOrderBayClient`;
 export const GET_Technisien_WORK_ORDERS_bay_id_END_POINT: string = `${environment.apiUrl}/count/countWorkOrderByEmployeeId`;
 
+export const GET_WORK_ORDERS_bay_CLIENT_id_END_POINT: string = `${environment.apiUrl}/count/countAllWorekOrderBayClient`;
 
-// count/
+// count/   
 
 
 
@@ -46,6 +47,7 @@ export const GET_LIST_FILES_BY_CLIENTS: string = `${environment.apiUrl}/folder/g
 export const GET_LIST_Work_Orders_BY_CLIENTS: string = `${environment.apiUrl}/workOrder/getWorkOrderByClientId`;
 export const POST_FOLLOWUP: string = `${environment.apiUrl}/workOrder/addFollowUp`;
 
+// getUnhandledWorkOrders
 // ***********static for admi for users ************ */
 export const GET_USER_COUNT_tickrt_END_POINT: string = `${environment.apiUrl}/ticket/countTIcketsByClientId`;
 export const GET_USER_COUNT_files_BY_VALID_END_POINT: string = `${environment.apiUrl}/folder/countFilesByClientId`;

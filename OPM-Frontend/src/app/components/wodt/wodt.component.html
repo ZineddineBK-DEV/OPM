@@ -19,7 +19,7 @@
                   <ng-container *ngIf="this.authority== 'admin'">
                     <div class="input-group">
                       <select class="form-select" value="-1" name="employeeId" ngModel  [(ngModel)]="this.model.employeeId" #employeeId="ngModel" required>
-                        <option disabled value="">{{"Select a technician"}}</option>
+                        <option value="">select Technician</option>
                         <option *ngFor="let tech of this.employerslist;" value="{{tech._id}}">
                           {{tech.firstName+" "+tech.lastName}}
                         </option>

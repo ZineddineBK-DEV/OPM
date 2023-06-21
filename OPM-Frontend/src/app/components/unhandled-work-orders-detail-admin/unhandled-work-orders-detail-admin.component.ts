@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import {  DELETE_USER_WORK_ORDER_END_POINT,   GET_LIST_Work_Orders_BY_CLIENTS, GET_USER_WORK_ORDER_BY_STATUS_END_POINT } from '../../services/endpoints';
+import {  DELETE_USER_WORK_ORDER_END_POINT,   GET_ALL_UNHANDLE_WORK_ORDERS_BY_ID_END_POINT,   GET_LIST_Work_Orders_BY_CLIENTS, GET_USER_WORK_ORDER_BY_STATUS_END_POINT } from '../../services/endpoints';
 import { ActivatedRoute } from '@angular/router';
 import Observer from '../../services/observer';
 import { DetailsComponent } from './../../popup/details/details.component';
@@ -63,7 +63,7 @@ getListWorkorderListByStatus(status:any) {
 
   getListWorkorderListUnhandled() {
   this.WorekOrderList = [];
-      this.backendService.get(`${GET_LIST_Work_Orders_BY_CLIENTS}/${this.id}`).subscribe(
+      this.backendService.get(`${GET_ALL_UNHANDLE_WORK_ORDERS_BY_ID_END_POINT}/${this.id}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
          this.WorekOrderList = response.rows;
       })

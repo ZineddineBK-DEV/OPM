@@ -22,10 +22,6 @@ const ticketRoute = require("./src/routes/ticketRoute");
 const followUpRoute = require("./src/routes/followUpRoute");
 const countRoute = require("./src/routes/countRoute");
 
-
-
-
-
 //========== configuration ============
 moment.tz.setDefault('Africa/Tunis');
 
@@ -78,6 +74,7 @@ mongoose
 
 //app.use("/user", userRoute); not going to use those
 app.use("/",authRoute);
+
 app.use("/client", auth.verify, clientRoute);
 app.use("/employee", auth.verify, employeeRoute);
 app.use("/contract", auth.verify, contractRoute);

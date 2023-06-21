@@ -216,7 +216,7 @@
                   <input class="form-control textbox-n" type="date"
                   [placeholder]="'tetetetetet'" onkeydown="return false" name="birthDate"
                   ngModel #birthDate="ngModel" required
-                  (click)="setinputtype($event,'birthDate')" min="{{ this.actualDate | date: 'yyyy-MM-dd' }}" />
+                  (click)="setinputtype($event,'birthDate')" max="{{ this.actualDate | date: 'yyyy-MM-dd' }}" />
                     <div *ngIf="birthDate.invalid && birthDate.touched" class="alert alert-danger p-2" role="alert">
                       Enter End Date
                     </div>

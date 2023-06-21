@@ -49,7 +49,7 @@ exports.addTicket = async (req, res) => {
 
     const files = req.files; // Get the array of uploaded files
     const uploadedFiles = [];
-console.log(files);
+
     for (const file of files) {
       const newFile = File({
         fileName: file.filename,
@@ -123,6 +123,7 @@ exports.getAllWorkOrders = async (req, res) => {
 exports.getWorkOrderById = async (req, res) => {
   const id = req.params.id;
   try {
+    
     if (req.params.authority && req.params.authority == "client") {
       const workOrder = await WorkOrder.findById(id).populate(
         [
@@ -160,6 +161,7 @@ exports.getWorkOrderById = async (req, res) => {
             path: 'clientId',
             model: 'Client',
             select: 'company',
+            
           },
           {
             path: 'employeeId',

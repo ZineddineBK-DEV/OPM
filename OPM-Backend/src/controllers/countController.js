@@ -115,6 +115,18 @@ exports.countUnhandledWorkOrder = async (req, res) => {
     }
 };
 
+exports.countAllWorekOrderBayClient = async (req, res) => {
+const id =req.params.id
+    try {
+        const count = await WorkOrder.countDocuments({clientId:id});
+         res.status(200).json({ err: false, message: "Successful operation !", rows: {count } });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
+
 exports.countWorkOrderByEmployeeId = async (req, res) => {
     const { employeeId, status } = req.params;
     try {

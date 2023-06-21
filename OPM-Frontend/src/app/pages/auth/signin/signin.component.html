@@ -33,9 +33,9 @@
               <p class="alert alert-danger p-2" role="alert" *ngIf="email.errors?.pattern">This is not a valid Email!!!</p>
             </div>
 
-            <!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  -->
+            <!--   -->
             <div class="form-outline mb-4">
-              <input type="password" name="password" ngModel #password="ngModel"   required placeholder="Password"
+              <input type="password" name="password" ngModel  #password="ngModel" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"   required placeholder="Password"
                 class="form-control" />
             </div>
             <div *ngIf="password.invalid   && password.touched" class="alert alert-danger">

@@ -176,10 +176,10 @@
                         <div class="card">
                           <div class="col-sm-12">
                             <div class="card-header">
-                              <h5 class="card-header-text">Work Order List</h5>
+                              <h5 class="card-header-text">FollowUp List</h5>
                               <div class="col-md-12 col-lg-3 offset-lg-10">
                                 <div class="pcoded-search">
-                                     <button class="btn " (click)="relonse(this.workOrder._id,this.workOrder.title)">
+                                     <button *ngIf="this.type_user != 'technician' && this.type_user != 'client' " class="btn " (click)="relonse(this.workOrder._id,this.workOrder.title)">
                                       <i class="icofont icofont-recycle"></i>
                                       Recall 
                                     </button>

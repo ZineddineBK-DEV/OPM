@@ -38,6 +38,7 @@ exports.register = async (req, res) => {
       const contract = Contract(req.body);
       await contract.save();
       obj.contractId = contract._id;
+      console.log(obj);
       const folder = Folder({ name: obj.company+"'s folder", contractId: contract._id, clientId: obj._id });
       await folder.save();
     }

@@ -94,12 +94,14 @@ export class WODTComponent implements OnInit {
     }
     if (this.typeOpertion == 'updateWorekOrder') {
       const obj ={...form.value , _id : this.id}
+      console.log(obj);
+      
       this.backendService
         .post(PUT_WOREK_ORDER_END_POINT,obj)
         .subscribe(
           new Observer(
             this.router,// just un class dans angular
-            `app/workOrderDetail/${this.worekOrdereForUpdate.folderId._id}`,//target : lin eli machilou
+            null,//target : lin eli machilou //`app/workOrderDetail/${this.worekOrdereForUpdate.folderId._id}`
             false,//relode
             true,//swwet alert
             this.sharedService,//obligtour si ona reload
@@ -111,8 +113,10 @@ export class WODTComponent implements OnInit {
     
     this.backendService.get(`${GET_ONE_WORK_ORDER_BY_ID_END_POINT}/${id}/${this.authority}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
-        console.log(response);
         this.worekOrdereForUpdate = response.rows;
+        console.log(response.rows);
+        
+        
         if(this.authority != 'client' && this.worekOrdereForUpdate.employeeId ){this.model.employeeId = this.worekOrdereForUpdate.employeeId._id;}
         this.model.title = this.worekOrdereForUpdate.title;
         this.model.description = this.worekOrdereForUpdate.description;
