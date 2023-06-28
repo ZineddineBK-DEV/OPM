@@ -99,9 +99,9 @@ export class WorkordersdetailsadminComponent implements OnInit {
         this.titleWorkOrder = this.workOrder.title;
         this.StatusWorkOrder = this.workOrder.status;
   if(this.workOrder.isFollowUp){ this.flouups = this.workOrder.followUpList}
-          // console.log("--------------------------------------------------..");
-          // console.log();
-          // console.log("--------------------------------------------------..");
+          console.log("--------------------------------------------------..");
+          console.log(response);
+          console.log("--------------------------------------------------..");
 
 
         if (this.workOrder.employeeId) {this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName + " " + this.workOrder.employeeId.lastName;}

@@ -123,10 +123,10 @@ export class PostComponent implements OnInit {
         this.paylodFormData.append("clientId",payload.clientId)
         this.paylodFormData.append("employeeId",payload.employeeId)
         this.paylodFormData.append("fileType","File")
-        for (let i = 0; i < this.files.length; i++) {
+    if(this.files) {   for (let i = 0; i < this.files.length; i++) {
          this.paylodFormData.append("files", this.files[i]);
      }
-
+}
 
       //   if(this.files){
       //  // this.paylodFormData.append("files",this.files)
