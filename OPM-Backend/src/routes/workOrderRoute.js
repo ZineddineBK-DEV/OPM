@@ -16,7 +16,7 @@ router.get('/countUnhandledWorkOrderByClientId/:id', workOrderController.countUn
 router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClientId);
 router.get('/getWorkOrderByEmployeeId/:id', workOrderController.getWorkOrderByEmployeeId);
 
-router.post('/addFollowUp', workOrderController.addFollowUp);
+router.get('/addFollowUp/:id', workOrderController.addFollowUp);
 router.get('/removeFollowUp/:workOrderId/:followUpId', workOrderController.removeFollowUp);
 
 

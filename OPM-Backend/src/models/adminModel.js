@@ -46,12 +46,12 @@ const Admin = mongoose.model('Admin', adminSchema);
   // lastName: 'Mohamed Ali'
 //  });
 
-//  admin.save((err) => {
-//    if (err) {
-//      console.log(err);
-//    } else {
-//     console.log('Admin user created');
-//   }
-//  });
+//   admin.save((err) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//      console.log('Admin user created');
+//    }
+//   });
 
 module.exports = Admin;

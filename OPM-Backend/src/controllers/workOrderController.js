@@ -586,16 +586,25 @@ exports.uploadFiles = async (req, res) => {
 
 // Add FollowUp to a workOrder
 exports.addFollowUp = async (req, res) => {
-  const { workOrderId, title } = req.body;
   try {
-    const followUp = FollowUp({ title: title, workOrderId: workOrderId });
+    const workOrder = await WorkOrder.findById(req.params.id);
+    const followUp = FollowUp({
+      title:workOrder.title, 
+      description: workOrder.description, 
+      status: workOrder.status,
+      signedBy: workOrder.signedBy,
+      clientId: workOrder.clientId,
+      employeeId: workOrder.employeeId,
+      listOfFiles: workOrder.listOfFiles,
+      ticketId: workOrder.ticketId,
+      creationDate: workOrder.creationDate,
+      finishDate: workOrder.finishDate,      
+    });
+    workOrder.followUpList.push(followUp);
+    followUp.title += " - "+ workOrder.followUpList.length;
     await followUp.save();
-    const workOrder = await WorkOrder.findByIdAndUpdate(
-      workOrderId,
-      { $push: { followUpList: followUp } },
-      { new: true }
-    );
-    res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+    await workOrder.save();
+    res.status(200).json({ err: false, message: "Successful operation !", rows: followUp });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }

@@ -21,6 +21,10 @@ const workOrderRoute = require("./src/routes/workOrderRoute");
 const ticketRoute = require("./src/routes/ticketRoute");
 const followUpRoute = require("./src/routes/followUpRoute");
 const countRoute = require("./src/routes/countRoute");
+const partOrderRoute = require("./src/routes/partOrderRoute");
+
+
+
 
 //========== configuration ============
 moment.tz.setDefault('Africa/Tunis');
@@ -84,5 +88,6 @@ app.use("/workOrder", auth.verify, workOrderRoute);
 app.use("/ticket", auth.verify, ticketRoute);
 app.use("/followUp", auth.verify, followUpRoute);
 app.use("/count", auth.verify, countRoute);
+app.use("/partOrder", auth.verify, partOrderRoute);
 // ======== exporting app ========
 module.exports = app;

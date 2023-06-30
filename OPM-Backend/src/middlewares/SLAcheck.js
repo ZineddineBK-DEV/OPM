@@ -7,11 +7,19 @@ const checkSLA = async (id) => {
     const workOrder = await WorkOrder.findById(id);
     if (workOrder.status == "In progress")
     {
-      
-      workOrder.status = "Expired";
-      workOrder.isFollowUp = true;
-      workOrder.title += " - 1";
-      const followUp = FollowUp({title: workOrder.title, workOrderId: workOrder._id, });
+      const followUp = FollowUp({
+        title:workOrder.title, 
+        description: workOrder.description, 
+        status: workOrder.status,
+        signedBy: workOrder.signedBy,
+        clientId: workOrder.clientId,
+        employeeId: workOrder.employeeId,
+        listOfFiles: workOrder.listOfFiles,
+        ticketId: workOrder.ticketId,
+        creationDate: workOrder.creationDate,
+        finishDate: workOrder.finishDate,      
+      });
+      followUp.title += " - 1"
       workOrder.followUpList.push(followUp);
       await followUp.save();
       await workOrder.save();
