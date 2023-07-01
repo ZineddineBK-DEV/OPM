@@ -53,14 +53,20 @@ const routes: Routes = [
       },
 
 
-      // 
-      {
-        path: "dashAdminCli/:id/:folderName/:clientName",
-        loadChildren: () =>
-          import("../components/dash-admin-clint-stat/dash-admin-clint-stat.module").then(
-            (m) => m.DashAdminClintStatModule
-          ),
-      },
+      
+      // {
+      //   path: "dashAdminCli/:id/:folderName/:clientName",
+      //   loadChildren: () =>
+      //     import("../components/dash-admin-clint-stat/dash-admin-clint-stat.module").then(
+      //       (m) => m.DashAdminClintStatModule
+      //     ),
+      // },
+
+
+
+
+
+
       {
         path: "ClientDashboardWok",
         loadChildren: () =>
@@ -81,7 +87,7 @@ const routes: Routes = [
           import("../components/workordersdetailsadmin/workordersdetailsadmin.module").then(
             (m) => m.WorkordersdetailsadminModule
           ),
-      },
+      },//
       // {
       //   path: "ticketDetail/:id",
       //   loadChildren: () =>
@@ -108,7 +114,7 @@ const routes: Routes = [
 
 
       {
-        path: "workOrderDetail/:id",
+        path: "workOrderDetail/:id/:folderName/:clientName",
         loadChildren: () =>
           import("../components/work-order-details-admin/work-order-details-admin.module").then(
             (m) => m.WorkOrderDetailsAdminModule
@@ -138,17 +144,18 @@ const routes: Routes = [
             (m) => m.WODTModule
           ),
       },
-
-
-
-
-
-
       {
         path: "workorderListTechClt",
         loadChildren: () =>
           import("../components/tech-workorder/tech-workorder.module").then(
             (m) => m.TechWorkorderModule
+          ),
+      },
+      {
+        path: "listWorkOrdersClient",
+        loadChildren: () =>
+          import("../components/work-order-from-client-list/work-order-from-client-list.module").then(
+            (m) => m.WorkOrderFromClientListModule
           ),
       },
 

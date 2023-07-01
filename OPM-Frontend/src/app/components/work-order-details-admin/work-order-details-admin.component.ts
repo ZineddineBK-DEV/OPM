@@ -30,6 +30,8 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
   value_change :any ;
   p=1
   authority
+  folderName
+  namCLient
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -38,6 +40,8 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.id=this.route.snapshot.paramMap.get("id");
+    this.folderName=this.route.snapshot.paramMap.get("folderName");
+    this.namCLient=this.route.snapshot.paramMap.get("clientName");
     this.authority = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority;
 
     // alert(this.id)

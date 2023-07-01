@@ -17,7 +17,8 @@ export const GET_WORK_ORDERS_bay_CLIENT_id_END_POINT: string = `${environment.ap
 
 // count/   
 
-
+// part order 
+export const GET_LIST_CLINT_PART_ORDERS_All: string = `${environment.apiUrl}/workOrder/getUnhandledClients`;
 
 
 

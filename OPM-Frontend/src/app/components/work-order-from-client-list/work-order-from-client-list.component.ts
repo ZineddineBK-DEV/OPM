@@ -3,15 +3,16 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { GET_LIST_CLIENTS_All, GET_LIST_CLIENTS_BAY_Type, GET_LIST_FOLDERS_All, GET_USER_employers_BY_VALID_END_POINT, GET_USER_employers_END_POINT, PUT_USER_USER_CLIENTS_BY_VALIDE, PUT_USER_USER_employers_BY_VALIDE } from '../../services/endpoints';
+import { GET_LIST_CLIENTS_All, GET_LIST_CLIENTS_BAY_Type, GET_LIST_CLINT_PART_ORDERS_All, GET_LIST_FOLDERS_All, GET_USER_employers_BY_VALID_END_POINT, GET_USER_employers_END_POINT, PUT_USER_USER_CLIENTS_BY_VALIDE, PUT_USER_USER_employers_BY_VALIDE } from '../../services/endpoints';
 import Observer from '../../services/observer';
 
 @Component({
-  selector: 'app-foldres',
-  templateUrl: './foldres.component.html',
-  styleUrls: ['./foldres.component.scss']
+  selector: 'app-work-order-from-client-list',
+  templateUrl: './work-order-from-client-list.component.html',
+  styleUrls: ['./work-order-from-client-list.component.scss']
 })
-export class FoldresComponent implements OnInit {
+export class WorkOrderFromClientListComponent implements OnInit {
+
   clientList: [] = [];
   collectionSize: number = 0;
   p=1;
@@ -30,14 +31,14 @@ export class FoldresComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-        this.getListFolder();
+        this.getListClientForWorekorder();
   }
 
-  getListFolder() {
+  getListClientForWorekorder() {
 
-    this.backendService.get(`${GET_LIST_FOLDERS_All}`).subscribe(
+    this.backendService.get(`${GET_LIST_CLINT_PART_ORDERS_All}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
-    console.log(response);
+    console.log(response.rows);
          this.clientList = response.rows;
       })
     );
@@ -85,7 +86,7 @@ export class FoldresComponent implements OnInit {
   }
   handlePageChange(currentPage: number) {
  
-    this.getListFolder();
+    this.getListClientForWorekorder();
 
   this.page = currentPage;
 }

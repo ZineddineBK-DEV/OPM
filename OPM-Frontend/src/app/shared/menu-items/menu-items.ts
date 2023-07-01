@@ -66,6 +66,14 @@ const MENUITEMS     = [
         type: 'link',
         icon: 'fas fa-solid fa-folder',
         routerLink:"/app/folders"
+      },
+      {
+        state: 'Work order Client',
+        short_label: 'K',
+        name: 'Work Order Client',
+        type: 'link',
+        icon: 'fas fa-solid fa-folder',
+        routerLink:"/app/listWorkOrdersClient"
       }
       
 
