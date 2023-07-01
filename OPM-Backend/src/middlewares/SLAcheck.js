@@ -17,7 +17,10 @@ const checkSLA = async (id) => {
         listOfFiles: workOrder.listOfFiles,
         ticketId: workOrder.ticketId,
         creationDate: workOrder.creationDate,
-        finishDate: workOrder.finishDate,      
+        finishDate: workOrder.finishDate,
+        partNum: workOrder.partNum,
+        partName: workOrder.partName,
+        serialNum: workOrder.serialNum      
       });
       followUp.title += " - 1"
       workOrder.followUpList.push(followUp);

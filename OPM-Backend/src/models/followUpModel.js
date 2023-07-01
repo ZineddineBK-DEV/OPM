@@ -16,6 +16,15 @@ const followUpSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    partName: {
+      type: String
+    },
+    partNum: {
+      type: String
+    },
+    serialNum: {
+      type: String
+    },
     status: {
       type: String,
       enum: ['In progress', 'Done','Valid' , 'Expired'],

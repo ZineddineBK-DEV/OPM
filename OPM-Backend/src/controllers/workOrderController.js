@@ -353,6 +353,41 @@ exports.countWorkOrderByClientId = async (req, res) => {
   }
 };
 
+//getUnhandledClients
+exports.getUnhandledClients = async (req, res) => {
+  try {
+    const clients = await Client.find();
+    const clientIds = clients.map(client => client._id);
+
+    const workOrders = await WorkOrder.find({
+      clientId: { $in: clientIds },
+      employeeId: { $exists: false }
+    });
+
+    const clientWorkOrders = workOrders.reduce((result, workOrder) => {
+      const clientId = workOrder.clientId.toString();
+      if (!result[clientId]) {
+        result[clientId] = [];
+      }
+      result[clientId].push(workOrder);
+      return result;
+    }, {});
+
+    const clientsWithoutEmployee = clients.filter(client => {
+      const clientId = client._id.toString();
+      return clientWorkOrders[clientId] && clientWorkOrders[clientId].length > 0;
+    });
+
+    res.status(200).json({
+      err: false,
+      message: "Successful operation!",
+      rows: clientsWithoutEmployee
+    });
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
 exports.countUnhandledWorkOrderByClientId = async (req, res) => {
   const clientId = req.params.id;
   try {
@@ -413,7 +448,7 @@ exports.getUnhandledWorkOrders = async (req, res) => {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
 
-      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder.reverse() });
     } else {
       const workOrder = await WorkOrder.find({
         $or: [
@@ -454,11 +489,11 @@ exports.getUnhandledWorkOrders = async (req, res) => {
         return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
       }
 
-      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
+      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder.reverse() });
     }
-
   } catch (error) {
-
+    console.error(error);
+    res.status(500).json({ err: true, message: error.message });
   }
 };
 
@@ -598,7 +633,10 @@ exports.addFollowUp = async (req, res) => {
       listOfFiles: workOrder.listOfFiles,
       ticketId: workOrder.ticketId,
       creationDate: workOrder.creationDate,
-      finishDate: workOrder.finishDate,      
+      finishDate: workOrder.finishDate,
+      partNum: workOrder.partNum,
+      partName: workOrder.partName,
+      serialNum: workOrder.serialNum       
     });
     workOrder.followUpList.push(followUp);
     followUp.title += " - "+ workOrder.followUpList.length;

@@ -11,6 +11,8 @@ router.get('/all', workOrderController.getAllWorkOrders);
 router.get('/getWorkOrderById/:id/:authority', workOrderController.getWorkOrderById);
 router.get('/getWorkOrderByStatus/:id/:status', workOrderController.getWorkOrderByStatus);
 
+router.get('/getUnhandledClients', workOrderController.getUnhandledClients);
+
 router.get('/countWorkOrderByClientId/:id', workOrderController.countWorkOrderByClientId);
 router.get('/countUnhandledWorkOrderByClientId/:id', workOrderController.countUnhandledWorkOrderByClientId);
 router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClientId);

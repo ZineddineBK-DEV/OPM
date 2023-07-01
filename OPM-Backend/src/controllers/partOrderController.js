@@ -1,4 +1,5 @@
 const PartOrder = require('../models/partOrderModel');
+const File = require('../models/fileModel');
 
 // Create a new part order
 exports.createPartOrder = async (req, res) => {
@@ -30,6 +31,50 @@ exports.getPartOrderById = async (req, res) => {
     } else {
       res.status(200).json({ err: false, message: "Successful operation!", rows: partOrder });
     }
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
+// Add file 
+exports.addFile = async (req, res) => {
+  try {
+   const file = req.file;
+
+     const newFile = File({
+       fileName: file.filename,
+       path: file.destination + '/' + file.filename,
+       title: req.body.title
+     });
+     await newFile.save();
+
+   const partOrder = await PartOrder.findOneAndUpdate(
+     { clientId: req.body.clientId },
+     { $push: { listOfFiles: newFile} },
+     { new: true }
+    );
+    res.status(200).json({
+       err: false, 
+       message: "Successful operation !", 
+       rows: [partOrder, newFile] });
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
+// remove file 
+exports.removeFile = async (req, res) => {
+  try {
+   const file = await File.findByIdAndDelete(req.body.fileId);
+   if (!file){
+    return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+   }
+   const partOrder = await PartOrder.findOneAndUpdate(
+     { clientId: req.body.clientId },
+     { $pull: { listOfFiles: req.body.fileId } },
+     { new: true }
+    );
+    res.status(200).json({ err: false, message: "Successful operation !", rows: partOrder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }

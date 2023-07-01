@@ -30,6 +30,10 @@ const workOrderSchema = new mongoose.Schema({
       enum: ['In progress', 'Done','Valid' , 'Expired'],
       default: 'In progress'
     },
+    read: {
+      type: Boolean,
+      default: false
+    },
     signedBy: {
       type: String
     },

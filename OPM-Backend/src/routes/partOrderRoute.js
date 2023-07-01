@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const partOrderController = require('../controllers/partOrderController');
+const upload = require('../middlewares/fileMiddleware');
 
 
 router.post('/createPartOrder', partOrderController.createPartOrder);
 router.get('/all', partOrderController.getAllPartOrders);
 router.get('/getPartOrderById/:id', partOrderController.getPartOrderById);
+router.post('/addFile', upload.single('file'), partOrderController.addFile);
+router.get('/removeFile', partOrderController.removeFile);
 router.post('/updatePartOrder/:id', partOrderController.updatePartOrder);
 router.delete('/deletePartOrder/:id', partOrderController.deletePartOrder);
 
