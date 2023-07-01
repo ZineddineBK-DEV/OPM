@@ -6,7 +6,7 @@ import { SharedService } from '../../services/shared.service';
 import { DELETE_FILE_FOR_TICKET_ADMIN_END_POINT, GET_ONE_WORK_ORDER_BY_ID_END_POINT, POST_FOLLOWUP, PUT_TICKET_END_POINT, PUT_WOREK_ORDER_END_POINT } from '../../services/endpoints';
 import Observer from '../../services/observer';
 import { environment } from "./../../../environments/environment";
-import { TICKET_New_PLAN_POPUP_TYPE, TICKET_PLAN_POPUP_TYPE } from "../../popup/popup-type";
+import { TICKET_New_PLAN_POPUP_TYPE, TICKET_PLAN_POPUP_TYPE, VALDTION_WORK_ORDER_POPUP_TYPE } from "../../popup/popup-type";
 import { PostComponent } from './../../popup/post/post.component';
 import { DetailsComponent } from './../..///popup/details/details.component';
 import swal from 'sweetalert';
@@ -59,6 +59,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
   ) {
     this.id = this.route.snapshot.paramMap.get("id");
     this.type_user = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority;
+    this.type_user = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority;
     this.url_imguplode = environment.apiUrl + "/" + this.id + "/Logo/";
     if (!this.type_user) { this.disAdmin = false }
     if (this.type_user == "technician") { this.disTech = false }
@@ -99,9 +100,9 @@ export class WorkordersdetailsadminComponent implements OnInit {
         this.titleWorkOrder = this.workOrder.title;
         this.StatusWorkOrder = this.workOrder.status;
   if(this.workOrder.isFollowUp){ this.flouups = this.workOrder.followUpList}
-          console.log("--------------------------------------------------..");
-          console.log(response);
-          console.log("--------------------------------------------------..");
+          // console.log("--------------------------------------------------..");
+          // console.log(response);
+          // console.log("--------------------------------------------------..");
 
 
         if (this.workOrder.employeeId) {this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName + " " + this.workOrder.employeeId.lastName;}
@@ -166,9 +167,8 @@ export class WorkordersdetailsadminComponent implements OnInit {
       }
     });
   }
-  updateStaus(id,status){
-    // Valid
-    // alert(id)
+  updateStaus(id,status,type){
+    if(type == 'tech'){
     swal({
       title: "Are you sure?",
       text: "You want to validate this",
@@ -191,13 +191,16 @@ export class WorkordersdetailsadminComponent implements OnInit {
         );
       }
     });
+  }
+  if(type == "ad"){
+    const modalRef = this.modalService.open(PostComponent);
+    modalRef.componentInstance.title = "Accept work order";
+    modalRef.componentInstance.type = VALDTION_WORK_ORDER_POPUP_TYPE;//
+    modalRef.componentInstance.payload = { workOrderId: id,status:status} //;
+  }
     
   }
-  relonse(id,title){
-    let lastElement = this.flouups[this.flouups.length - 1].title;
-    let last = lastElement.charAt(lastElement.length - 1);
-last = (Number(last)+1)
-let newTitre = title+" - "+last
+  relonse(id){
     swal({
       title: "Are you sure?",
       text: "You want to validate this",
@@ -210,7 +213,7 @@ let newTitre = title+" - "+last
        
 
         this.backendService
-        .post(POST_FOLLOWUP, {workOrderId:id,title:newTitre})
+        .post(POST_FOLLOWUP, {workOrderId:id})
         .subscribe(
           new Observer(
             this.router,

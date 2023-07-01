@@ -42,6 +42,7 @@ export const ACCOUNTING_PLAN_ROW_POPUP_TYPE:string='ACCOUNTING_PLAN_ROW'
 export const ACCOUNTING_PLAN_POPUP_TYPE:string='ACCOUNTING_PLAN'
 export const TICKET_PLAN_POPUP_TYPE:string='TICKET'
 export const TICKET_New_PLAN_POPUP_TYPE:string='newTICKET'
+export const VALDTION_WORK_ORDER_POPUP_TYPE:string='valide_work_order'
 
 
 

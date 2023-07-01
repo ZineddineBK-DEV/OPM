@@ -156,6 +156,17 @@ export class PostComponent implements OnInit {
           ...payload,
           _id: this.payload._id,
           };
+      case "valide_work_order":
+       
+        endpoint = PUT_WOREK_ORDER_END_POINT;
+        payload = {
+           ...payload,
+          _id: this.payload.workOrderId,
+          status: this.payload.status,
+          };          
+// console.log("******"+JSON.stringify(payload)+"--------------------");
+
+          // 
     }
 
     this.backendService

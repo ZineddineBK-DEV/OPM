@@ -622,7 +622,7 @@ exports.uploadFiles = async (req, res) => {
 // Add FollowUp to a workOrder
 exports.addFollowUp = async (req, res) => {
   try {
-    const workOrder = await WorkOrder.findById(req.params.id);
+    const workOrder = await WorkOrder.findById(req.body.id);
     const followUp = FollowUp({
       title:workOrder.title, 
       description: workOrder.description, 
@@ -669,11 +669,11 @@ exports.removeFollowUp = async (req, res) => {
 exports.updateWorkOrder = async (req, res) => {
   try {
     const {
-      _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo
+      _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo,signedBy
     } = req.body;
     const updatedWorkOrder = await WorkOrder.findByIdAndUpdate(
       { _id },
-      { title, clientId, status, description, employeeId, partName, partNum, serialNum, logo },
+      { title, clientId, status, description, employeeId, partName, partNum, serialNum, logo,signedBy },
       { new: true }
     );
     if (!updatedWorkOrder) {

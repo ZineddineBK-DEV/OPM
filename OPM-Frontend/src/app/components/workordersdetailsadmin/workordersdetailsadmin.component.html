@@ -160,9 +160,11 @@
                   </div>
                   <div class="col-md-3" style="margin-left: 3%;">
                     <div class="row">
-                      <img
+                      <!-- <img
                         src="https://www.freepnglogos.com/uploads/signature-png/nguy-ecnh-nguyen-van-binh-signature-png-5.png"
-                        width="90" height="200" />
+                        width="90" height="200" /> -->
+                        <h4>Closed By :&ensp;&ensp;{{this.workOrder.signedBy}}</h4> <br>
+                      
                       <!-- E:/project/OPM-main/OPM-Frontend/src/assets/images/pattern7.jpg -->
                     </div>
                   </div>
@@ -179,7 +181,7 @@
                               <h5 class="card-header-text">FollowUp List</h5>
                               <div class="col-md-12 col-lg-3 offset-lg-10">
                                 <div class="pcoded-search">
-                                     <button *ngIf="this.type_user != 'technician' && this.type_user != 'client' " class="btn " (click)="relonse(this.workOrder._id,this.workOrder.title)">
+                                     <button *ngIf="this.type_user != 'technician' && this.type_user != 'client' " class="btn " (click)="relonse(this.workOrder._id)">
                                       <i class="icofont icofont-recycle"></i>
                                       Recall 
                                     </button>
@@ -246,7 +248,7 @@
                           <label for="inputPassword" class="col-sm-2 col-form-label">Validate : </label>
                           <div class="col-sm-5">
                             <div class="input-group">
-                              <button type="button" (click)="updateStaus(this.workOrder._id,'Done')"
+                              <button type="button" (click)="updateStaus(this.workOrder._id,'Done','tech')"
                                 class="btn btn-success">Done</button>
                             </div>
                           </div>
@@ -265,7 +267,7 @@
                           <label for="inputPassword" class="col-sm-2 col-form-label">Validate : </label>
                           <div class="col-sm-5">
                             <div class="input-group">
-                              <button type="button" (click)="updateStaus(this.workOrder._id,'Valid')"
+                              <button type="button" (click)="updateStaus(this.workOrder._id,'Valid','ad')"
                                 class="btn btn-success">valid</button>
                             </div>
                           </div>

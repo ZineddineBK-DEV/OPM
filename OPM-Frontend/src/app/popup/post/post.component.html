@@ -107,7 +107,6 @@
 
       </form>
     </ng-container>
-
     <ng-container *ngIf="this.type==='add_Tech'">
       <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
         <div class="input-group">
@@ -132,6 +131,37 @@
       </form>
     </ng-container>
 
+    <ng-container *ngIf="this.type==='valide_work_order'">
+      <form name="fedit" (ngSubmit)="onSubmit(fedit)" #fedit="ngForm" novalidate>
+        <div class="input-group">
+
+          <input type="text" class="form-control" [placeholder]="'Manager’s name '" name="signedBy"
+            ngModel #signedBy="ngModel" required />
+        </div>
+        <div *ngIf="signedBy.invalid && signedBy.touched" class="alert alert-danger p-2" role="alert">
+          <span>ENTER Manager’s name </span>
+        </div>
+
+<!-- 
+        <div class="input-group">
+
+          <input type="password" name="password" ngModel  #password="ngModel" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"   required placeholder="Password" class="form-control" />
+        </div>
+        <div *ngIf="password.invalid   && password.touched" class="alert alert-danger">
+          <div *ngIf="password.errors.required"> Password is required. </div>
+          <div *ngIf="password.errors.pattern"> Must contain at least one number and one uppercase and lowercase letter,
+              and at least 8 or more characters.</div>
+      </div>
+         -->
+        <div class="modal-footer">
+          <input [value]="'CONFIRM'|translate" [disabled]="fedit.invalid" type="submit"
+            class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+            {{'CANCEL'|translate}}
+          </button>
+        </div>
+      </form>
+    </ng-container>
     <!-- TICKET -->
     <!--
     <ng-container *ngIf="this.type==='EMPLOYERS'">
