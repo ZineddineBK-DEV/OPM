@@ -210,10 +210,8 @@ export class WorkordersdetailsadminComponent implements OnInit {
       buttons: ["Cancel", "Confirm"],
     }).then((result) => {
       if (result) {
-       
-
-        this.backendService
-        .post(POST_FOLLOWUP, {workOrderId:id})
+               this.backendService
+        .post(POST_FOLLOWUP, {id:id})
         .subscribe(
           new Observer(
             this.router,
@@ -239,4 +237,10 @@ export class WorkordersdetailsadminComponent implements OnInit {
       this.getOneWorkOrderBayId(this.type_user);
     
   }
+  test(id){
+    
+    this.router.navigate
+    // [routerLink]="['', item._id]"
+    
+    alert(id)}
 }

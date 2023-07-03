@@ -194,7 +194,7 @@
                             <div style="margin-bottom: 50px; margin-left: 50px; margin-right: 50px;">
                               <table class="table table-hover">
                                 <thead>
-                                  <tr style="text-align: center">
+                                  <tr style="text-align: center"  >
                                     <th scope="col">Ref</th>
                                     <th scope="col">Title</th>
                                     <th scope="col">Creating Date</th>
@@ -202,7 +202,7 @@
                                   </tr>
                                 </thead>
                                 <tbody *ngFor="let item of this.flouups | paginate: { itemsPerPage: nbrItemPage, currentPage: p }|filter:term ">
-                                  <tr style="text-align: center">
+                                  <tr style="text-align: center" (click)="test(item._id)" >
                                     <th scope="row">{{item._id}}</th>
                                     <th scope="row">{{item.title}}</th>
                                     <th scope="row">{{item.creationDate |date:'dd/MM/yyyy HH:MM'}}</th>

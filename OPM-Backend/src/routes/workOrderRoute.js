@@ -10,6 +10,7 @@ router.post('/removeTicket', workOrderController.removeTicket);
 router.get('/all', workOrderController.getAllWorkOrders);
 router.get('/getWorkOrderById/:id/:authority', workOrderController.getWorkOrderById);
 router.get('/getWorkOrderByStatus/:id/:status', workOrderController.getWorkOrderByStatus);
+// router.get('/getWorek/:id/:status', workOrderController.getWorkOrderByStatus);
 
 router.get('/getUnhandledClients', workOrderController.getUnhandledClients);
 
@@ -18,7 +19,7 @@ router.get('/countUnhandledWorkOrderByClientId/:id', workOrderController.countUn
 router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClientId);
 router.get('/getWorkOrderByEmployeeId/:id', workOrderController.getWorkOrderByEmployeeId);
 
-router.get('/addFollowUp', workOrderController.addFollowUp);
+router.post('/addFollowUp', workOrderController.addFollowUp);
 router.get('/removeFollowUp/:workOrderId/:followUpId', workOrderController.removeFollowUp);
 
 

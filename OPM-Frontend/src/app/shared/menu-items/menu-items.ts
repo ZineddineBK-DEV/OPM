@@ -70,9 +70,9 @@ const MENUITEMS     = [
       {
         state: 'Work order Client',
         short_label: 'K',
-        name: 'Work Order Client',
+        name: 'Unhandled work order',
         type: 'link',
-        icon: 'fas fa-solid fa-folder',
+        icon: 'fas fa-solid fa-briefcase',
         routerLink:"/app/listWorkOrdersClient"
       }
       
