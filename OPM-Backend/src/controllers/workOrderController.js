@@ -497,6 +497,98 @@ exports.getUnhandledWorkOrders = async (req, res) => {
   }
 };
 
+
+
+// returns Handled workOrders
+exports.getHandledWorkOrders = async (req, res) => {
+  const clientId = req.params.id;
+  try {
+    if (clientId) {
+      const workOrder = await WorkOrder.find({
+        clientId: clientId,
+        employeeId: { $ne: null, $exists: true }
+      }).populate(
+        [
+          {
+            path: 'listOfFiles',
+            model: 'File',
+          },
+          {
+            path: 'clientId',
+            model: 'Client',
+            select: 'company',
+          },
+          {
+            path: 'employeeId',
+            model: 'Employee',
+            select: 'firstName lastName'
+          },
+          {
+            path: 'ticketId',
+            model: 'Ticket',
+            select: 'title status creationDate description',
+            populate: {
+              path: 'listOfFiles',
+              model: 'File'
+            }
+          },
+          {
+            path: 'followUpList',
+            model: 'FollowUp'
+          },
+        ]);
+      if (!workOrder) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+
+      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder.reverse() });
+    } else {
+      const workOrder = await WorkOrder.find({
+        employeeId: { $ne: null, $exists: true }
+      }).populate(
+        [
+          {
+            path: 'listOfFiles',
+            model: 'File',
+          },
+          {
+            path: 'clientId',
+            model: 'Client',
+            select: 'company',
+          },
+          {
+            path: 'employeeId',
+            model: 'Employee',
+            select: 'firstName lastName'
+          },
+          {
+            path: 'ticketId',
+            model: 'Ticket',
+            select: 'title status creationDate description',
+            populate: {
+              path: 'listOfFiles',
+              model: 'File'
+            }
+          },
+          {
+            path: 'followUpList',
+            model: 'FollowUp'
+          },
+        ]);
+      if (!workOrder) {
+        return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+      }
+
+      res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder.reverse() });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
+
+
 // returns non-expired workOrders
 exports.getNonExpiredWorkOrders = async (req, res) => {
   const clientId = req.params.id;

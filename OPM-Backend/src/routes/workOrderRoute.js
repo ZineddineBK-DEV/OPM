@@ -13,7 +13,7 @@ router.get('/getWorkOrderByStatus/:id/:status', workOrderController.getWorkOrder
 // router.get('/getWorek/:id/:status', workOrderController.getWorkOrderByStatus);
 
 router.get('/getUnhandledClients', workOrderController.getUnhandledClients);
-
+router.get('/getHandledWorkOrders', workOrderController.getHandledWorkOrders);
 router.get('/countWorkOrderByClientId/:id', workOrderController.countWorkOrderByClientId);
 router.get('/countUnhandledWorkOrderByClientId/:id', workOrderController.countUnhandledWorkOrderByClientId);
 router.get('/getWorkOrderByClientId/:id', workOrderController.getWorkOrderByClientId);
