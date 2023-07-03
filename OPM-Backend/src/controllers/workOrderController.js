@@ -669,11 +669,11 @@ exports.removeFollowUp = async (req, res) => {
 exports.updateWorkOrder = async (req, res) => {
   try {
     const {
-      _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo,signedBy
+      _id, title, clientId, status, description, employeeId, partName, partNum, serialNum, logo, signedBy
     } = req.body;
     const updatedWorkOrder = await WorkOrder.findByIdAndUpdate(
       { _id },
-      { title, clientId, status, description, employeeId, partName, partNum, serialNum, logo,signedBy },
+      { title, clientId, status, description, employeeId, partName, partNum, serialNum, logo, signedBy },
       { new: true }
     );
     if (!updatedWorkOrder) {
