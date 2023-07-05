@@ -6,7 +6,7 @@ const File = require('../models/fileModel');
 // Create a new part order
 exports.createPartOrder = async (req, res) => {
   try {
-    const contract = Contract.findById(clientId);
+    const contract = Contract.findById(req.body.clientId);
     const partOrder = new PartOrder(req.body);
     partOrder.employeeId = contract.employeeId;
     await partOrder.save();
@@ -42,8 +42,10 @@ exports.getPartOrderById = async (req, res) => {
 
 // Get a single part order by clientID
 exports.getPartOrderByClientId = async (req, res) => {
+  clientId = req.params.id ;
   try {
-    const partOrder = await PartOrder.findOne({clientId: req.params.id});
+    const partOrder = await PartOrder.find({ clientId});
+    // const partOrder = await PartOrder.find({clientId: req.params.id});
     if (!partOrder) {
       res.status(404).json({ err: true, message: 'Part order not found' });
     } else {
@@ -67,7 +69,7 @@ exports.addFile = async (req, res) => {
      await newFile.save();
 
    const partOrder = await PartOrder.findOneAndUpdate(
-     { clientId: req.body.clientId },
+     { _id: req.body.id },
      { $push: { listOfFiles: newFile} },
      { new: true }
     );
@@ -79,7 +81,6 @@ exports.addFile = async (req, res) => {
     res.status(500).json({ err: true, message: error.message });
   }
 };
-
 // remove file 
 exports.removeFile = async (req, res) => {
   try {
@@ -159,6 +160,24 @@ exports.deletePartOrder = async (req, res) => {
     } else {
       res.status(200).json({ err: false, message: "Successful operation!", rows: partOrder });
     }
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
+// get part order bay status 
+exports.getPartOrderByStatus = async (req, res) => {
+  const clientId = req.params.id;
+  const status = req.params.status;
+  try {
+    if (!status) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    const partOrder = await PartOrder.find({ clientId, status });
+    if (!partOrder) {
+      return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
+    }
+    res.status(200).json({ err: false, message: "Successful operation !", rows: partOrder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }

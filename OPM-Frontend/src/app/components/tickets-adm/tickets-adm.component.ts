@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { DELETE_USER_TAXES_END_POINT, DELETE_USER_WORK_ORDER_END_POINT, GET_LIST_Work_Orders_BY_CLIENTS } from '../../services/endpoints';
+import {  DELETE_USER_WORK_ORDER_END_POINT, GET_LIST_Work_Orders_BY_CLIENTS } from '../../services/endpoints';
 import { ActivatedRoute } from '@angular/router';
 import Observer from '../../services/observer';
 import { DetailsComponent } from './../../popup/details/details.component';

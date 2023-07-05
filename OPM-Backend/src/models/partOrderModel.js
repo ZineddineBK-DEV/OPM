@@ -16,15 +16,6 @@ const partOrderSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    partName: {
-      type: String
-    },
-    partNum: {
-      type: String
-    },
-    serialNum: {
-      type: String
-    },
     status: {
       type: String,
       enum: ['In progress', 'Valid', 'Accepted','Refused', 'Done', 'Expired'], 
@@ -33,6 +24,7 @@ const partOrderSchema = new mongoose.Schema({
     // in progress douba tesna3
     // valid confirmed from the employee(commercial) that the parts are availble 
     //accepted by the client
+    
     //refused by the client
     // done means delivered or installed
     // expired momken nesta3mloha 

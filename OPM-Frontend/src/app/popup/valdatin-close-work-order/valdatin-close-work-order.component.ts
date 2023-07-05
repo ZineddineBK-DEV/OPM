@@ -4,8 +4,7 @@ import { Router } from "@angular/router";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import {
   GET_ALL_UNHANDLE_WORK_ORDERS_BY_ID_END_POINT,
-  GET_SUPPLIETS_SERVICES_END_POINT,
-  GET_USER_ACCOUNTING_LIST_PLAN_END_POINT,
+
   GET_USER_employers_END_POINT,
   PUT_WOREK_ORDER_END_POINT,
 } from "../../services/endpoints";
@@ -61,20 +60,20 @@ export class ValdatinCloseWorkOrderComponent implements OnInit {
         })
       );
   }
-  getSuppliers() {
+  // getSuppliers() {
 
-    this.backendService
-      .get(
-        `${GET_SUPPLIETS_SERVICES_END_POINT}/${this.sharedService.getItem(
-          "companyNo"
-        )}`
-      )
-      .subscribe(
-        new Observer().OBSERVER_GET((response) => {
-          this.suppliersList = response.rows;
-        })
-      );
-  }
+  //   this.backendService
+  //     .get(
+  //       `${GET_SUPPLIETS_SERVICES_END_POINT}/${this.sharedService.getItem(
+  //         "companyNo"
+  //       )}`
+  //     )
+  //     .subscribe(
+  //       new Observer().OBSERVER_GET((response) => {
+  //         this.suppliersList = response.rows;
+  //       })
+  //     );
+  // }
   getAccounts() {
     this.backendService
       .get(

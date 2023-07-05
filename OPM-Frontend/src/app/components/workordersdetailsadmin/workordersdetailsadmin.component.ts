@@ -90,7 +90,9 @@ export class WorkordersdetailsadminComponent implements OnInit {
     }
   }
   openFile(url: string) {
-    const filesUrl = "http://localhost:3000/" + url;
+    // alert(url)
+    window.open("http://127.0.0.1:3000/"+url);
+
   }
   upadeteEtaDesTEch() { this.updatdestech = !this.updatdestech }
   async getOneWorkOrderBayId(type_op) {
@@ -100,9 +102,9 @@ export class WorkordersdetailsadminComponent implements OnInit {
         this.titleWorkOrder = this.workOrder.title;
         this.StatusWorkOrder = this.workOrder.status;
   if(this.workOrder.isFollowUp){ this.flouups = this.workOrder.followUpList}
-          // console.log("--------------------------------------------------..");
-          // console.log(response);
-          // console.log("--------------------------------------------------..");
+          console.log("--------------------------------------------------..");
+          console.log(response);
+          console.log("--------------------------------------------------..");
 
 
         if (this.workOrder.employeeId) {this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName + " " + this.workOrder.employeeId.lastName;}

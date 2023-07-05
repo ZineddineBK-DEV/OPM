@@ -5,7 +5,7 @@ import { PostComponent } from '../../popup/post/post.component';
 import { PutComponent } from '../../popup/put/put.component';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { DELETE_USER_TAXES_END_POINT, GET_ONE_WORK_ORDER_BY_ID_END_POINT, GET_USER_employers_BY_VALID_END_POINT, GET_USER_employers_END_POINT, POST_WOREK_ORDER_ADMIN_END_POINT, PUT_USER_USER_employers_BY_VALIDE, PUT_WOREK_ORDER_END_POINT } from '../../services/endpoints';
+import {  GET_ONE_WORK_ORDER_BY_ID_END_POINT, GET_USER_employers_BY_VALID_END_POINT, GET_USER_employers_END_POINT, POST_WOREK_ORDER_ADMIN_END_POINT, PUT_USER_USER_employers_BY_VALIDE, PUT_WOREK_ORDER_END_POINT } from '../../services/endpoints';
 import { DetailsComponent } from '../../popup/details/details.component';
 import { EMPLOYERS_POPUP_TYPE } from '../../popup/popup-type';
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";

@@ -10,10 +10,9 @@ import {
 import { MenuItems } from "../../shared/menu-items/menu-items";
 import { BackendService } from "../../services/backend.service";
 import {
-  GET_USER_COMPANIES_END_POINT,
-  SET_SELECTED_USER_COMPANIES_END_POINT,
-  USER_INFO_END_POINT,
-  USER_LOGOUT_END_POINT,
+  // GET_USER_COMPANIES_END_POINT,
+  // SET_SELECTED_USER_COMPANIES_END_POINT,
+    USER_LOGOUT_END_POINT,
 } from "../../services/endpoints";
 import Observer from "../../services/observer";
 import { Router } from "@angular/router";
@@ -226,31 +225,31 @@ public Contract :any ;
 
     this.setBackgroundPattern("pattern2");
   }
-  getUserInfo() {
-    this.backendService.get(USER_INFO_END_POINT).subscribe(
-      new Observer(this.router, null, false).OBSERVER_GET((response) => {
-        if (!response.err) this.userinfo = response && response.rows[0];
-      })
-    );
-  }
+  // getUserInfo() {
+  //   this.backendService.get(USER_INFO_END_POINT).subscribe(
+  //     new Observer(this.router, null, false).OBSERVER_GET((response) => {
+  //       if (!response.err) this.userinfo = response && response.rows[0];
+  //     })
+  //   );
+  // }
 
-  getCompanies() {
-    this.backendService.get(GET_USER_COMPANIES_END_POINT).subscribe(
-      new Observer(this.router, null, false).OBSERVER_GET((response) => {
-        if (!response.err) {
-          this.companyList = response.rows;
-          const company: any = this.companyList.find(
-            (company: any) => company.selected == 1
-          );
-          if (company)
-            this.sharedService.setItem(
-              "companyNo",
-              company.id_company.toString()
-            );
-        }
-      })
-    );
-  }
+  // getCompanies() {
+  //   this.backendService.get(GET_USER_COMPANIES_END_POINT).subscribe(
+  //     new Observer(this.router, null, false).OBSERVER_GET((response) => {
+  //       if (!response.err) {
+  //         this.companyList = response.rows;
+  //         const company: any = this.companyList.find(
+  //           (company: any) => company.selected == 1
+  //         );
+  //         if (company)
+  //           this.sharedService.setItem(
+  //             "companyNo",
+  //             company.id_company.toString()
+  //           );
+  //       }
+  //     })
+  //   );
+  // }
 
   onResize(event) {
     this.innerHeight = event.target.innerHeight + "px";
@@ -395,22 +394,22 @@ public Contract :any ;
     }
   }
 
-  setSelected(id_company: string) {
-    this.backendService
-      .put(`${SET_SELECTED_USER_COMPANIES_END_POINT}/${id_company}`, null)
-      .subscribe(
-        new Observer(
-          this.router,
-          null,
-          true,
-          true,
-          this.sharedService,
-          null
-        ).OBSERVER_EDIT((response) =>
-          this.sharedService.setItem("companyNo", id_company)
-        )
-      );
-  }
+  // setSelected(id_company: string) {
+  //   this.backendService
+  //     .put(`${SET_SELECTED_USER_COMPANIES_END_POINT}/${id_company}`, null)
+  //     .subscribe(
+  //       new Observer(
+  //         this.router,
+  //         null,
+  //         true,
+  //         true,
+  //         this.sharedService,
+  //         null
+  //       ).OBSERVER_EDIT((response) =>
+  //         this.sharedService.setItem("companyNo", id_company)
+  //       )
+  //     );
+  // }
 
   logout() {
     this.backendService

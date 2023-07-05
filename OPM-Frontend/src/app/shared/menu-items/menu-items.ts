@@ -74,9 +74,15 @@ const MENUITEMS     = [
         type: 'link',
         icon: 'fas fa-solid fa-briefcase',
         routerLink:"/app/listWorkOrdersClient"
-      }
-      
-
+      },
+      {
+        state: 'wordd',
+        short_label: 'H',
+        name: 'Part order',
+        type: 'link',
+        icon: 'fas fa-solid fa-regular fa-cart-plus',
+        routerLink:"/app/listClientPartOrder"
+      },
     ],
   },
 ];
@@ -99,6 +105,14 @@ const MENUITEMSCLT  =  [
         type: 'link',
         icon: 'fas fa-solid fa-folder',
         routerLink:"/app/ClientDashboardWok"
+      },
+      {
+        state: 'word',
+        short_label: 'T',
+        name: 'Part order',
+        type: 'link',
+        icon: 'fas fa-solid fa-regular fa-cart-plus',
+        routerLink:"/app/partOrderClinet"
       },
     ],
   },
@@ -124,6 +138,16 @@ const MENUITEMSTECH = [
         icon: 'fas fa-solid fa-folder',
         routerLink:"/app/workorderListTechClt"
       },
+      {
+        state: 'wordd',
+        short_label: 'H',
+        name: 'Part order',
+        type: 'link',
+        icon: 'fas fa-solid fa-regular fa-cart-plus',
+        routerLink:"/app/listClientPartOrder"
+      },
+
+
     ],
   },
  

@@ -1,4 +1,7 @@
 export const WORK_ORDER_POPUP_TYPE:string='WORK_ORDER'
+export const PART_ORDER_POPUP_TYPE:string='PART_ODER'
+export const PART_ADD_DEVIS_POPUP_TYPE:string='add_devi'
+export const PART_ADD_BON_COMMANDE_POPUP_TYPE:string='add_bon_commande'
 export const ADD_TECH_WORK_ORDER_POPUP_TYPE:string='add_Tech'
 
 

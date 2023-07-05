@@ -13,5 +13,8 @@ router.get('/removeFile', partOrderController.removeFile);
 router.get('/getClientsHavingPartOrders', partOrderController.getClientsHavingPartOrders);
 router.post('/updatePartOrder/:id', partOrderController.updatePartOrder);
 router.delete('/deletePartOrder/:id', partOrderController.deletePartOrder);
+router.get('/getPartOrderByStatus/:id/:status', partOrderController.getPartOrderByStatus);
 
+
+// 
 module.exports = router;

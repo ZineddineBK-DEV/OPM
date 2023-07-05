@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BackendService } from "./backend.service";
-import { GET_USER_SELECTED_COMPANY_END_POINT } from "./endpoints";
 import Observer from "./observer";
 import jwt_decode from 'jwt-decode';
 
@@ -44,19 +43,19 @@ export class SharedService {
     return !!sessionStorage.getItem('refreshToken');
   }
 
-  getSelectedCompany(cb) {
-    const id = this.getItem("companyNo");
-    if (!id) {
-      this.backendservice.get(GET_USER_SELECTED_COMPANY_END_POINT).subscribe(
-        new Observer().OBSERVER_GET((response) => {
-          if (!response.err && response.rows[0]) {
-            this.setItem("companyNo", response.rows[0].id_company);
-            cb(response.rows[0].id_company)
-          }
-        })
-      );
-    } else {
-      cb(id);
-    }
-  }
+  // getSelectedCompany(cb) {
+  //   const id = this.getItem("companyNo");
+  //   if (!id) {
+  //     this.backendservice.get(GET_USER_SELECTED_COMPANY_END_POINT).subscribe(
+  //       new Observer().OBSERVER_GET((response) => {
+  //         if (!response.err && response.rows[0]) {
+  //           this.setItem("companyNo", response.rows[0].id_company);
+  //           cb(response.rows[0].id_company)
+  //         }
+  //       })
+  //     );
+  //   } else {
+  //     cb(id);
+  //   }
+  // }
 }

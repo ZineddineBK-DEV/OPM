@@ -158,11 +158,31 @@ const routes: Routes = [
             (m) => m.WorkOrderFromClientListModule
           ),
       },
+      {
+        path: "partOrderClinet",
+        loadChildren: () =>
+          import("../components/part-order-client-list/part-order-client-list.module").then(
+            (m) => m.PartOrderClientListModule
+          ),
+      },
+      {
+        path: "partOrderAdmin/:id",
+        loadChildren: () =>
+          import("../components/part-order-details-admin/part-order-details-admin.module").then(
+            (m) => m.PartOrderDetailsAdminModule
+          ),
+      },
+      {
+        path: "listClientPartOrder",
+        loadChildren: () =>
+          import("../components/list-client-part-order-lis/list-client-part-order-lis.module").then(
+            (m) => m.ListClientPartOrderLisModule
+          ),
+      },
 
 
 
-
-      // {
+      // {partOrderDetail
       //   path: "expenses-sales",
       //   children: [
       //     {

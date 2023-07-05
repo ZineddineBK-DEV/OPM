@@ -3,17 +3,9 @@ import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import {
-  GET_SUPPLIETS_SERVICES_END_POINT,
-  GET_USER_ACCOUNTING_LIST_PLAN_END_POINT,
+
   GET_USER_employers_END_POINT,
-  PUT_PRODUCTS_CUSTOMERS_END_POINT,
-  PUT_SERVICES_END_POINT,
-  PUT_SUPPLIETS_CUSTOMERS_END_POINT,
-  PUT_USER_ACCOUNTING_PLAN_ROW_END_POINT,
-  PUT_USER_COMPANIES_END_POINT,
-  PUT_USER_CUSTOMERS_END_POINT,
-  PUT_USER_EMPLOYEES_END_POINT,
-  PUT_USER_TAXES_END_POINT,
+
   PUT_WOREK_ORDER_END_POINT,
 } from "../../services/endpoints";
 import { BackendService } from "../../services/backend.service";
@@ -70,33 +62,33 @@ export class PutComponent implements OnInit {
         })
       );
   }
-  getSuppliers() {
+  // getSuppliers() {
 
-    this.backendService
-      .get(
-        `${GET_SUPPLIETS_SERVICES_END_POINT}/${this.sharedService.getItem(
-          "companyNo"
-        )}`
-      )
-      .subscribe(
-        new Observer().OBSERVER_GET((response) => {
-          this.suppliersList = response.rows;
-        })
-      );
-  }
-  getAccounts() {
-    this.backendService
-      .get(
-        `${GET_USER_ACCOUNTING_LIST_PLAN_END_POINT}/${this.sharedService.getItem(
-          "companyNo"
-        )}`
-      )
-      .subscribe(
-        new Observer().OBSERVER_GET((response) => {
-          this.accountsList = response.rows;
-        })
-      );
-  }
+  //   this.backendService
+  //     .get(
+  //       `${GET_SUPPLIETS_SERVICES_END_POINT}/${this.sharedService.getItem(
+  //         "companyNo"
+  //       )}`
+  //     )
+  //     .subscribe(
+  //       new Observer().OBSERVER_GET((response) => {
+  //         this.suppliersList = response.rows;
+  //       })
+  //     );
+  // }
+  // getAccounts() {
+  //   this.backendService
+  //     .get(
+  //       `${GET_USER_ACCOUNTING_LIST_PLAN_END_POINT}/${this.sharedService.getItem(
+  //         "companyNo"
+  //       )}`
+  //     )
+  //     .subscribe(
+  //       new Observer().OBSERVER_GET((response) => {
+  //         this.accountsList = response.rows;
+  //       })
+  //     );
+  // }
   onSubmit(form: NgForm) {
     let endpoint: string = "";
     let payload = { ...form.value };

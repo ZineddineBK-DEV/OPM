@@ -3,20 +3,13 @@ import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import {
-  ADD_USER_PRODUCTS_END_POINT,
-  GET_SUPPLIETS_SERVICES_END_POINT,
-  GET_USER_ACCOUNTING_LIST_PLAN_END_POINT,
+
+  GET_PART_ADD_FILE_TO_PART_ORDER_END_POIN,
   GET_USER_employers_END_POINT,
   POST_ADD_FILE_TICKET_ADMIN_END_POINT,
-  POST_SUPPLIETS_CUSTOMERS_END_POINT,
+  POST_PART_ORDER_END_POINT,
   POST_TICKET_ADMIN_END_POINT,
-  POST_USER_ACCOUNTING_PLAN_END_POINT,
-  POST_USER_ACCOUNTING_PLAN_ROW_END_POINT,
-  POST_USER_COMPANIES_END_POINT,
-  POST_USER_CUSTOMERS_END_POINT,
-  POST_USER_EMPLOYEES_END_POINT,
-  POST_USER_SERVICES_END_POINT,
-  POST_USER_TAXES_END_POINT,
+
   POST_WOREK_ORDER_ADMIN_END_POINT,
   PUT_WOREK_ORDER_END_POINT,
 } from "../../services/endpoints";
@@ -75,32 +68,32 @@ export class PostComponent implements OnInit {
         })
       );
   }
-  getSuppliers() {
-    this.backendService
-      .get(
-        `${GET_SUPPLIETS_SERVICES_END_POINT}/${this.sharedService.getItem(
-          "companyNo"
-        )}`
-      )
-      .subscribe(
-        new Observer().OBSERVER_GET((response) => {
-          this.supplierList = response.rows;
-        })
-      );
-  }
-  getAccounts() {
-    this.backendService
-      .get(
-        `${GET_USER_ACCOUNTING_LIST_PLAN_END_POINT}/${this.sharedService.getItem(
-          "companyNo"
-        )}`
-      )
-      .subscribe(
-        new Observer().OBSERVER_GET((response) => {
-          this.accountsList = response.rows;
-        })
-      );
-  }
+  // getSuppliers() {
+  //   this.backendService
+  //     .get(
+  //       `${GET_SUPPLIETS_SERVICES_END_POINT}/${this.sharedService.getItem(
+  //         "companyNo"
+  //       )}`
+  //     )
+  //     .subscribe(
+  //       new Observer().OBSERVER_GET((response) => {
+  //         this.supplierList = response.rows;
+  //       })
+  //     );
+  // }
+  // getAccounts() {
+  //   this.backendService
+  //     .get(
+  //       `${GET_USER_ACCOUNTING_LIST_PLAN_END_POINT}/${this.sharedService.getItem(
+  //         "companyNo"
+  //       )}`
+  //     )
+  //     .subscribe(
+  //       new Observer().OBSERVER_GET((response) => {
+  //         this.accountsList = response.rows;
+  //       })
+  //     );
+  // }
 
   onSubmit(form: NgForm) {
     let endpoint: string = "";
@@ -150,12 +143,17 @@ export class PostComponent implements OnInit {
           console.log(this.paylodFormData.get("fileType"));
           break;
       case "add_Tech":
+       console.log("..................");
+       console.log(this.payload._id);
+       console.log("..................");
+
        
         endpoint = PUT_WOREK_ORDER_END_POINT;
         payload = {
           ...payload,
           _id: this.payload._id,
           };
+          break;
       case "valide_work_order":
        
         endpoint = PUT_WOREK_ORDER_END_POINT;
@@ -163,12 +161,45 @@ export class PostComponent implements OnInit {
            ...payload,
           _id: this.payload.workOrderId,
           status: this.payload.status,
-          };          
+          }; 
+          break;     
+        case "PART_ODER":
+       
+        endpoint = POST_PART_ORDER_END_POINT;
+        payload = {
+          ...payload,
+          clientId: this.payload.clientId
+          }; 
+          break;  
+
+        case "add_bon_commande":
+       
+        endpoint = GET_PART_ADD_FILE_TO_PART_ORDER_END_POIN;
+        this.paylodFormData.append("employeeId",payload.employeeId)
+        this.paylodFormData.append("fileType","File")
+        this.paylodFormData.append("files", this.files[0]);
+        payload =this.paylodFormData ;
+        break;  
+     
+
+
+
+        case "add_devi":
+       
+        endpoint = GET_PART_ADD_FILE_TO_PART_ORDER_END_POIN;
+        this.paylodFormData.append("employeeId",payload.employeeId)
+        this.paylodFormData.append("fileType","File")
+        this.paylodFormData.append("files", this.files[0]);
+        payload =this.paylodFormData ;
+        console.log(JSON.stringify(this.paylodFormData.get("files")));
+        
+        break;  
+     
 // console.log("******"+JSON.stringify(payload)+"--------------------");
 
           // 
     }
-
+    // console.log(payload)
     this.backendService
       .post(endpoint, payload)
       .subscribe(

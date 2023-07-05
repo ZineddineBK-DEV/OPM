@@ -60,10 +60,7 @@
     </div>
   </ng-container>
 
-<!-- 
-
-
-  <ng-container *ngIf="this.type==='TAX'">
+  <ng-container *ngIf="this.type==='part_order_detalise'">
     <div class="modal-body">
       <div class="view-info">
         <div class="row">
@@ -74,38 +71,50 @@
                   <div class="table-responsive">
                     <table class="table m-0">
                       <tbody>
+
                         <tr>
-                          <th scope="row">{{'DETAILS.DESCRIPTION'|translate}}</th>
+                          <th scope="row">{{'Title'}}</th>
+                          <td>
+                            <h5>{{ this.payload.title }}</h5>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">{{'Description'}}</th>
                           <td>
                             <h5>{{ this.payload.description }}</h5>
                           </td>
                         </tr>
                         <tr>
-                          <th scope="row">{{'DETAILS.AGENCY_NAME'|translate}}</th>
+                          <th scope="row">{{'Creating Date'}}</th>
                           <td>
-                            <h5>{{ this.payload.agency_name }}</h5>
+                            <h5>{{ this.payload.creationDate|date:'dd/MM/yyyy HH:MM' }}</h5>
                           </td>
                         </tr>
-
                         <tr>
-                          <th scope="row">{{'DETAILS.FILLING_FREQ'|translate}}</th>
+                          <th scope="row">{{'status'}}</th>
                           <td>
-                            <h5>{{ this.payload.filling_frequency }}</h5>
+                            <h5>{{ this.payload.status }}</h5>
                           </td>
                         </tr>
-                         <tr>
-                          <th scope="row">{{'DETAILS.FILLING_FREQ'|translate}}</th>
+                         <!-- <tr *ngIf=" (this.userRole == 'client') &&  (this.payload.status == 'Valid') ">
+                         bon de commande  client 
+                          <th  scope="row">{{'Purchase order'}}</th>
                           <td>
-                            <h5>{{ this.payload.collection_type }}</h5>
+                            
+                               <input type="file">
+                          
                           </td>
                         </tr>
-
-                        <tr *ngIf="this.payload.businessNo">
-                          <th scope="row">{{'DETAILS.BUSINESS'|translate}}</th>
+                        <tr *ngIf="(this.userRole == 'technician') &&( this.payload.status == 'In progress')">
+                     devis technisien 
+                          <th  scope="row">{{'Purchase quote'}}</th>
                           <td>
-                            <h5>{{ this.payload.businessNo }}</h5>
+                            
+                               <input type="file">
+                          
                           </td>
-                        </tr>
+                        </tr>-->
+                        <!-- <input class="form-control form-control-lg" (change)="changeSelectedFile02($event)" id="files" type="file" multiple> -->
                       </tbody>
                     </table>
                   </div>
@@ -118,7 +127,7 @@
       </div>
     </div>
   </ng-container>
-
+<!-- 
   <ng-container *ngIf="this.type==='PRODUCTS'">
     <div class="modal-body">
       <div class="view-info">

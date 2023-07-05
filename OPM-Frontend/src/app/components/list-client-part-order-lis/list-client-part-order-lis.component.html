@@ -3,10 +3,11 @@
     <div class="row align-items-end">
       <div class="col-lg-8">
         <div class="page-header-title">
-          <span><i class="fas fa-solid fa-folder" style="background-color: #000080"></i></span>
+          <!-- <i class="fa-regular fa-briefcase"></i> -->
+          <span><i class="fas fa-solid fa-briefcase" style="background-color: #000080"></i></span>
           <div class="d-inline">
             <span class="d-block text-primary">
-              <h4>Folders</h4>
+              <h4> Client has a part order</h4>
             </span>
             <!-- <span class="text-dark">Tax Page</span> -->
           </div>
@@ -25,7 +26,7 @@
           <div class="card">
             <div class="col-sm-12">
               <div class="card-header">
-                <h5 class="card-header-text">Folders list</h5>
+                <h5 class="card-header-text">CLient List</h5>
                 <div class="col-md-12 col-lg-3 offset-lg-10">
                   <div class="pcoded-search">
                     <div class="pcoded-search-box">
@@ -67,7 +68,7 @@
                           Company name
                         </th>
                         <th scope="col">
-                          Folders name
+                          Company email
                         </th>
 
                         <th scope="col">ACTIONS</th>
@@ -76,21 +77,17 @@
                     <tbody *ngFor="let client of this.clientList|paginate: { itemsPerPage: nbrItemPage, currentPage: p }">
                       <tr style="text-align: center">
                         <td scope="row">{{
-                          client.clientId.company
+                          client.company
                           }} </td>
 
                           <td scope="row"> {{
-                            client.name
+                            client.email
 
                             }} </td>
 
 
                           <td scope="row">
-                            <a [routerLink]="[
-                            '/app/workOrderDetail/',
-                             client.clientId._id,
-                             client.name,
-                             client.clientId.company]">  <i  class="fa fa-eye ml-2"></i></a>                            <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
+                            <a [routerLink]="['/app/partOrderAdmin/',client._id]">  <i  class="fa fa-eye ml-2"></i></a>                            <!-- <i class="fa fa-check" aria-hidden="true"></i>-->
                           </td>
                       </tr>
                     </tbody>

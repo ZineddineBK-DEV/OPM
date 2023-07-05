@@ -162,6 +162,79 @@
         </div>
       </form>
     </ng-container>
+
+
+    <ng-container *ngIf="this.type==='PART_ODER'">
+      <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+        <div class="input-group">
+
+          <input type="text" class="form-control" [placeholder]="'Title'" name="title"
+            ngModel #title="ngModel" required />
+        </div>
+        <div *ngIf="title.invalid && title.touched" class="alert alert-danger p-2" role="alert">
+          <span>ENTER Title</span>
+        </div>
+            <div class="input-group">
+          <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Description" rows="2"
+            name="description" ngModel #description="ngModel" required></textarea>
+
+        </div>
+        <div *ngIf="description.invalid && description.touched" class="alert alert-danger p-2" role="alert">
+          <span>ENTER Description</span>
+        </div>
+        <div class="modal-footer">
+          <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
+            class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+            {{'CANCEL'|translate}}
+          </button>
+        </div>
+
+
+
+
+      </form>
+    </ng-container>
+    <ng-container *ngIf="this.type==='add_devi'">
+      <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+
+        <div>
+          <input class="form-control form-control-lg" (change)="changeSelectedFile02($event)" id="files" type="file" multiple>
+        </div>
+        <div class="modal-footer">
+          <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
+            class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+            {{'CANCEL'|translate}}
+          </button>
+        </div>
+
+
+
+
+      </form>
+    </ng-container>
+    <ng-container *ngIf="this.type==='add_bon_commande'">
+      <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+
+        <div>
+          <input class="form-control form-control-lg" (change)="changeSelectedFile02($event)" id="files" type="file" multiple>
+        </div>
+        <div class="modal-footer">
+          <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
+            class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+            {{'CANCEL'|translate}}
+          </button>
+        </div>
+
+
+
+
+      </form>
+    </ng-container>
+<!--  -->
+    
     <!-- TICKET -->
     <!--
     <ng-container *ngIf="this.type==='EMPLOYERS'">
