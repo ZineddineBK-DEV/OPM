@@ -37,10 +37,10 @@ exports.getContractById = async (req, res) => {
 // Update a contract 
 exports.updateContract = async (req, res) => {
   try {
-    const { contractId, terms, type, startDate, endDate, sla } = req.body;
+    const { contractId, terms, type, startDate, endDate, sla, employeeId } = req.body;
     const updatedContract = await Contract.findByIdAndUpdate(
       contractId ,
-      { terms, type, startDate, endDate, sla },
+      { terms, type, startDate, endDate, sla, employeeId  },
       { new: true }
     );
     if (!updatedContract) {

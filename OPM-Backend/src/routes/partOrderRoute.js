@@ -7,8 +7,10 @@ const upload = require('../middlewares/fileMiddleware');
 router.post('/createPartOrder', partOrderController.createPartOrder);
 router.get('/all', partOrderController.getAllPartOrders);
 router.get('/getPartOrderById/:id', partOrderController.getPartOrderById);
+router.get('/getPartOrderByClientId/:id', partOrderController.getPartOrderByClientId);
 router.post('/addFile', upload.single('file'), partOrderController.addFile);
 router.get('/removeFile', partOrderController.removeFile);
+router.get('/getClientsHavingPartOrders', partOrderController.getClientsHavingPartOrders);
 router.post('/updatePartOrder/:id', partOrderController.updatePartOrder);
 router.delete('/deletePartOrder/:id', partOrderController.deletePartOrder);
 

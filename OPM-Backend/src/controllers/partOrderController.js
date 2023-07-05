@@ -1,10 +1,14 @@
 const PartOrder = require('../models/partOrderModel');
+const Contract = require('../models/contractModel');
+const Client = require('../models/clientModel');
 const File = require('../models/fileModel');
 
 // Create a new part order
 exports.createPartOrder = async (req, res) => {
   try {
+    const contract = Contract.findById(clientId);
     const partOrder = new PartOrder(req.body);
+    partOrder.employeeId = contract.employeeId;
     await partOrder.save();
     res.status(200).json({ err: false, message: "Successful operation!", rows: partOrder });
   } catch (error) {
@@ -26,6 +30,20 @@ exports.getAllPartOrders = async (req, res) => {
 exports.getPartOrderById = async (req, res) => {
   try {
     const partOrder = await PartOrder.findById(req.params.id);
+    if (!partOrder) {
+      res.status(404).json({ err: true, message: 'Part order not found' });
+    } else {
+      res.status(200).json({ err: false, message: "Successful operation!", rows: partOrder });
+    }
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
+// Get a single part order by clientID
+exports.getPartOrderByClientId = async (req, res) => {
+  try {
+    const partOrder = await PartOrder.findOne({clientId: req.params.id});
     if (!partOrder) {
       res.status(404).json({ err: true, message: 'Part order not found' });
     } else {
@@ -75,6 +93,41 @@ exports.removeFile = async (req, res) => {
      { new: true }
     );
     res.status(200).json({ err: false, message: "Successful operation !", rows: partOrder });
+  } catch (error) {
+    res.status(500).json({ err: true, message: error.message });
+  }
+};
+
+
+//getClientsHavingPartOrders
+exports.getClientsHavingPartOrders = async (req, res) => {
+  try {
+    const clients = await Client.find();
+    const clientIds = clients.map(client => client._id);
+
+    const partOrders = await PartOrder.find({
+      clientId: { $in: clientIds }
+    });
+
+    const clientPartOrders = partOrders.reduce((result, partOrder) => {
+      const clientId = partOrder.clientId.toString();
+      if (!result[clientId]) {
+        result[clientId] = [];
+      }
+      result[clientId].push(partOrder);
+      return result;
+    }, {});
+
+    const clientsHavingPartOrders = clients.filter(client => {
+      const clientId = client._id.toString();
+      return clientPartOrders[clientId] && clientPartOrders[clientId].length > 0;
+    });
+
+    res.status(200).json({
+      err: false,
+      message: "Successful operation!",
+      rows: clientsHavingPartOrders
+    });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
   }

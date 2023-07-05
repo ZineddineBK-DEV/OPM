@@ -21,7 +21,8 @@ const contractSchema = new mongoose.Schema({
     sla: {
       type: String,
       required: true
-    }
+    },
+    employeeId: { type: mongoose.Schema.Types.ObjectId, ref:'Employee' },
   });
 
 const Contract = mongoose.model("Contract", contractSchema);
