@@ -59,6 +59,14 @@ const MENUITEMS     = [
         icon: 'fas fa-building',
         routerLink:"/app/company"
       },
+            {
+        state: 'company',
+        short_label: 'W',
+        name: 'Contract',
+        type: 'link',
+        icon: 'fas fa-file',
+        routerLink:"/app/company"
+      },
       {
         state: 'folders',
         short_label: 'T',
@@ -138,16 +146,33 @@ const MENUITEMSTECH = [
         icon: 'fas fa-solid fa-folder',
         routerLink:"/app/workorderListTechClt"
       },
+
+
+
+    ],
+  },
+ 
+];
+const MENUITEMSCOM  =  [
+  {
+    label: 'APP',
+    main: [
       {
-        state: 'wordd',
-        short_label: 'H',
+        state: 'dashboard',
+        short_label: 'D',
+        name: 'DASHBOARD',
+        type: 'link',
+        icon: 'fas fa-chart-line',
+        routerLink:"/app/dashboard"
+      },
+      {
+        state: 'word',
+        short_label: 'T',
         name: 'Part order',
         type: 'link',
         icon: 'fas fa-solid fa-regular fa-cart-plus',
         routerLink:"/app/listClientPartOrder"
       },
-
-
     ],
   },
  
@@ -158,6 +183,7 @@ export class MenuItems {
     if(userRole == 'admin'){return MENUITEMS}
     if(userRole == 'client'){return MENUITEMSCLT }
     if(userRole == 'technician'){return MENUITEMSTECH}
+    if(userRole == 'commercial'){return MENUITEMSCOM}
     return MENUITEMS;
   }
 

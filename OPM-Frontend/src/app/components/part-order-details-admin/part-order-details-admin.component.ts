@@ -85,10 +85,10 @@ if(valid == 'All'){this.getListPartOrder()}else{
   let title =""
   let type =""
     const modalRef = this.modalService.open(PostComponent ,{ size: "lg", backdrop: "static" });
-    if(this.userRole == 'technician') 
+    if(this.userRole == 'commercial') 
     {
       modalRef.componentInstance.type = PART_ADD_DEVIS_POPUP_TYPE ;
-      title = 'Add purchase quote (technician)';
+      title = 'Add purchase quote (commercial)';
       // type ='technician';
     } ;
     if(this.userRole == 'client') {

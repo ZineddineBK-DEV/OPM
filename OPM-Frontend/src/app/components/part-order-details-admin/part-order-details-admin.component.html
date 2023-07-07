@@ -110,7 +110,7 @@
                           <td scope="row">
                             <!-- <a  -->
                             <i *ngIf="this.userRole == 'client'" (click)="OpenModalUp('Update part order',item)" class="fas fa-edit"></i>
-                            <i *ngIf="this.userRole == 'technician' && this.item.status =='In progress' " (click)="addDevis(item._id)" class="fas fa-edit"></i>
+                            <i *ngIf="this.userRole == 'commercial' && this.item.status =='In progress' " (click)="addDevis(item._id)" class="fas fa-edit"></i>
                             <i *ngIf="this.userRole == 'client'" (click)="deleteWork(item._id)" class="fa fa-trash-o ml-2"></i>
                             <i (click)="OpenDetails('Detail part order',item)" class="fa fa-eye ml-2"></i>
                           </td>
