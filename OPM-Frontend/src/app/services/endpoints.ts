@@ -107,6 +107,6 @@ export const POST_PART_ORDER_END_POINT: string = `${environment.apiUrl}/partOrde
 export const PUT_PART_ORDER_END_POINT: string = `${environment.apiUrl}/partOrder/updatePartOrder`;
 export const DELETE_PART_ORDER_END_POINT: string = `${environment.apiUrl}/partOrder/deletePartOrder`;
 export const GET_PART_ORDER_BY_CLIENTSTATUS_ID_END_POIN: string = `${environment.apiUrl}/partOrder/getPartOrderByStatus`;
-export const GET_PART_ADD_FILE_TO_PART_ORDER_END_POIN: string = `${environment.apiUrl}/partOrder/addFile`;
+export const POST_PART_ADD_FILE_TO_PART_ORDER_END_POIN: string = `${environment.apiUrl}/partOrder/addFile`;
 
 // export const USER_DASHBOARD_END_POINT: string = `${environment.apiUrl}/dashboard/get`;    

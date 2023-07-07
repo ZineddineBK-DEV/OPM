@@ -11,7 +11,7 @@ router.get('/getPartOrderByClientId/:id', partOrderController.getPartOrderByClie
 router.post('/addFile', upload.single('file'), partOrderController.addFile);
 router.get('/removeFile', partOrderController.removeFile);
 router.get('/getClientsHavingPartOrders', partOrderController.getClientsHavingPartOrders);
-router.post('/updatePartOrder/:id', partOrderController.updatePartOrder);
+router.post('/updatePartOrder', partOrderController.updatePartOrder);
 router.delete('/deletePartOrder/:id', partOrderController.deletePartOrder);
 router.get('/getPartOrderByStatus/:id/:status', partOrderController.getPartOrderByStatus);
 

@@ -197,7 +197,6 @@
     </ng-container>
     <ng-container *ngIf="this.type==='add_devi'">
       <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
-
         <div>
           <input class="form-control form-control-lg" (change)="changeSelectedFile02($event)" id="files" type="file" multiple>
         </div>
@@ -212,14 +211,37 @@
 
 
 
-      </form>
+        </form>
     </ng-container>
     <ng-container *ngIf="this.type==='add_bon_commande'">
       <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
-
         <div>
           <input class="form-control form-control-lg" (change)="changeSelectedFile02($event)" id="files" type="file" multiple>
         </div>
+        <div class="modal-footer">
+          <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
+            class="btn btn-outline-primary" />
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+            {{'CANCEL'|translate}}
+          </button>
+        </div>
+
+
+
+
+        </form>
+    </ng-container>
+
+
+
+    <ng-container *ngIf="this.type==='reason'">
+      <form name="fadd" (ngSubmit)="onSubmit(fadd)" #fadd="ngForm" novalidate>
+            <div class="input-group">
+          <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Reason" rows="2"
+            name="reasonReff" ngModel #reasonReff="ngModel" ></textarea>
+
+        </div>
+
         <div class="modal-footer">
           <input [value]="'CONFIRM'|translate" [disabled]="fadd.invalid" type="submit"
             class="btn btn-outline-primary" />
@@ -234,7 +256,7 @@
       </form>
     </ng-container>
 <!--  -->
-    
+
     <!-- TICKET -->
     <!--
     <ng-container *ngIf="this.type==='EMPLOYERS'">

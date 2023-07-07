@@ -4,13 +4,15 @@ import { Router } from "@angular/router";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import {
 
-  GET_PART_ADD_FILE_TO_PART_ORDER_END_POIN,
+  
   GET_USER_employers_END_POINT,
   POST_ADD_FILE_TICKET_ADMIN_END_POINT,
+  POST_PART_ADD_FILE_TO_PART_ORDER_END_POIN,
   POST_PART_ORDER_END_POINT,
   POST_TICKET_ADMIN_END_POINT,
 
   POST_WOREK_ORDER_ADMIN_END_POINT,
+  PUT_PART_ORDER_END_POINT,
   PUT_WOREK_ORDER_END_POINT,
 } from "../../services/endpoints";
 import Observer from "../../services/observer";
@@ -143,9 +145,6 @@ export class PostComponent implements OnInit {
           console.log(this.paylodFormData.get("fileType"));
           break;
       case "add_Tech":
-       console.log("..................");
-       console.log(this.payload._id);
-       console.log("..................");
 
        
         endpoint = PUT_WOREK_ORDER_END_POINT;
@@ -173,33 +172,41 @@ export class PostComponent implements OnInit {
           break;  
 
         case "add_bon_commande":
-       
-        endpoint = GET_PART_ADD_FILE_TO_PART_ORDER_END_POIN;
-        this.paylodFormData.append("employeeId",payload.employeeId)
+        endpoint = POST_PART_ADD_FILE_TO_PART_ORDER_END_POIN;
+        this.paylodFormData.append("clientId",this.payload._id)
         this.paylodFormData.append("fileType","File")
-        this.paylodFormData.append("files", this.files[0]);
+        this.paylodFormData.append("file", this.files[0]);
+        this.paylodFormData.append("status", "Accepted");
+        this.paylodFormData.append("type_file", "bon_commande");
+        payload = this.paylodFormData;
         payload =this.paylodFormData ;
         break;  
-     
-
-
-
         case "add_devi":
-       
-        endpoint = GET_PART_ADD_FILE_TO_PART_ORDER_END_POIN;
-        this.paylodFormData.append("employeeId",payload.employeeId)
-        this.paylodFormData.append("fileType","File")
-        this.paylodFormData.append("files", this.files[0]);
-        payload =this.paylodFormData ;
-        console.log(JSON.stringify(this.paylodFormData.get("files")));
-        
-        break;  
+          endpoint = POST_PART_ADD_FILE_TO_PART_ORDER_END_POIN;
+          this.paylodFormData.append("clientId",this.payload.id)
+          this.paylodFormData.append("fileType","File")
+          this.paylodFormData.append("file", this.files[0]);
+          this.paylodFormData.append("status", "Valid");
+          this.paylodFormData.append("type_file", "devise");
+          payload = this.paylodFormData;
+          break;  
+        case "reason":
+          endpoint = PUT_PART_ORDER_END_POINT;
+          payload = { ...payload, id:this.payload._id,status:'Refused' };
+            break;
+        case "add_Tech":
+          endpoint = PUT_WOREK_ORDER_END_POINT;
+          payload = {
+            ...payload,
+            _id: this.payload._id,
+            };
+          break;
      
 // console.log("******"+JSON.stringify(payload)+"--------------------");
 
           // 
     }
-    // console.log(payload)
+    console.log(payload)
     this.backendService
       .post(endpoint, payload)
       .subscribe(
@@ -221,6 +228,7 @@ export class PostComponent implements OnInit {
   }
   changeSelectedFile02(event){
   this.files = event.target.files ;
+  // alert()
     // console.log( event.target.files);
     
    

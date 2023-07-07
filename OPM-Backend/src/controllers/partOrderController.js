@@ -44,7 +44,17 @@ exports.getPartOrderById = async (req, res) => {
 exports.getPartOrderByClientId = async (req, res) => {
   clientId = req.params.id ;
   try {
-    const partOrder = await PartOrder.find({ clientId});
+    const partOrder = await PartOrder.find({ clientId}).populate(
+      [
+        {
+          path: 'bon_commande',
+          model: 'File',
+        },
+        {
+          path: 'devise',
+          model: 'File',
+        }
+      ]);
     // const partOrder = await PartOrder.find({clientId: req.params.id});
     if (!partOrder) {
       res.status(404).json({ err: true, message: 'Part order not found' });
@@ -59,20 +69,40 @@ exports.getPartOrderByClientId = async (req, res) => {
 // Add file 
 exports.addFile = async (req, res) => {
   try {
+    let partOrder ;
+    let newFile ;
+    if(req.body.type_file == 'devise'){
    const file = req.file;
 
-     const newFile = File({
+      newFile = File({
        fileName: file.filename,
        path: file.destination + '/' + file.filename,
        title: req.body.title
      });
      await newFile.save();
 
-   const partOrder = await PartOrder.findOneAndUpdate(
-     { _id: req.body.id },
-     { $push: { listOfFiles: newFile} },
+    partOrder = await PartOrder.findOneAndUpdate(
+     { _id: req.body.clientId },
+     { $push: { devise: newFile},status:req.body.status},
      { new: true }
     );
+}
+if(req.body.type_file == 'bon_commande'){
+  const file = req.file;
+     newFile = File({
+      fileName: file.filename,
+      path: file.destination + '/' + file.filename,
+      title: req.body.title
+    });
+    await newFile.save();
+
+   partOrder = await PartOrder.findOneAndUpdate(
+    { _id: req.body.clientId },
+    { $push: { bon_commande: newFile},status:req.body.status},
+    { new: true }
+   );
+}
+
     res.status(200).json({
        err: false, 
        message: "Successful operation !", 
@@ -137,7 +167,7 @@ exports.getClientsHavingPartOrders = async (req, res) => {
 // Update a part order
 exports.updatePartOrder = async (req, res) => {
   try {
-    const partOrder = await PartOrder.findByIdAndUpdate(req.params.id, req.body, {
+    const partOrder = await PartOrder.findByIdAndUpdate(req.body.id, req.body, {
       new: true,
       runValidators: true,
     });
@@ -164,7 +194,6 @@ exports.deletePartOrder = async (req, res) => {
     res.status(500).json({ err: true, message: error.message });
   }
 };
-
 // get part order bay status 
 exports.getPartOrderByStatus = async (req, res) => {
   const clientId = req.params.id;

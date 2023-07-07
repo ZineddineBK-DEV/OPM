@@ -38,7 +38,6 @@ export class WorkOrderFromClientListComponent implements OnInit {
 
     this.backendService.get(`${GET_LIST_CLINT_PART_ORDERS_All}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
-    console.log(response.rows);
          this.clientList = response.rows;
       })
     );

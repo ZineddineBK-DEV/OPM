@@ -8,7 +8,7 @@
             </span>
             <div class="d-inline">
               <span class="d-block text-primary">
-                <h4>Part order</h4>
+                <h4>Part order admin</h4>
               </span>
               <!-- <span class="text-dark">Tax Page</span> -->
             </div>
@@ -72,7 +72,7 @@
                           <th scope="col">
                             Creating Date
                           </th>
-                          <th scope="col">
+                          <th scope="col" *ngIf="this.userRole == 'admin'">
                             Commercial
                           </th>
                           <th scope="col">
@@ -97,7 +97,7 @@
                           <td scope="row"> {{
                             item.creationDate|date:'dd/MM/yyyy HH:MM'
                             }} </td>
-                          <td scope="row"> {{
+                          <td *ngIf="this.userRole == 'admin'" scope="row" > {{
                            ' item.status'
                             }} </td>
                             <td scope="row"> {{
@@ -110,7 +110,7 @@
                           <td scope="row">
                             <!-- <a  -->
                             <i *ngIf="this.userRole == 'client'" (click)="OpenModalUp('Update part order',item)" class="fas fa-edit"></i>
-                            <i *ngIf="this.userRole == 'technician'" (click)="addDevis(item._id)" class="fas fa-edit"></i>
+                            <i *ngIf="this.userRole == 'technician' && this.item.status =='In progress' " (click)="addDevis(item._id)" class="fas fa-edit"></i>
                             <i *ngIf="this.userRole == 'client'" (click)="deleteWork(item._id)" class="fa fa-trash-o ml-2"></i>
                             <i (click)="OpenDetails('Detail part order',item)" class="fa fa-eye ml-2"></i>
                           </td>

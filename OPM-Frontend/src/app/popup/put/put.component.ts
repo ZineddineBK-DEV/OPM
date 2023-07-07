@@ -6,6 +6,8 @@ import {
 
   GET_USER_employers_END_POINT,
 
+  PUT_PART_ORDER_END_POINT,
+
   PUT_WOREK_ORDER_END_POINT,
 } from "../../services/endpoints";
 import { BackendService } from "../../services/backend.service";
@@ -98,22 +100,25 @@ export class PutComponent implements OnInit {
         endpoint = PUT_WOREK_ORDER_END_POINT;
         payload = { ...payload, clientId:this.payload.clientId,_id:this.payload._id };
         break;
-
-
+      case "PART_ODER":
+        endpoint = PUT_PART_ORDER_END_POINT;
+        payload = { ...payload,_id:this.payload._id };
+        // console.log(payload);
+        break; 
+// 
     }
 // alert(JSON.stringify(payload))
-    this.backendService
-      .put(endpoint, payload)
-      .subscribe(
-        new Observer(
-          this.router,
-          null,
-          true,
-          true,
-          this.sharedService,
-          this.activeModal
-        ).OBSERVER_EDIT()
-      );
+      this.backendService
+        .post(endpoint,payload)
+        .subscribe(
+          new Observer(
+            this.router,// just un class dans angular
+            null,//target : lin eli machilou //`app/workOrderDetail/${this.worekOrdereForUpdate.folderId._id}`
+            false,//relode
+            true,//swwet alert
+            this.sharedService,//obligtour si ona reload
+          ).OBSERVER_POST()
+        );
   }
 
   setinputtype(event, type: string) {

@@ -96,16 +96,33 @@
                             <h5>{{ this.payload.status }}</h5>
                           </td>
                         </tr>
-                         <!-- <tr *ngIf=" (this.userRole == 'client') &&  (this.payload.status == 'Valid') ">
-                         bon de commande  client 
-                          <th  scope="row">{{'Purchase order'}}</th>
-                          <td>
-                            
-                               <input type="file">
-                          
+
+                        <tr *ngIf="this.payload.devise && (this.payload.status == 'Valid') "  >
+                          <th scope="row">{{'Plural'}}</th>
+                          <td style="text-align: center;">
+                            <button (click)="openFile()" type="button" class="btn btn-info"><i  class="fa fa-eye ml-2"></i>  Info</button>
                           </td>
                         </tr>
-                        <tr *ngIf="(this.userRole == 'technician') &&( this.payload.status == 'In progress')">
+                       <!-- <tr *ngIf=" (this.userRole == 'client') &&  (this.payload.status == 'Valid') ">
+                         bon de commande  client 
+                          <th  scope="row">{{'Purchase order'}}</th> bonde de commande 
+                          <td>
+                               <input type="file">
+                          </td>
+                        </tr> -->
+
+                        <tr *ngIf=" (this.userRole == 'client') &&  (this.payload.status == 'Valid') ">
+                           <th  scope="row">{{'Answer'}}</th>
+                           <td>
+                             
+                            <button type="button" (click)="AcceotDevis('Purchase order',this.payload._id)" class="btn btn-success">Accepted </button>
+                                                  
+                           </td>
+                           <td>
+                            <button type="button" (click)="RefuseDevis('Reason ',this.payload._id)" class="btn btn-danger">Refused</button>
+                           </td>
+                         </tr>
+                         <!--  <tr *ngIf="(this.userRole == 'technician') &&( this.payload.status == 'In progress')">
                      devis technisien 
                           <th  scope="row">{{'Purchase quote'}}</th>
                           <td>

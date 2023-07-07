@@ -36,8 +36,8 @@ export class SigninComponent implements OnInit {
           
           this.sharedService.setItem("accessToken", accessToken);
           this.sharedService.setItem("refreshToken", refreshToken);
-          this.sharedService.setItem("folders", payload.folder);
-          this.sharedService.setItem("contract", payload.contract.terms);
+        if(response.folder){  this.sharedService.setItem("folders", payload.folder);}
+        if(response.contract){  this.sharedService.setItem("contract", payload.contract.terms);}
 
 
         }

@@ -84,7 +84,7 @@ if(valid == 'All'){this.getListPartOrder()}else{
     const modalRef = this.modalService.open(PutComponent ,{ size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = PART_ORDER_POPUP_TYPE;
-    modalRef.componentInstance.payload = {...item,"clientId":""};
+    modalRef.componentInstance.payload = {...item};
   }
   OpenDetails(title: string, payload:any){
     const modalRef = this.modalService.open(DetailsComponent);
@@ -92,6 +92,7 @@ if(valid == 'All'){this.getListPartOrder()}else{
     modalRef.componentInstance.type = "part_order_detalise";
     modalRef.componentInstance.payload = { ...payload };
   }
+
   deleteWork(id_part_order: string) {
     swal({
       title: "Are you sure?",
