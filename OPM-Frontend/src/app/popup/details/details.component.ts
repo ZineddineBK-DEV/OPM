@@ -32,6 +32,12 @@ export class DetailsComponent implements OnInit {
     window.open("http://127.0.0.1:3000/"+this.payload.devise[0].path);
 
   }
+  openFile2() {
+    // alert(url)
+    window.open("http://127.0.0.1:3000/"+this.payload.bon_commande[0].path);
+
+  }
+  A
   AcceotDevis(title: string,id){
     this.actifmodal.close();
     const modalRef = this.modalService.open(PostComponent ,{ size: "lg", backdrop: "static" });

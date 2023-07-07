@@ -97,20 +97,24 @@
                           </td>
                         </tr>
 
-                        <tr *ngIf="this.payload.devise && (this.payload.status == 'Valid') "  >
+                        <tr *ngIf="this.payload.devise && (this.payload.status == 'Valid' || this.payload.status == 'Accepted' || this.payload.status == 'Refused') "  >
                           <th scope="row">{{'Plural'}}</th>
-                          <td style="text-align: center;">
+                          <td >
                             <button (click)="openFile()" type="button" class="btn btn-info"><i  class="fa fa-eye ml-2"></i>  Info</button>
                           </td>
                         </tr>
-                       <!-- <tr *ngIf=" (this.userRole == 'client') &&  (this.payload.status == 'Valid') ">
-                         bon de commande  client 
-                          <th  scope="row">{{'Purchase order'}}</th> bonde de commande 
+                        <tr *ngIf="this.payload.devise && ( this.payload.status == 'Accepted') "  >                       
+                          <th  scope="row">{{'Purchase order'}}</th> 
                           <td>
-                               <input type="file">
+                            <button (click)="openFile2()" type="button" class="btn btn-info"><i  class="fa fa-eye ml-2"></i>  Info</button>
                           </td>
-                        </tr> -->
-
+                        </tr>
+                        <tr *ngIf=" this.payload.status == 'Refused' "  >
+                          <th scope="row">{{'Reason'}}</th>
+                          <td >
+                            <h5>{{ this.payload.reasonReff }}</h5>
+                          </td>
+                        </tr>
                         <tr *ngIf=" (this.userRole == 'client') &&  (this.payload.status == 'Valid') ">
                            <th  scope="row">{{'Answer'}}</th>
                            <td>
@@ -122,6 +126,8 @@
                             <button type="button" (click)="RefuseDevis('Reason ',this.payload._id)" class="btn btn-danger">Refused</button>
                            </td>
                          </tr>
+
+
                          <!--  <tr *ngIf="(this.userRole == 'technician') &&( this.payload.status == 'In progress')">
                      devis technisien 
                           <th  scope="row">{{'Purchase quote'}}</th>
