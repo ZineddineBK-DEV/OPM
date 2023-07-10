@@ -4,6 +4,7 @@ export const PART_ADD_DEVIS_POPUP_TYPE:string='add_devi'
 export const PART_ADD_BON_COMMANDE_POPUP_TYPE:string='add_bon_commande'
 export const PART_ADD_RESIEN_POPUP_TYPE:string='reason'
 export const ADD_TECH_WORK_ORDER_POPUP_TYPE:string='add_Tech'
+export const AFFECTE_COMMERCIALE_TO_CONTRACT:string='affecte_commerciale'
 
 
 

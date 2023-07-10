@@ -60,12 +60,12 @@ const MENUITEMS     = [
         routerLink:"/app/company"
       },
             {
-        state: 'company',
+        state: 'contract',
         short_label: 'W',
         name: 'Contract',
         type: 'link',
         icon: 'fas fa-file',
-        routerLink:"/app/company"
+        routerLink:"/app/mangeContract"
       },
       {
         state: 'folders',

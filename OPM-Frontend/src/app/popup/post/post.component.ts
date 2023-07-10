@@ -12,6 +12,7 @@ import {
   POST_TICKET_ADMIN_END_POINT,
 
   POST_WOREK_ORDER_ADMIN_END_POINT,
+  PUT_Contract_END_POINT,
   PUT_PART_ORDER_END_POINT,
   PUT_WOREK_ORDER_END_POINT,
 } from "../../services/endpoints";
@@ -52,7 +53,13 @@ export class PostComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.getEmployesByOutherty("technician");
+    if(this.type == 'affecte_commerciale'){
+      
+      this.getEmployesByOutherty("commercial");
+    }else{
+      this.getEmployesByOutherty("technician");
+
+    }
    
     // this.startperiodinputype = "text";
     // if (this.type == "SERVICES" || this.type == "PRODUCTS") {
@@ -201,7 +208,13 @@ export class PostComponent implements OnInit {
             _id: this.payload._id,
             };
           break;
-     
+        case "affecte_commerciale":
+        endpoint = PUT_Contract_END_POINT;
+       payload = {
+         ...payload,
+         _id: this.payload._id,
+            };
+        break;   
 // console.log("******"+JSON.stringify(payload)+"--------------------");
 
           // 

@@ -179,6 +179,13 @@ const routes: Routes = [
             (m) => m.ListClientPartOrderLisModule
           ),
       },
+      {
+        path: "mangeContract",
+        loadChildren: () =>
+          import("../components/contract-users/contract-users.module").then(
+            (m) => m.ContractUsersModule
+          ),
+      },
 
 
 
