@@ -200,7 +200,7 @@ export class PostComponent implements OnInit {
         case "reason":
           endpoint = PUT_PART_ORDER_END_POINT;
           payload = { ...payload, id:this.payload._id,status:'Refused' };
-            break;
+          break;
         case "add_Tech":
           endpoint = PUT_WOREK_ORDER_END_POINT;
           payload = {
@@ -213,13 +213,14 @@ export class PostComponent implements OnInit {
        payload = {
          ...payload,
          _id: this.payload._id,
-            };
+        };
+        // console.log(payload)
+        // console.log("--------------------------")
+        // console.log(endpoint)
+        // console.log("--------------------------")
         break;   
 // console.log("******"+JSON.stringify(payload)+"--------------------");
-
-          // 
     }
-    console.log(payload)
     this.backendService
       .post(endpoint, payload)
       .subscribe(

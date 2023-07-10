@@ -80,7 +80,10 @@
                           <th scope="col">
                             SLA
                           </th>
-<!--   -->
+                          <th scope="col">
+                            commerciale
+                          </th>
+<!--    -->
                           <th scope="col">ACTIONS</th>
   
                           <!--   employee Name-->
@@ -109,6 +112,10 @@
                                 <td scope="row"> {{
                                     item.sla
                                     }} </td>
+                                    <td scope="row"> 
+                                      <span *ngIf="item.employeeId">{{item.employeeId.firstName +" "+item.employeeId.lastName}}</span>
+                                      <span *ngIf="!item.employeeId">No</span>
+ </td>
   
                           <!-- <td scope="row"> {{
                                     item.employeeId.firstName+ " "+item.employeeId.lastName
@@ -116,7 +123,7 @@
                           <!--  -->
                           <td scope="row">
                             <!-- <a  -->
-                            <i (click)="OpenModalUp('Assigns a Commercial to part order',item._id)" class="fas fa-edit"></i>
+                            <i (click)="OpenModalUp('Assigns a Commercial to part order',item._id)"  class="fas fa-edit"></i>
                      
                          
                           </td>

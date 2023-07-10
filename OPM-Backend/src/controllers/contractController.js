@@ -14,7 +14,7 @@ exports.createContract = async (req, res) => {
 // Get all contracts
 exports.getAllContracts = async (req, res) => {
   try {
-    const contract = await Contract.find();
+    const contract = await Contract.find().populate('employeeId');;
     res.status(200).json({err: false, message: "Successful operation !", rows: contract});
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
@@ -33,13 +33,12 @@ exports.getContractById = async (req, res) => {
       res.status(500).json({ err: true, message: error.message });
     }
   };
-
 // Update a contract 
 exports.updateContract = async (req, res) => {
   try {
-    const { contractId, terms, type, startDate, endDate, sla, employeeId } = req.body;
+    const { _id, terms, type, startDate, endDate, sla, employeeId } = req.body;
     const updatedContract = await Contract.findByIdAndUpdate(
-      contractId ,
+      {_id },
       { terms, type, startDate, endDate, sla, employeeId  },
       { new: true }
     );
@@ -51,7 +50,9 @@ exports.updateContract = async (req, res) => {
     res.status(500).json({ err: true, message: error.message });
   }
 };
-
+exports.test = async (req, res) => {
+  res.status(200).json("ok");
+}
 // Delete a contract
 exports.deleteContract = async (req, res) => {
   try {

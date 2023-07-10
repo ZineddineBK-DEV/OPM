@@ -85,10 +85,9 @@ export const GET_WOREK_ORDER_FOR_CLTe_END_POINT: string = `${environment.apiUrl}
 export const GET_WOREK_ORDER_FOR_CLT_BY_STATUS_END_POINT: string = `${environment.apiUrl}/workOrder/getWorkOrderByClientIdByStatus`;
 
 //getWorkOrderByClientIdByStatus
-export const PUT_Contract_END_POINT: string = `${environment.apiUrl}/contract/updateContract`;
 
 
-// ******************************//
+// ****************updatePartOrder**************//
 export const VERIFY_ACCOUNT_END_POINT: string = `${environment.apiUrl}/auth/user/validate`;
 export const RESET_VERIFY_EMAIL_END_POINT: string = `${environment.apiUrl}/auth/user/verify/reset/email`;
 export const RESET_VERIFY_CODE_END_POINT: string = `${environment.apiUrl}/auth/user/verify/reset/code`;
@@ -102,6 +101,7 @@ export const USER_DASHBOARD_END_POINT: string = `${environment.apiUrl}/dashboard
 
 //PartOreedr ENDPOINTS  
 export const GET_CONTRACT_END_POIN: string = `${environment.apiUrl}/contract/all`;
+export const PUT_Contract_END_POINT: string = `${environment.apiUrl}/contract/test`;
 
 
 

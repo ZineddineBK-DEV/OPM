@@ -58,7 +58,7 @@ export class ContractUsersComponent implements OnInit {
     const modalRef = this.modalService.open(PostComponent ,{ size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = AFFECTE_COMMERCIALE_TO_CONTRACT;
-    modalRef.componentInstance.payload = {"contrct_id":id};
+    modalRef.componentInstance.payload = {"_id":id};
 
   }
 
