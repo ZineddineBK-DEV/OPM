@@ -53,6 +53,10 @@ exports.getPartOrderByClientId = async (req, res) => {
         {
           path: 'devise',
           model: 'File',
+        },
+        {
+          path: 'employeeId',
+          model: 'Employee'
         }
       ]);
     // const partOrder = await PartOrder.find({clientId: req.params.id});
