@@ -24,6 +24,8 @@ const checkSLA = async (id) => {
       });
       followUp.title += " - 1"
       workOrder.followUpList.push(followUp);
+      workOrder.isFollowUp = true;
+      workOrder.status = 'Expired';
       await followUp.save();
       await workOrder.save();
     }
