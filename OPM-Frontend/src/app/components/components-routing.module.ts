@@ -87,7 +87,15 @@ const routes: Routes = [
           import("../components/workordersdetailsadmin/workordersdetailsadmin.module").then(
             (m) => m.WorkordersdetailsadminModule
           ),
-      },//
+      },
+      {
+        path: "followUpsDetails/:id",
+        loadChildren: () =>
+          import("../components/followups-detailes/followups-detailes.module").then(
+            (m) => m.FollowupsDetailesModule
+          ),
+      },
+      //
       // {
       //   path: "ticketDetail/:id",
       //   loadChildren: () =>

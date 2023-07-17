@@ -68,7 +68,7 @@
                         <label for="exampleFormControlTextarea1">Description</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1"
                           [(ngModel)]="this.DescriptioneworkOrder"
-                          [disabled]="this.type_user=='technician' || (this.type_user == 'client') || this.workOrder.status == 'Expired' " rows="3"></textarea>
+                          [disabled]="this.type_user=='technician' || (this.type_user == 'client') || this.workOrder.status == 'Expired' || this.workOrder.last == false " rows="3"></textarea>
                           <!-- [disabled]="" -->
                       </div>
                     </div>
@@ -85,7 +85,7 @@
                           *ngIf="this.type_user == 'technician' && this.workOrder.ticketId && this.workOrder.status == 'In progress'"
                           (click)="upadeteEtaDesTEch()" class="fas fa-edit"></i>
                         <textarea class="form-control" id="exampleFormControlTextarea1" ngModel #descEmp="ngModel"
-                          [(ngModel)]="this.ticketDescription " [disabled]="updatdestech || this.workOrder.status == 'Expired' " rows="4"
+                          [(ngModel)]="this.ticketDescription " [disabled]="updatdestech || this.workOrder.status == 'Expired' || this.workOrder.last == false  " rows="4"
                           style="width: 90%;"></textarea>
                       </div>
                     </div>
@@ -98,7 +98,7 @@
                         <label for="inputPassword" class="col-sm-2 col-form-label">Part name </label>
                         <div class="col-sm-5">
                           <input type="text" class="form-control"
-                            [disabled]="this.type_user=='technician' || this.type_user=='client' || this.workOrder.status == 'Expired' "
+                            [disabled]="this.type_user=='technician' || this.type_user=='client' || this.workOrder.status == 'Expired' || this.workOrder.last == false  "
                             [ngModel]="this.partName" id="inputPassword">
                         </div>
                       </div>
@@ -106,7 +106,7 @@
                         <label for="inputPassword" class="col-sm-2 col-form-label">Serial number </label>
                         <div class="col-sm-5">
                           <input type="text" class="form-control"
-                            [disabled]="this.type_user=='technician' || this.type_user=='client' || this.workOrder.status == 'Expired'  "
+                            [disabled]="this.type_user=='technician' || this.type_user=='client' || this.workOrder.status == 'Expired' || this.workOrder.last == false  "
                             [ngModel]="this.serialNum " id="inputPassword">
                         </div>
                       </div>
@@ -114,7 +114,7 @@
                         <label for="inputPassword" class="col-sm-2 col-form-label">Part number </label>
                         <div class="col-sm-5">
                           <input type="text" class="form-control"
-                            [disabled]="this.type_user=='technician' || this.type_user=='client' || this.workOrder.status == 'Expired' "
+                            [disabled]="this.type_user=='technician' || this.type_user=='client' || this.workOrder.status == 'Expired' || this.workOrder.last == false "
                             [ngModel]="this.partName" id="inputPassword">
                         </div>
                       </div>
@@ -122,7 +122,7 @@
                         <label for="inputPassword" class="col-sm-2 col-form-label">LOGs</label>
                         <div class="col-sm-5">
                           <input type="text" *ngIf="this.workOrder" class="form-control"
-                            [disabled]="this.type_user=='technician' || this.type_user=='client' || this.workOrder.status == 'Expired' "
+                            [disabled]="this.type_user=='technician' || this.type_user=='client' || this.workOrder.status == 'Expired' || this.workOrder.last == false  "
                             [ngModel]="this.logoFileName || '' " id="inputPassword">
                         </div>
                       </div>
@@ -167,78 +167,24 @@
                         width="90" height="200" /> -->
                         <h4>Closed By :&ensp;&ensp;{{this.workOrder.signedBy}}</h4> <br>
                       
+                          <!-- E:/project/OPM-main/OPM-Frontend/src/assets/images/pattern7.jpg -->
+                        </div>
+                      </div>
+                    </div><br><br>
+                    <div class="row" *ngIf="this.type_user == 'client' ">
+                      
+                      <div *ngIf="this.workOrder.signedBy"class="col-md-3" style="margin-left: 3%;">
+                        <div class="row">
+                          <!-- <img
+                            src="https://www.freepnglogos.com/uploads/signature-png/nguy-ecnh-nguyen-van-binh-signature-png-5.png"
+                            width="90" height="200" /> -->
+                        <h4>Closed By :&ensp;&ensp;{{this.workOrder.signedBy}}</h4> <br>
+                      
                       <!-- E:/project/OPM-main/OPM-Frontend/src/assets/images/pattern7.jpg -->
                     </div>
                   </div>
                 </div>
-                
 
-                <div class="col-lg-12" *ngIf="this.workOrder.isFollowUp == true">
-           
-                    <div class="md-tabs">
-                      <div class="m-t-15">
-                        <div class="card">
-                          <div class="col-sm-12">
-                            <div class="card-header">
-                              <h5 class="card-header-text">FollowUp List</h5>
-                              <div class="col-md-12 col-lg-3 offset-lg-10">
-                                <div class="pcoded-search">
-                                     <button *ngIf="this.type_user != 'technician' && this.type_user != 'client' " class="btn " (click)="relonse(this.workOrder._id)">
-                                      <i class="icofont icofont-recycle"></i>
-                                      Recall 
-                                    </button>
-                                 
-                                </div>
-                              </div>
-                            </div>
-
-                          <div class="table-responsive">
-                            <div style="margin-bottom: 50px; margin-left: 50px; margin-right: 50px;">
-                              <table class="table table-hover">
-                                <thead>
-                                  <tr style="text-align: center"  >
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Technician</th>
-                                    <th scope="col">Creating Date</th>
-                                    <th scope="col">ACTIONS</th>
-                                    <!-- <th scope="col">Worek Order Ref</th> -->
-                                  </tr>
-                                </thead>
-                                <tbody *ngFor="let item of this.flouups | paginate: { itemsPerPage: nbrItemPage, currentPage: p }|filter:term ">
-                                  <tr style="text-align: center" (click)="test(item._id)" >
-                                    <th scope="row">{{item.title}}</th>
-                                    <th scope="row">{{this.EmpoloyesFirstNameLastName}}</th>
-                                    <th scope="row">{{item.creationDate |date:'dd/MM/yyyy HH:MM'}}</th>
-                                    <!-- <th scope="row">{{item.workOrderId}}</th> -->
-                                 <th  scope="row"> <a  [routerLink]="['/app/workOrderDetailsAdmin', item._id]"><i  class="fa fa-eye ml-2"></i></a></th>  
-            
-                                  </tr>
-                                </tbody>
-                              </table>
-            
-                              <div class="d-flex justify-content-between p-2">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                                <!-- <ngb-pagination [(page)]="page" (pageChange)="handlePageChange($event)" [pageSize]="pageSize"
-                                  [collectionSize]="collectionSize">
-                                </ngb-pagination> -->
-                                <select class="custom-select" style="width: auto" name="pageSize"
-                                  (change)="handlePageSizeChange($event)">
-                                  <option *ngFor="let size of pageSizes" [value]="size">
-                                    {{ size }}
-                                  </option>
-                                </select>
-                              </div>
-                              <!-- <div class="d-flex justify-content-between p-2">
-                                
-                              </div> -->
-                            </div>
-                          </div>
-                          <!-- </app-card> -->
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
                 <h1>
                   <hr>

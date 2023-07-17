@@ -33,6 +33,10 @@ const followUpSchema = new mongoose.Schema({
     signedBy: {
       type: String
     },
+    last: {
+      type: Boolean,
+      default: true
+    },
     clientId: { type: mongoose.Schema.Types.ObjectId, required: true, ref:'Client' },
     employeeId: { type: mongoose.Schema.Types.ObjectId, ref:'Employee' },
     listOfFiles: [{ type: mongoose.Schema.Types.ObjectId, ref:'File' }],

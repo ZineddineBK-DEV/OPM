@@ -14,7 +14,7 @@ exports.createContract = async (req, res) => {
 // Get all contracts
 exports.getAllContracts = async (req, res) => {
   try {
-    const contract = await Contract.find().populate('employeeId');;
+    const contract = await Contract.find().populate('employeeId');
     res.status(200).json({err: false, message: "Successful operation !", rows: contract});
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });

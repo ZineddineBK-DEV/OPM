@@ -5,7 +5,6 @@ import {  RouterModule } from "@angular/router";
 imports: [RouterModule.forRoot([ ])],
 // imports: [RouterModule.forRoot([ ])],
 // imports: [RouterModule.forRoot([ ])],
-// imports: [RouterModule.forRoot([ ])],
 
 exports: [RouterModule],})
 export class AppRoutingModule {}

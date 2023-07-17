@@ -3,20 +3,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BackendService } from '../../services/backend.service';
 import { SharedService } from '../../services/shared.service';
-import { DELETE_FILE_FOR_TICKET_ADMIN_END_POINT, GET_ONE_WORK_ORDER_BY_ID_END_POINT, POST_FOLLOWUP, PUT_TICKET_END_POINT, PUT_WOREK_ORDER_END_POINT } from '../../services/endpoints';
+import { DELETE_FILE_FOR_TICKET_ADMIN_END_POINT, GET_FolloWUpsBYID, GET_ONE_WORK_ORDER_BY_ID_END_POINT, POST_FOLLOWUP, PUT_TICKET_END_POINT, PUT_WOREK_ORDER_END_POINT, PUT_followUps_END_POINT } from '../../services/endpoints';
 import Observer from '../../services/observer';
 import { environment } from "./../../../environments/environment";
-import { TICKET_New_PLAN_POPUP_TYPE, TICKET_PLAN_POPUP_TYPE, VALDTION_WORK_ORDER_POPUP_TYPE } from "../../popup/popup-type";
+import { TICKET2_New_PLAN_POPUP_TYPE, TICKET_New_PLAN_POPUP_TYPE, TICKET_PLAN_POPUP_TYPE, VALDTION_FOLLOWUPS_POPUP_TYPE, VALDTION_WORK_ORDER_POPUP_TYPE } from "../../popup/popup-type";
 import { PostComponent } from './../../popup/post/post.component';
 import { DetailsComponent } from './../..///popup/details/details.component';
 import swal from 'sweetalert';
 
 @Component({
-  selector: 'app-workordersdetailsadmin',
-  templateUrl: './workordersdetailsadmin.component.html',
-  styleUrls: ['./workordersdetailsadmin.component.scss']
+  selector: 'app-followups-detailes',
+  templateUrl: './followups-detailes.component.html',
+  styleUrls: ['./followups-detailes.component.scss']
 })
-export class WorkordersdetailsadminComponent implements OnInit {
+export class FollowupsDetailesComponent implements OnInit {
   page = 1;
   collectionSize: number = 0;
   pageSize = 5;
@@ -26,7 +26,6 @@ export class WorkordersdetailsadminComponent implements OnInit {
   flouups: any;
   listFile: any = null;
   id: any;
-  url_imguplode;
   path_logo;
   windurl = window.location.protocol + "//" + window.location.hostname + "/:3000/";
   titre_worek_order;
@@ -38,7 +37,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
   titleWorkOrder = null;
   StatusWorkOrder = null;
   titleworkOrder = null;
-  EmpoloyesFirstNameLastName = null;
+  EmpoloyesFirstNameLastName = "null";
   DescriptioneworkOrder = null;
   ticketDescription = null
   partName = null
@@ -60,7 +59,8 @@ export class WorkordersdetailsadminComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get("id");
     this.type_user = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority;
     this.type_user = this.sharedService.getDecodedAccessToken(sessionStorage.getItem("accessToken")).authority;
-    this.url_imguplode = environment.apiUrl + "/" + this.id + "/Logo/";
+
+    // this.url_imguplode = environment.apiUrl + "/" + this.id + "/Logo/";
     if (!this.type_user) { this.disAdmin = false }
     if (this.type_user == "technician") { this.disTech = false }
     if (this.type_user == "client") { this.disClt = false }
@@ -70,7 +70,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
     if (this.type_user == "admin") { this.user_admin = true }
   }
   ngOnInit() {
-    this.getOneWorkOrderBayId(this.type_user);
+    this.getOneFollowUpsById();
     this.workOrder = null;
     this.listFile = null;
   }
@@ -94,38 +94,41 @@ export class WorkordersdetailsadminComponent implements OnInit {
     window.open("http://127.0.0.1:3000/"+url);
 
   }
-  upadeteEtaDesTEch() { this.updatdestech = !this.updatdestech }
-  async getOneWorkOrderBayId(type_op) {
-    await this.backendService.get(`${GET_ONE_WORK_ORDER_BY_ID_END_POINT}/${this.route.snapshot.paramMap.get("id")}/${type_op}`).subscribe(
+  upadeteEtaDesTEch() {
+     this.updatdestech = !this.updatdestech 
+    }
+
+
+
+  async getOneFollowUpsById() {
+    this.backendService.get(`${GET_FolloWUpsBYID}/${this.route.snapshot.paramMap.get("id")}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
         this.workOrder = response.rows;
+        
+        console.log("--------------------------------------------------..");
+        console.log(this.workOrder);
+        console.log("--------------------------------------------------..");
         this.titleWorkOrder = this.workOrder.title;
         this.StatusWorkOrder = this.workOrder.status;
-  if(this.workOrder.isFollowUp){
-     this.flouups = this.workOrder.followUpList;
-    
-     console.log("--------------------------------------------------..");
-     console.log(this.flouups);
-     console.log("--------------------------------------------------..");
-    
-    }
-          
+        if (this.workOrder.isFollowUp) {
+          this.flouups = this.workOrder.followUpList;
 
 
-        if (this.workOrder.employeeId) {this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName + " " + this.workOrder.employeeId.lastName;}
+        }
+
+
+
+        if (this.workOrder.employeeId) { this.EmpoloyesFirstNameLastName = this.workOrder.employeeId.firstName + " " + this.workOrder.employeeId.lastName; }
         this.DescriptioneworkOrder = this.workOrder.description;
-        if (this.workOrder.ticketId) { this.ticketDescription = this.workOrder.ticketId.description; } else { this.ticketDescription = null }
-        this.partName = this.workOrder.partName
-        this.serialNum = this.workOrder.serialNum
-        if (this.workOrder.logo) { this.logoFileName = this.workOrder.logo.fileName } else { this.logoFileName = null }
-        this.tickettitle = this.workOrder.partName
+        if (this.workOrder.ticketId) { this.ticketDescription = this.workOrder.ticketId.description; } else { this.ticketDescription = null; }
+        this.partName = this.workOrder.partName;
+        this.serialNum = this.workOrder.serialNum;
+        if (this.workOrder.logo) { this.logoFileName = this.workOrder.logo.fileName; } else { this.logoFileName = null; }
+        this.tickettitle = this.workOrder.partName;
         // this.titleworkOrder = this.workOrder.;
         // console.log(this.workOrder.ticketId._id);
-
-        if (response.rows.ticketId != null) { this.listFile = response.rows.ticketId.listOfFiles };
+        if (response.rows.ticketId != null) { this.listFile = response.rows.ticketId.listOfFiles; };
         // this.description = response.rows.description ;
-
-
       })
     );
   }
@@ -139,8 +142,8 @@ export class WorkordersdetailsadminComponent implements OnInit {
   oppenAdd(title) {
     const modalRef = this.modalService.open(PostComponent, { size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
-    modalRef.componentInstance.type = TICKET_New_PLAN_POPUP_TYPE;
-    modalRef.componentInstance.payload = { workOrderId: this.workOrder._id, clientId: this.workOrder.clientId._id, employeeId: this.workOrder.employeeId._id } //;
+    modalRef.componentInstance.type = TICKET2_New_PLAN_POPUP_TYPE;
+    modalRef.componentInstance.payload = { _id: this.workOrder._id, clientId: this.workOrder.clientId._id, employeeId: this.workOrder.employeeId._id,type:"ok" } //;
   }
   OpenDetails(title: string, payload: any) {
     const modalRef = this.modalService.open(DetailsComponent);
@@ -186,7 +189,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
     }).then((result) => {
       if (result) {
         this.backendService
-        .post(PUT_WOREK_ORDER_END_POINT, {_id:id,status:status})
+        .post(PUT_followUps_END_POINT, {_id:id,status:status})
         .subscribe(
           new Observer(
             this.router,
@@ -202,34 +205,9 @@ export class WorkordersdetailsadminComponent implements OnInit {
   if(type == "ad"){
     const modalRef = this.modalService.open(PostComponent);
     modalRef.componentInstance.title = "Accept work order";
-    modalRef.componentInstance.type = VALDTION_WORK_ORDER_POPUP_TYPE;//
+    modalRef.componentInstance.type = VALDTION_FOLLOWUPS_POPUP_TYPE;//
     modalRef.componentInstance.payload = { workOrderId: id,status:status} //;
   }
-    
-  }
-  relonse(id){
-    swal({
-      title: "Are you sure?",
-      text: "You want to validate this",
-      icon: "warning",
-      closeOnEsc: true,
-      closeOnClickOutside: true,
-      buttons: ["Cancel", "Confirm"],
-    }).then((result) => {
-      if (result) {
-               this.backendService
-        .post(POST_FOLLOWUP, {id:id})
-        .subscribe(
-          new Observer(
-            this.router,
-            null,
-            true,
-            true,
-            this.sharedService,
-          ).OBSERVER_POST()
-        );
-      }
-    });
     
   }
 
@@ -241,13 +219,8 @@ export class WorkordersdetailsadminComponent implements OnInit {
 
   handlePageChange(currentPage: number) {
  
-      this.getOneWorkOrderBayId(this.type_user);
+      this.getOneFollowUpsById();
     
   }
-  test(id){
-    
-    this.router.navigate
-    // [routerLink]="['', item._id]"
-    
-    alert(id)}
+
 }

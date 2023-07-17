@@ -39,7 +39,10 @@ export const PUT_USER_USER_employers_BY_VALIDE: string = `${environment.apiUrl}/
 export const GET_LIST_CLIENTS_BAY_Type : string = `${environment.apiUrl}/client/getAllClientsByValid`;
 export const GET_LIST_CLIENTS_All : string = `${environment.apiUrl}/client/all`;
 export const PUT_USER_USER_CLIENTS_BY_VALIDE: string = `${environment.apiUrl}/client/updateClient`;
-
+// **********************folowups*********
+export const PUT_followUps_END_POINT: string = `${environment.apiUrl}/followUp/updateFollowUp`;
+export const POST_TICKET_follow_END_POINT: string = `${environment.apiUrl}/followUp/addTicket`;
+export const GET_FolloWUpsBYID : string = `${environment.apiUrl}/followUp/getOneFollowUpBayId`;
 
 //********admin********** */
 export const GET_LIST_FOLDERS_All: string = `${environment.apiUrl}/folder/all`;
@@ -96,7 +99,6 @@ export const GET_USER_REFRESH_TOKEN_END_POINT: string = `${environment.apiUrl}/a
 
 //DASHBOARD ENDPOINTS
 export const USER_DASHBOARD_END_POINT: string = `${environment.apiUrl}/dashboard/get`;
-
 
 
 //PartOreedr ENDPOINTS  

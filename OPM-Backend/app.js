@@ -58,7 +58,7 @@ let gfs;
 mongoose.set("strictQuery", true);
 mongoose   
   .connect(
-    // "mongodb://localhost:27017/gbs",
+    // "mongodb://localhost:27017/OPM",
     "mongodb+srv://root:root@opmcluster.dvzi5iq.mongodb.net/OPM?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
