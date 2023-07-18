@@ -153,10 +153,6 @@ export class PostComponent implements OnInit {
         }
         payload = this.paylodFormData;
         break;
-
-
-
-        
       case "TICKET":
         endpoint = POST_ADD_FILE_TICKET_ADMIN_END_POINT;
         this.paylodFormData.append("ticketId", this.payload.ticketId)

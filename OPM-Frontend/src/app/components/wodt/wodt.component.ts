@@ -53,7 +53,6 @@ export class WODTComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddd");
     this.getAllEmployeesByAuthority("technician");
     this.typeOpertion = this.route.parent.snapshot.url[0]
     if (this.typeOpertion == "addWorekorder") {

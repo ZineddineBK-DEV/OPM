@@ -20,6 +20,8 @@ import { SignupComponent } from "./auth/signup/signup.component";
 import { ResetPwdComponent } from "./auth/reset-pwd/reset-pwd.component";
 import { VerifAccountComponent } from "./auth/verif-account/verif-account.component";
 import { TokenInterceptorService } from "../services/token-interceptor.service";
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { TokenInterceptorService } from "../services/token-interceptor.service";
     SignupComponent,
     ResetPwdComponent,
     VerifAccountComponent,
+    ContactComponent,
+    AboutComponent,
   ],
   exports: [
     HomeComponent,

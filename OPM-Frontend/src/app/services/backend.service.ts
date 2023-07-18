@@ -12,14 +12,9 @@ export class BackendService {
       limit  ? `${endpoint}?limit=${limit}&offset=${offset}` : endpoint
     );
   }
-
-
-
-
   delete(endpoint: string) {
     return this.httpClient.delete(endpoint);
   }
-
   post(endpoint: string, object: any) {
     return this.httpClient.post(endpoint, object);
   }
