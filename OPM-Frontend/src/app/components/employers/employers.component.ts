@@ -19,6 +19,7 @@ export class EmployersComponent implements OnInit {
   pageSize = 5;
   pageSizes = [5, 10, 20];
   id_company: string;
+  typeUserSelected:any ;
   constructor(
     private backendService: BackendService,
     private router: Router,
@@ -40,8 +41,8 @@ export class EmployersComponent implements OnInit {
     );
   }
 
-  getAllEmployeesByValid(valide: string) {
-    this.backendService.get(`${GET_USER_employers_BY_VALID_END_POINT}/${valide}`).subscribe(
+  getAllEmployeesByValid(valide: string,userRolle:string) {
+    this.backendService.get(`${GET_USER_employers_BY_VALID_END_POINT}/${valide}/${userRolle}`).subscribe(
       new Observer().OBSERVER_GET((response) => {
         this.employerslist = response.rows;
       })
@@ -65,7 +66,11 @@ export class EmployersComponent implements OnInit {
   }
 
   changeSelectedFile(valid) {
-    this.getAllEmployeesByValid(valid);
+    this.getAllEmployeesByValid(valid,this.typeUserSelected);
+  }
+  changeSelectedFile2(typeUser) {
+    this.typeUserSelected=typeUser ;
+    this.getAllEmployeesByAuthority(this.typeUserSelected);
   }
   handlePageSizeChange(event: any): void {
     this.pageSize = event.target.value;

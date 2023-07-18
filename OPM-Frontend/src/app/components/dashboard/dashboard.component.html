@@ -323,7 +323,67 @@
 
     </ng-container>
 
+    <ng-container *ngIf="this.role_users == 'commercial'">
+        <div class="col-md-6 col-xl-6">
+            <div class="card widget-card-1">
+                <div class="card-block-small">
+                    <i class="icofont icofont-pause bg-c-blue card1-icon"></i>
+                    <span class="text-c-blue f-w-600">Work Order In progress </span>
+                    <h4>{{this.technisien_work_in_progres}}</h4>
+                    <div>
+                        <span class="f-left m-t-10 text-muted">
+                            <i class="text-c-blue f-16 icofont icofont-arrow-down m-r-10"></i> In progress
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-6">
+            <div class="card widget-card-1">
+                <div class="card-block-small">
+                    <i class="icofont icofont-edit-alt bg-c-pink card1-icon"></i>
+                    <span class="text-c-pink f-w-600">Work Order Closed</span>
+                    <h4>{{this.technisien_work_don}}</h4>
+                    <div>
+                        <span class="f-left m-t-10 text-muted">
+                            <i class="text-c-pink f-16 icofont icofont-settings-alt m-r-10"></i>work order
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-md-6 col-xl-6">
+            <div class="card widget-card-1">
+                <div class="card-block-small">
+                    <i class="icofont icofont-check-circled bg-c-green card1-icon"></i>
+                    <span class="text-c-green f-w-600">Work Order Valid</span>
+                    <h4>{{this.technisien_work_valied}}</h4>
+                    <div>
+                        <span class="f-left m-t-10 text-muted">
+                            <i class="text-c-green f-16 icofont icofont-ui-check m-r-10"></i>Valid
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-6">
+            <div class="card widget-card-1">
+                <div class="card-block-small">
+                    <i class="icofont icofont-warning bg-c-yellow card1-icon"></i>
+                    <span class="text-c-yellow f-w-600">Work Order Expired</span>
+                    <h4>{{this.technisien_work_orderexpired}}</h4>
+                    <div>
+                        <span class="f-left m-t-10 text-muted">
+                            <i class="text-c-yellow f-16 icofont icofont-refresh m-r-10"></i>Just update
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ng-container>
     <!-- Statistics card start -->
 
     <!--  -->

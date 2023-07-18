@@ -2,6 +2,7 @@ const WorkOrder = require('../models/workOrderModel');
 const User = require('../models/userModel');
 const Ticket = require('../models/ticketModel');
 const Contract = require('../models/contractModel');
+const PartOrder = require('../models/partOrderModel');
 
 const Employee = require('../models/employeeModel');
 
@@ -15,7 +16,6 @@ exports.countUsersByAuthority = async (req, res) => {
         res.status(500).json({ err: true, message: error.message });
     }
 };
-  
 exports.countUnhandledWorkOrderByClientId = async (req, res) => {
     const { clientId, status } = req.params;
     try {
@@ -43,7 +43,6 @@ exports.countUnhandledWorkOrderByClientId = async (req, res) => {
         res.status(500).json({ err: true, message: error.message });
     }
 };
-
 exports.countContracts = async (req, res) => {
     try {
         const count = await Contract.countDocuments();
@@ -53,8 +52,6 @@ exports.countContracts = async (req, res) => {
         res.status(500).json({ err: true, message: error.message });
     }
 };
-
-
 exports.countEmployees = async (req, res) => {
     try {
         const count = await Employee.countDocuments();
@@ -73,7 +70,6 @@ exports.countWorkOrders = async (req, res) => {
         res.status(500).json({ err: true, message: error.message });
     }
 };
-// 
 exports.countWorkOrdersBayClintIdStatus = async (req, res) => {
     const { clientId, status } = req.params;
     try {
@@ -86,7 +82,6 @@ exports.countWorkOrdersBayClintIdStatus = async (req, res) => {
         res.status(500).json({ err: true, message: error.message });
     }
 };
-
 exports.countAllTiket = async (req, res) => {
 
     try {
@@ -98,7 +93,6 @@ exports.countAllTiket = async (req, res) => {
         res.status(500).json({ err: true, message: error.message });
     }
 };
-
 exports.countUnhandledWorkOrder = async (req, res) => {
     try {
             const count = await WorkOrder.countDocuments({
@@ -114,7 +108,6 @@ exports.countUnhandledWorkOrder = async (req, res) => {
         res.status(500).json({ err: true, message: error.message });
     }
 };
-
 exports.countAllWorekOrderBayClient = async (req, res) => {
 const id =req.params.id
     try {
@@ -126,7 +119,6 @@ const id =req.params.id
         res.status(500).json({ err: true, message: error.message });
     }
 };
-
 exports.countWorkOrderByEmployeeId = async (req, res) => {
     const { employeeId, status } = req.params;
     try {
@@ -142,7 +134,6 @@ exports.countWorkOrderByEmployeeId = async (req, res) => {
         res.status(500).json({ err: true, message: error.message });
     }
 };
-
 exports.countWorkOrderByStatus = async (req, res) => {
     const { status } = req.params;
     try {
@@ -179,6 +170,58 @@ exports.countUnhandledWorkOrderBayClient = async (req, res) => {
                 ]
             });
             res.status(200).json({ err: false, message: "Successful operation !", rows: { count } });
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
+// part order
+exports.countPartOrderByStatus = async (req, res) => {
+    const { status } = req.params;
+    try {
+            const count = await PartOrder.countDocuments({ status: status });
+            res.status(200).json({ err: false, message: "Successful operation !", rows: { count } });
+            } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
+
+exports.countAllPartOrder = async (req, res) => {
+
+    try {
+        const count = await PartOrder.countDocuments();
+         res.status(200).json({ err: false, message: "Successful operation !", rows: {count } });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
+
+exports.countPartOrdersByEmployeeCommercialeId = async (req, res) => {
+    const { employeeId } = req.params;
+    try {
+        if (employeeId) {
+            const count = await PartOrder.countDocuments({ employeeId: employeeId });
+            res.status(200).json({ err: false, message: "Successful operation !", rows: { count, employeeId } });
+        } else {
+            const count = await PartOrder.countDocuments();
+            res.status(200).json({ err: false, message: "Successful operation !", rows: { count, employeeId } });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ err: true, message: error.message });
+    }
+};
+
+exports.countPartrdersBayClintIdStatus = async (req, res) => {
+    const { clientId, status } = req.params;
+    try {
+
+        const count = await PartOrder.countDocuments({ clientId: clientId, status: status });
+        res.status(200).json({ err: false, message: "Successful operation !", rows: { count, clientId } });
         
     } catch (error) {
         console.error(error);

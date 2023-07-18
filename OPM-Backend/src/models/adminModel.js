@@ -41,7 +41,7 @@ const Admin = mongoose.model('Admin', adminSchema);
 // // Create admin user with encrypted password
 //  const admin = new Admin({
   // email: 'jbeli@gmail.com',
-  // password: '14265401dD@',
+  // password: '14265401dD',
   // firstName: 'jbeli',
   // lastName: 'Mohamed Ali'
 //  });

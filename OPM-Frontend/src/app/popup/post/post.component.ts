@@ -56,6 +56,7 @@ export class PostComponent implements OnInit {
 
   }
   ngOnInit() {
+    alert(JSON.stringify(this.payload))
     if (this.type == 'affecte_commerciale') {
 
       this.getEmployesByOutherty("commercial");

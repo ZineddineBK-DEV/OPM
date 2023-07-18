@@ -23,7 +23,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
   pageSizes = [5, 10, 20];
   nbrItemPage = 5;
   workOrder: any;
-  flouups: any;
+  flouups: any[];
   listFile: any = null;
   id: any;
   url_imguplode;
@@ -208,6 +208,8 @@ export class WorkordersdetailsadminComponent implements OnInit {
     
   }
   relonse(id){
+    // alert()
+const _id =this.flouups[this.flouups.length - 1]._id
     swal({
       title: "Are you sure?",
       text: "You want to validate this",
@@ -218,7 +220,7 @@ export class WorkordersdetailsadminComponent implements OnInit {
     }).then((result) => {
       if (result) {
                this.backendService
-        .post(POST_FOLLOWUP, {id:id})
+        .post(POST_FOLLOWUP, {id:id,_id:_id})
         .subscribe(
           new Observer(
             this.router,
@@ -244,10 +246,10 @@ export class WorkordersdetailsadminComponent implements OnInit {
       this.getOneWorkOrderBayId(this.type_user);
     
   }
-  test(id){
+//   test(id){
     
-    this.router.navigate
-    // [routerLink]="['', item._id]"
+//     this.router.navigate
+//     // [routerLink]="['', item._id]"
     
-    alert(id)}
+//     alert(id)}
 }

@@ -19,7 +19,11 @@ router.get('/countWorkOrderByStatus/:status', countController.countWorkOrderBySt
 router.get('/countUnhandledWorkOrderBayClient/:ClientId', countController.countUnhandledWorkOrderBayClient);
 router.get('/countAllWorekOrderBayClient/:id', countController.countAllWorekOrderBayClient);
 // 
-
+ 
+router.get('/countPartOrderByStatus/:status', countController.countPartOrderByStatus);
+router.get('/countAllPartOrder', countController.countAllPartOrder);
+router.get('/countPartOrdersByEmployeeCommercialeId/:employeeId', countController.countPartOrdersByEmployeeCommercialeId);
+router.get('/countPartrdersBayClintId/:clientId/:status', countController.countPartrdersBayClintIdStatus);
 
 
 module.exports = router;

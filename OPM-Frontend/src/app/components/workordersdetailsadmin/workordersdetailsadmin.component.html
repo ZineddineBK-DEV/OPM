@@ -200,17 +200,19 @@
                                     <th scope="col">Title</th>
                                     <th scope="col">Technician</th>
                                     <th scope="col">Creating Date</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">ACTIONS</th>
-                                    <!-- <th scope="col">Worek Order Ref</th> -->
+                                    <!-- <th scope="col">Worek Order Ref</th>v  -->
                                   </tr>
-                                </thead>
+                                </thead> 
                                 <tbody *ngFor="let item of this.flouups | paginate: { itemsPerPage: nbrItemPage, currentPage: p }|filter:term ">
-                                  <tr style="text-align: center" (click)="test(item._id)" >
+                                  <tr style="text-align: center" >
                                     <th scope="row">{{item.title}}</th>
                                     <th scope="row">{{this.EmpoloyesFirstNameLastName}}</th>
                                     <th scope="row">{{item.creationDate |date:'dd/MM/yyyy HH:MM'}}</th>
+                                    <th scope="row">{{item.status}}</th>
                                     <!-- <th scope="row">{{item.workOrderId}}</th> -->
-                                 <th  scope="row"> <a  [routerLink]="['/app/workOrderDetailsAdmin', item._id]"><i  class="fa fa-eye ml-2"></i></a></th>  
+                                 <th  scope="row"> <a  [routerLink]="['/app/followUpsDetails', item._id]"><i  class="fa fa-eye ml-2"></i></a></th>  
             
                                   </tr>
                                 </tbody>

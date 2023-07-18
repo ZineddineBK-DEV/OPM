@@ -715,6 +715,7 @@ exports.uploadFiles = async (req, res) => {
 exports.addFollowUp = async (req, res) => {
   try {
     const workOrder = await WorkOrder.findById(req.body.id);
+
     const followUp = FollowUp({
       title:workOrder.title, 
       description: workOrder.description, 
@@ -734,6 +735,14 @@ exports.addFollowUp = async (req, res) => {
     followUp.title += " - "+ workOrder.followUpList.length;
     await followUp.save();
     await workOrder.save();
+    const last = false;
+    const status = 'Expired';
+    const _id = req.body._id;
+    const updatedFollowUp = await FollowUp.findByIdAndUpdate(
+      { _id },
+      { last,status },
+      { new: true }
+    );
     res.status(200).json({ err: false, message: "Successful operation !", rows: followUp });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });

@@ -4,14 +4,6 @@ const File = require('../models/fileModel');
 exports.createFollowUp = async (req, res) => {
   try {
     const followUp = FollowUp(req.body);
-    // const last =false ;
-    // const _id =req.body._id ;
-    // const updateOtherFollowps =FollowUp.findOneAndUpdate(
-    //   { _id },
-    //   { last},
-    //   { new: true }
-    // )
-    // if(updateOtherFollowps){
     await followUp.save();
     res.status(200).json({err: false, message: "Successful operation !", rows: followUp});
   // }
