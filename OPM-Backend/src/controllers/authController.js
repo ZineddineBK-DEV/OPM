@@ -6,6 +6,7 @@ const Employee = require('../models/employeeModel');
 const Contract = require('../models/contractModel');
 const Folder = require('../models/folderModel');
 const tokenGen = require("../middlewares/tokenMiddleware");
+const sendEmail = require('../middlewares/mailer');
 
 exports.register = async (req, res) => {
   const { email, password, authority } = req.body;
@@ -38,12 +39,14 @@ exports.register = async (req, res) => {
       const contract = Contract(req.body);
       await contract.save();
       obj.contractId = contract._id;
-      console.log(obj);
       const folder = Folder({ name: obj.company+"'s folder", contractId: contract._id, clientId: obj._id });
       await folder.save();
     }
     await obj.save();
-
+    const to = 'khalil3draoui@gmail.com';
+    const subject = 'User - '+obj._id;
+    const text = 'A user just been added.';
+    await sendEmail(to ,subject,text);
     res.status(201).json({ message: 'User created successfully'});
   } catch (error) {
     console.error(error);

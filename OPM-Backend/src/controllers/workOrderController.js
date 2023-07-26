@@ -5,9 +5,11 @@ const checkSLA = require('../middlewares/SLAcheck');
 const cron = require('node-cron');
 const Contract = require('../models/contractModel');
 const Client = require('../models/clientModel');
+const Employee = require('../models/employeeModel');
 const Folder = require('../models/folderModel');
 const moment = require('moment');
 const FollowUp = require('../models/followUpModel');
+const sendEmail = require('../middlewares/mailer');
 require('moment-timezone');
 
 exports.createWorkOrder = async (req, res) => {
@@ -36,6 +38,17 @@ exports.createWorkOrder = async (req, res) => {
     const cronPattern = moment(futureTime).format('m H D M d');                                                               //format the futureTime to something understandable by node.cron
     const task = cron.schedule(cronPattern, () => checkSLA(workOrder._id), { scheduled: true });                                            // schedule a task in futureTime tetsajel fl emplois du temps mta3 el mechina(futureTime formuller, function(), confirmation bch tetsajel)
     await workOrder.save();
+
+     //mailer uncomment and replace admin to use
+    //  const to1 = ''; // admin email put here
+    //  const subject1 = 'WorkOrder - '+workOrder._id;
+    //  const text1 = 'New WorkOrder just came in, ready to be handled.';
+    //  await sendEmail(to1 ,subject1, text1);
+    //  const to2 = client.email; // client email
+    //  const subject2 = 'WorkOrder - '+workOrder._id;
+    //  const text2 = 'WorkOrder created successfully.';
+    //  await sendEmail(to2 ,subject2, text2);
+
     res.status(200).json({ err: false, message: "Successful operation !", rows: workOrder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
@@ -780,6 +793,20 @@ exports.updateWorkOrder = async (req, res) => {
     if (!updatedWorkOrder) {
       return res.status(404).json({ err: true, message: "No (data,operation) (found,done) ! " });
     }
+    //mailer uncomment and replace admin to use
+    // if (employeeId){
+    // const employee = await Employee.findById(employeeId);
+    // const to = employee.email; // tech email
+    // const subject = 'WorkOrder - '+partOrder._id;
+    // const text = 'You just got assigned a new WorkOrder.';
+    // await sendEmail(to ,subject, text);
+    // const client = await Client.findById(clientId);
+    //  const to2 = client.email; // tech email
+    //  const subject2 = 'PartOrder - '+partOrder._id;
+    //  const text2 = 'PartOrder created successfully.';
+    //  await sendEmail(to2 ,subject2, text2);
+    // }
+
     res.status(200).json({ err: false, message: "Successful operation !", rows: updatedWorkOrder });
   } catch (err) {
     console.error(error);
