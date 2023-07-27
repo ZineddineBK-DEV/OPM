@@ -29,7 +29,7 @@ exports.getAllPartOrders = async (req, res) => {
 // Get a single part order by ID
 exports.getPartOrderById = async (req, res) => {
   try {
-    const partOrder = await PartOrder.findById(req.params.id);
+    const partOrder = await PartOrder.findById(req.params.id).populate('employeeId');;
     if (!partOrder) {
       res.status(404).json({ err: true, message: 'Part order not found' });
     } else {

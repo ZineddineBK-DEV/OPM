@@ -64,6 +64,7 @@ export class PostComponent implements OnInit {
       this.getEmployesByOutherty("technician");
 
     }
+        console.log(this.payload)
 
     // this.startperiodinputype = "text";
     // if (this.type == "SERVICES" || this.type == "PRODUCTS") {
@@ -236,6 +237,7 @@ export class PostComponent implements OnInit {
         payload = {
           ...payload,
           _id: this.payload._id,
+
         };
         // console.log(payload)
         // console.log("--------------------------")

@@ -54,12 +54,13 @@ export class ContractUsersComponent implements OnInit {
       })
     );
   }
-  OpenModalUp(title: string,id) {
+  OpenModalUp(title: string,item) {
     const modalRef = this.modalService.open(PostComponent ,{ size: "lg", backdrop: "static" });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.type = AFFECTE_COMMERCIALE_TO_CONTRACT;
-    modalRef.componentInstance.payload = {"_id":id};
-
+    if(item.employeeId){modalRef.componentInstance.payload = {"_id":item._id,"sla":item.sla,"employeeId":item.employeeId._id};}
+    if(!item.employeeId){modalRef.componentInstance.payload = {"_id":item._id,"sla":item.sla};}
+// console.log({"_id":item._id,"sla":item.sla,"employeeId":item.employeeId._id});
   }
 
   handlePageSizeChange(event: any): void {

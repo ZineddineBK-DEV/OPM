@@ -109,7 +109,7 @@ const MENUITEMSCLT  =  [
       {
         state: 'word',
         short_label: 'T',
-        name: 'Work Order CLT',
+        name: 'Work Order',
         type: 'link',
         icon: 'fas fa-solid fa-folder',
         routerLink:"/app/ClientDashboardWok"
