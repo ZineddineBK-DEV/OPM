@@ -1,15 +1,34 @@
 const PartOrder = require('../models/partOrderModel');
 const Contract = require('../models/contractModel');
 const Client = require('../models/clientModel');
+const Employee = require('../models/employeeModel');
 const File = require('../models/fileModel');
+const sendEmail = require('../middlewares/mailer');
+const { findById } = require('../models/adminModel');
 
 // Create a new part order
 exports.createPartOrder = async (req, res) => {
   try {
-    const contract = Contract.findById(req.body.clientId);
+    const client = await Client.findById(req.body.clientId);
+    const contract = await Contract.findById(client.contractId);
     const partOrder = new PartOrder(req.body);
     partOrder.employeeId = contract.employeeId;
     await partOrder.save();
+    //mailer uncomment and replace admin to use
+    // const to1 = ''; // admin email put here
+    // const subject1 = 'PartOrder - '+partOrder._id;
+    // const text1 = 'New PartOrder just came in, ready to be handled.';
+    // await sendEmail(to1 ,subject1, text1);
+    // const employee = await Employee.findById(partOrder.employeeId);
+    // const to2 = employee.email; // tech email
+    // const subject2 = 'PartOrder - '+partOrder._id;
+    // const text2 = 'New PartOrder just came in, ready to be handled.';
+    // await sendEmail(to2 ,subject2, text2);
+    // const to3 = client.email; // client email
+    // const subject3 = 'PartOrder - '+partOrder._id;
+    // const text3 = 'PartOrder created successfully.';
+    // await sendEmail(to3 ,subject3, text3);
+
     res.status(200).json({ err: false, message: "Successful operation!", rows: partOrder });
   } catch (error) {
     res.status(500).json({ err: true, message: error.message });
