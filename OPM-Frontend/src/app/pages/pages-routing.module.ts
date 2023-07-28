@@ -48,6 +48,12 @@ const routes: Routes = [
 
       },
       // {
+      //   path: "profil",
+      //   component: ProfileComponent,
+      //   canActivate:[AuthGuard]
+
+      // },
+      // {
       //   path: "redirection",
       //   component:RedirectionComponent
       // },

@@ -36,10 +36,10 @@
             </ul>
             <ul [@mobileMenuTop]="isCollapsedMobile" class="nav-right" [ngClass]="isCollapsedMobile">
               <li class="header-notification lng-dropdown">
-                <!-- <a href="javascript:;" id="dropdown-active-item">
+                <a href="javascript:;" id="dropdown-active-item">
                   <img [src]="selectedLanguage.image" alt=""> {{selectedLanguage.language}}
-                </a> -->
-                <!-- <ul  class="show-notification">
+                </a>
+                <ul  class="show-notification">
                   <li *ngFor="let item of langList">
                     <a href="javascript:;" (click)="selectLanguage(item)" [data-lng]="item.lang">
                       <img [src]="item.image"> {{item.language}}
@@ -50,7 +50,7 @@
                       <img src="assets/images/flags/FRANCE.jpg" alt=""> French
                     </a>
                   </li>
-                </ul> -->
+                </ul>
               </li>
               <li class="user-profile header-notification">
                 <a>

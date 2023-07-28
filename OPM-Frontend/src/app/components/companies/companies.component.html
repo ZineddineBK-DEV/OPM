@@ -48,14 +48,11 @@
                       <option value="false"> Inactive Account</option>
                     </select>
                   </div>
-
-
-                  <div class="col-sm-1 mb-5 mr-2 ml-4" *ngIf="this.upload">
-                    <button class="btn" (click)="OpenModal('NEW_ACCOUNTING_PLAN_ROW')">
-                      <i class="fas fa-plus-square"></i>
-                      {{'ACCOUNTING_PLAN_COMPONENT.NEW_ROW'|translate}}
-                    </button>
+                  <div class="col-sm-6 mb-5 mr-10">
+                    <input type="text" [(ngModel)]="term" placeholder="Search ">
                   </div>
+
+
                 </div>
               </div>
               <div class="table-responsive">
@@ -75,7 +72,7 @@
                         <th scope="col">ACTIONS</th>
                       </tr>
                     </thead>
-                    <tbody *ngFor="let client of this.clientList|paginate: { itemsPerPage: nbrItemPage, currentPage: p }">
+                    <tbody *ngFor="let client of this.clientList|paginate: { itemsPerPage: nbrItemPage, currentPage: p }|filter:term ">
                       <tr style="text-align: center">
                         <td scope="row">{{
                           client.company

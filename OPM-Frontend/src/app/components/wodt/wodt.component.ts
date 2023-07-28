@@ -34,6 +34,7 @@ export class WODTComponent implements OnInit {
   pageSizes = [5, 10, 20];
   titer;
   id;
+  term:any;
   authority;
   typeOpertion
   constructor(

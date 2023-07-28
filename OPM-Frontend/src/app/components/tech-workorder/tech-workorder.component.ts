@@ -28,6 +28,7 @@ export class TechWorkorderComponent implements OnInit {
   change = false ;
   value_change :any ;
   p=1
+  term:any ;
   userRole:any ;
   tech_id
   id;

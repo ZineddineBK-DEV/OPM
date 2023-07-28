@@ -23,6 +23,8 @@ export class CompaniesComponent implements OnInit {
   pageSize = 5;
   pageSizes = [5, 10, 20];
   id_company:string;
+  term:any ;
+
   constructor(
     private backendService: BackendService,
     private router: Router,

@@ -30,8 +30,11 @@
                 </div>
               </div>
               <div class="container">
+
+
+
                 <div class="row">
-                  <div class="col-sm-4 mb-5 mr-2">
+                  <div class="col-sm-4 mb-5 mr-">
                     <select class="form-select" value="-1" (change)="changeSelectedFile($event.target.value)">
                       <option value="-1" disabled>
                         Select Option
@@ -40,19 +43,32 @@
                       <option value="false"> Inactive Account</option>
                     </select>
                   </div>
+                  <div class="col-sm-4 mb-5 mr-">
+                    <select class="form-select" value="-1" (change)="changeSelectedFile2($event.target.value)">
+                      <option value="technician"> Technician </option>
+                      <option value="commercial"> Commercial</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4 mb-5 mr-">
+                    <input type="text" [(ngModel)]="term" placeholder="Search ">
+
+                  </div>
+                </div>
+                <!-- <div class="row">
+                  <div class="col-sm-4 mb-5 mr-2">
+
+                  </div>
+                  <div class="col-sm-4 mb-5 mr-2">
+
+                  </div>
                   <div class="col-sm-4 mb-5 mr-2">
                     <select class="form-select" value="-1" (change)="changeSelectedFile2($event.target.value)">
                       <option value="technician"> Technician </option>
                       <option value="commercial"> Commercial</option>
                     </select>
                   </div>
-                  <div class="col-sm-1 mb-5 mr-2 ml-4" *ngIf="this.upload">
-                    <button class="btn" (click)="OpenModal('NEW_ACCOUNTING_PLAN_ROW')">
-                      <i class="fas fa-plus-square"></i>
-                      {{'ACCOUNTING_PLAN_COMPONENT.NEW_ROW'|translate}}
-                    </button>
-                  </div>
-                </div>
+
+                </div> -->
               </div>
               <div class="table-responsive">
                 <div style="margin-bottom: 50px; margin-left: 50px; margin-right: 50px;">
@@ -78,7 +94,7 @@
                       </tr>
                     </thead>
                     <tbody
-                      *ngFor="let employer of this.employerslist|paginate: { itemsPerPage: nbrItemPage, currentPage: p }">
+                      *ngFor="let employer of this.employerslist|paginate: { itemsPerPage: nbrItemPage, currentPage: p } |filter:term ">
                       <tr style="text-align: center">
                         <td scope="row">{{
                           employer.firstName

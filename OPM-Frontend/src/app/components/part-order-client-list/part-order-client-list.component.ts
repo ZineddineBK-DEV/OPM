@@ -27,6 +27,7 @@ export class PartOrderClientListComponent implements OnInit {
   change = false ;
   value_change :any ;
   p=1
+  term:any ;
   userRole:any ;
   id_user_connected
   id;

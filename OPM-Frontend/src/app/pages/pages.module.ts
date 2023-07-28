@@ -23,6 +23,7 @@ import { TokenInterceptorService } from "../services/token-interceptor.service";
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -41,6 +42,7 @@ import { AboutComponent } from './about/about.component';
     VerifAccountComponent,
     ContactComponent,
     AboutComponent,
+    
   ],
   exports: [
     HomeComponent,

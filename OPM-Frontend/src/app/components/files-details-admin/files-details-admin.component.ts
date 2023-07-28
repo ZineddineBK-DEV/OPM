@@ -22,6 +22,8 @@ export class FilesDetailsAdminComponent implements OnInit {
   id_company:string;
   id_user:any;
   id:any ;
+  term:any ;
+
   constructor(
     private backendService: BackendService,
     private router: Router,

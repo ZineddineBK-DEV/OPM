@@ -26,6 +26,7 @@ export class WorkOrderDetailsAdminComponent implements OnInit {
   pageSizes = [5, 10, 20];
   nbrItemPage = 5;
   id:any ;
+  term:any;
   change = false ;
   value_change :any ;
   p=1

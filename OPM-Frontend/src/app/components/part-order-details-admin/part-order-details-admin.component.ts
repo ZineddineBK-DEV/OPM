@@ -29,6 +29,8 @@ export class PartOrderDetailsAdminComponent implements OnInit {
   p=1
   userRole:any ;
   id_user_connected
+  term:any ;
+
   id;
   constructor(
     private backendService: BackendService,

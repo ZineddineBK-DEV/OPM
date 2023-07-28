@@ -28,6 +28,7 @@ export class ContractUsersComponent implements OnInit {
   value_change :any ;
   p=1
   userRole:any ;
+  term:any ;
   id_user_connected
   id;
   constructor(

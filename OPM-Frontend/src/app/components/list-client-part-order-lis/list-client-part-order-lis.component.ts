@@ -20,7 +20,7 @@ export class ListClientPartOrderLisComponent implements OnInit {
   nbrItemPage = 5;
   pageSize = 5;
   pageSizes = [5, 10, 20];
-
+  term:any ;
   id_company:string;
   id_user:any;
   constructor(
