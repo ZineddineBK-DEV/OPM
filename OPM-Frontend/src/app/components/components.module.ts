@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     ComponentsRoutingModule,
     Ng2SearchPipeModule,
-    NgbModule
+    NgbModule,
+    FormsModule
     // TranslateModule
     // ,TranslateModule.forRoot({
     //   loader:{
