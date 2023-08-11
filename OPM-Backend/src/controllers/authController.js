@@ -43,10 +43,10 @@ exports.register = async (req, res) => {
       await folder.save();
     }
     await obj.save();
-    const to = 'khalil3draoui@gmail.com';
-    const subject = 'User - '+obj._id;
-    const text = 'A user just been added.';
-    await sendEmail(to ,subject,text);
+    // const to = 'opm.mailers@gmail.com';
+    // const subject = 'User - '+obj._id;
+    // const text = 'A user just been added.';
+    // await sendEmail(to ,subject,text);
     res.status(201).json({ message: 'User created successfully'});
   } catch (error) {
     console.error(error);

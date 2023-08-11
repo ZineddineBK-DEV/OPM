@@ -40,7 +40,7 @@ exports.createWorkOrder = async (req, res) => {
     await workOrder.save();
 
      //mailer uncomment and replace admin to use
-    //  const to1 = ''; // admin email put here
+    //  const to1 = 'opm.mailers@gmail.com'; // admin email put here
     //  const subject1 = 'WorkOrder - '+workOrder._id;
     //  const text1 = 'New WorkOrder just came in, ready to be handled.';
     //  await sendEmail(to1 ,subject1, text1);
